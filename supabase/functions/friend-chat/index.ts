@@ -1290,43 +1290,66 @@ ${usedPhotosHint}
 
     
 
-    const response = await fetch(API_BASE, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://lovable.dev",
-        "X-Title": "My App",
-      },
-      body: JSON.stringify({
-        model: "mistralai/mistral-small-3.1-24b-instruct:free",
-        messages: apiMessages,
-        max_tokens: 500,
-        temperature: 0.92,
-        frequency_penalty: 0.35,
-        presence_penalty: 0.3,
-        stream: wantsStream,
-      }),
-    });
+    // Fallback chain: try multiple free models if rate-limited
+    const MODELS = [
+      "mistralai/mistral-small-3.1-24b-instruct:free",
+      "google/gemma-3-4b-it:free",
+      "meta-llama/llama-4-scout:free",
+      "qwen/qwen3-4b:free",
+    ];
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      if (response.status === 429) {
+    let response: Response | null = null;
+    let lastError = "";
+
+    for (const model of MODELS) {
+      const res = await fetch(API_BASE, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://lovable.dev",
+          "X-Title": "My App",
+        },
+        body: JSON.stringify({
+          model,
+          messages: apiMessages,
+          max_tokens: 500,
+          temperature: 0.92,
+          frequency_penalty: 0.35,
+          presence_penalty: 0.3,
+          stream: wantsStream,
+        }),
+      });
+
+      if (res.ok) {
+        console.log(`[friend-chat] Using model: ${model}`);
+        response = res;
+        break;
+      }
+
+      lastError = await res.text();
+      console.warn(`[friend-chat] Model ${model} failed (${res.status}): ${lastError.substring(0, 200)}`);
+
+      // Only retry on rate-limit (429) or temporary errors (502/503)
+      if (res.status !== 429 && res.status !== 502 && res.status !== 503) {
+        if (res.status === 402) {
+          return new Response(
+            JSON.stringify({ error: "Payment required, please add credits." }),
+            { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
         return new Response(
-          JSON.stringify({ error: "Rate limit exceeded, please try again later." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({ error: "Service temporarily unavailable" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Payment required, please add credits." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
+    }
+
+    if (!response) {
+      console.error("[friend-chat] All models exhausted. Last error:", lastError.substring(0, 300));
       return new Response(
-        JSON.stringify({ error: "Service temporarily unavailable" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({ error: "All models are temporarily busy, please try again in a moment." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 

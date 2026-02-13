@@ -188,9 +188,9 @@ export const ChatHeader = ({
         >
           <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible">
             <svg width="47" height="47" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23.5" cy="23.5" r="22" stroke="hsl(var(--card-foreground))" strokeWidth="2.2" fill="none" />
-              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="hsl(var(--card-foreground))" strokeWidth="2" fill="none" transform="rotate(-20 23.5 23.5)" />
-              <circle cx="33" cy="18" r="2.5" fill="hsl(145,80%,50%)" stroke="hsl(var(--card-foreground))" strokeWidth="1.2" />
+              <circle cx="23.5" cy="23.5" r="22" stroke="#2B2B2B" strokeWidth="1.1" fill="none" />
+              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="#2B2B2B" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
+              <circle cx="32" cy="15" r="2.5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="0.6" />
             </svg>
           </div>
           <span className="mt-0.5 text-[10.5px] invisible">_</span>

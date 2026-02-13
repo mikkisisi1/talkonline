@@ -3,18 +3,18 @@ export type Language = 'ru' | 'en';
 // Dynamic welcome message generator (displayed in chat bubble)
 export const getWelcomeMessage = (language: Language, agentName: string): string => {
   if (language === 'ru') {
-    return `Привет! 😊 Меня зовут ${agentName}, я твой личный ИИ агент, друг ❤️, партнёр. Нажми + для перехода в меню настроек или звёздочку для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми её и начни говорить. Сообщение само отправится ✨`;
+    return `Привет! 😊 Я ${agentName}, твой личный ИИ агент, друг ❤️ или партнёр. Нажми + для перехода в настройки или на значок Сатурна для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится ✨`;
   }
-  return `Hi! 😊 I'm ${agentName}, your personal AI agent, friend ❤️, partner. Tap + to open settings or the star icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap it and start talking. The message will send automatically ✨`;
+  return `Hi! 😊 I'm ${agentName}, your personal AI agent, friend ❤️ or partner. Tap + to open settings or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically ✨`;
 };
 
 // TTS-optimized welcome text — clean of emoji, with punctuation for natural rhythm.
 // Fillers ("мм", "ну") are NOT baked in — they're added between chunks by useSpeechSynthesis.
 export const getWelcomeSpeechText = (language: Language, agentName: string): string => {
   if (language === 'ru') {
-    return `Привет! Меня зовут ${agentName}, я твой личный ИИ агент, друг, партнёр. Нажми плюс, для перехода в меню настроек, или звёздочку, для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми её и начни говорить. Сообщение само отправится.`;
+    return `Привет! Я ${agentName}, твой личный ИИ агент, друг или партнёр. Нажми плюс, для перехода в настройки, или на значок Сатурна, для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится.`;
   }
-  return `Hi! I'm ${agentName}, your personal AI agent, friend, partner. Tap plus to open settings, or the star icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap it and start talking. The message will send automatically.`;
+  return `Hi! I'm ${agentName}, your personal AI agent, friend or partner. Tap plus to open settings, or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically.`;
 };
 
 export const translations = {

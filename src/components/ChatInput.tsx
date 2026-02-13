@@ -268,7 +268,7 @@ export const ChatInput = ({
     e.target.value = '';
   };
 
-  const showVoiceButton = voiceEnabled && isVoiceSupported && !text.trim() && !previewImage && !disabled;
+  const showVoiceButton = voiceEnabled && isVoiceSupported && !text.trim() && !previewImage;
   const canSend = (text.trim() || previewImage) && !disabled;
 
   return (

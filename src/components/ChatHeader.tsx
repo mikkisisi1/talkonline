@@ -191,7 +191,7 @@ export const ChatHeader = ({
               <img 
                 src={saturnLogo} 
                 alt="Saturn"
-                className="w-full h-full object-cover pointer-events-none"
+                className="w-full h-full object-cover pointer-events-none mix-blend-multiply"
                 draggable={false}
                 loading="eager"
                 fetchPriority="high"

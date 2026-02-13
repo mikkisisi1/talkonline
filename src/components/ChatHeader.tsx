@@ -97,7 +97,7 @@ export const ChatHeader = ({
 
   return (
     <>
-      <header className="bg-header text-header-foreground pl-3 pr-2 py-0 flex items-center gap-1 safe-area-top shadow-sm min-h-[34px] relative border-b border-white/10">
+      <header className="bg-header text-header-foreground pl-3 pr-4 py-0 flex items-center gap-1 safe-area-top shadow-sm min-h-[34px] relative border-b border-white/10">
 
         {showBack && onBackClick ? (
           <button
@@ -177,7 +177,7 @@ export const ChatHeader = ({
             className="w-[39px] h-[39px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
             aria-label={t.settings}
           >
-            <Plus className="w-5 h-5 text-card-foreground" />
+            <Plus className="w-5 h-5 text-card-foreground" strokeWidth={1.1} />
           </button>
           <span className="mt-0.5 text-[10.5px] invisible">_</span>
         </div>

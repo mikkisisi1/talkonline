@@ -186,8 +186,8 @@ export const ChatHeader = ({
           className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
-          <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible text-card-foreground">
-            <svg width="47" height="47" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div className="w-[40px] h-[40px] flex items-center justify-center overflow-visible text-card-foreground">
+            <svg width="40" height="40" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="23.5" cy="23.5" r="22" stroke="currentColor" strokeWidth="1.1" fill="none" />
               <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="currentColor" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
               <circle cx="43" cy="24" r="2.8" fill="#4CAF50" stroke="currentColor" strokeWidth="0.8">

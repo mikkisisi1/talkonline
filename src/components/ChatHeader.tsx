@@ -187,10 +187,10 @@ export const ChatHeader = ({
           onClick={() => navigate('/idols')}
         >
           <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible">
-            <svg width="47" height="47" viewBox="0 0 100 100" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="46" cy="46" r="34" stroke="#2B2B2B" strokeWidth="5" fill="none" />
-              <ellipse cx="46" cy="46" rx="48" ry="16" stroke="#2B2B2B" strokeWidth="4.5" fill="none" transform="rotate(-25 46 46)" />
-              <circle cx="67" cy="44" r="4.5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="2">
+            <svg width="47" height="47" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23.5" cy="23.5" r="22" stroke="#2B2B2B" strokeWidth="1.1" fill="none" />
+              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="#2B2B2B" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
+              <circle cx="33" cy="22" r="2.5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="0.6">
                 <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
               </circle>
             </svg>

@@ -128,7 +128,7 @@ export const ChatHeader = ({
                   onContextMenu={handleContextMenu}
                 >
                   <div className="relative">
-                    <div className={`rounded-full overflow-hidden flex-shrink-0 ring-1 ring-[hsl(195,80%,45%)] active:scale-95 transition-all ${
+                    <div className={`rounded-full overflow-hidden flex-shrink-0 ring-1 ring-header-foreground/30 active:scale-95 transition-all ${
                       isSleeping
                         ? 'w-[39px] h-[39px]'
                         : isActive 
@@ -186,11 +186,11 @@ export const ChatHeader = ({
           className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
-          <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible">
+          <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible text-card-foreground">
             <svg width="47" height="47" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23.5" cy="23.5" r="22" stroke="#2B2B2B" strokeWidth="1.1" fill="none" />
-              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="#2B2B2B" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
-              <circle cx="43" cy="24" r="2.8" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="0.8">
+              <circle cx="23.5" cy="23.5" r="22" stroke="currentColor" strokeWidth="1.1" fill="none" />
+              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="currentColor" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
+              <circle cx="43" cy="24" r="2.8" fill="#4CAF50" stroke="currentColor" strokeWidth="0.8">
                 <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
               </circle>
             </svg>

@@ -190,7 +190,7 @@ export const ChatHeader = ({
             <svg width="47" height="47" viewBox="0 0 100 100" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="46" cy="46" r="34" stroke="#2B2B2B" strokeWidth="5" fill="none" />
               <ellipse cx="46" cy="46" rx="48" ry="16" stroke="#2B2B2B" strokeWidth="4.5" fill="none" transform="rotate(-25 46 46)" />
-              <circle cx="66" cy="42" r="4.5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="2">
+              <circle cx="67" cy="44" r="4.5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="2">
                 <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
               </circle>
             </svg>

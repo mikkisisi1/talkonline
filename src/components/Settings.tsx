@@ -198,28 +198,28 @@ export const Settings = ({
 
   return (
     <div className="flex flex-col h-[100dvh] bg-[hsl(220,10%,15%)]">
-      <header className="bg-gradient-to-b from-[hsl(185,70%,45%)] to-[hsl(210,70%,45%)] text-header-foreground px-4 py-3 flex items-center gap-3 safe-area-top shadow-sm">
+      <header className="bg-header text-header-foreground pl-3 pr-4 py-0 flex items-center gap-1 safe-area-top shadow-sm min-h-[30px] relative border-b border-[hsl(0,0%,25%)]">
         <button
           onClick={onBack}
           className="p-1 -ml-1 hover:bg-header-foreground/10 rounded-full transition-colors"
           aria-label={t.back}
         >
-          <ArrowLeft className="w-6 h-6" />
+          <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="font-semibold text-lg flex-1">{t.settings}</h1>
+        <h1 className="font-normal text-[10.5px] font-mono flex-1 text-card-foreground ml-1">{t.settings}</h1>
         <button
           onClick={toggleLanguage}
           className="p-2 hover:bg-header-foreground/10 rounded-full transition-colors flex items-center justify-center"
           aria-label="Toggle language"
         >
-          <span className="text-xs font-bold">{language === 'ru' ? 'EN' : 'RU'}</span>
+          <span className="text-[10.5px] font-normal font-mono text-card-foreground">{language === 'ru' ? 'EN' : 'RU'}</span>
         </button>
         <button
           onClick={toggleTheme}
           className="p-2 hover:bg-header-foreground/10 rounded-full transition-colors"
           aria-label={theme === 'light' ? 'Dark mode' : 'Light mode'}
         >
-          {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          {theme === 'light' ? <Moon className="w-4 h-4 text-card-foreground" /> : <Sun className="w-4 h-4 text-card-foreground" />}
         </button>
       </header>
 

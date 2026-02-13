@@ -1299,7 +1299,7 @@ ${usedPhotosHint}
         "X-Title": "My App",
       },
       body: JSON.stringify({
-        model: "tngtech/deepseek-r1t-chimera:free",
+        model: "mistralai/mistral-small-3.1-24b-instruct:free",
         messages: apiMessages,
         max_tokens: 500,
         temperature: 0.92,

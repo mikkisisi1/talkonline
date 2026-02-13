@@ -97,12 +97,13 @@ export default function AdminPortal() {
           headers: {
             Authorization: `Bearer ${SUPABASE_KEY}`,
             "Content-Type": blob.type,
+            "x-upsert": "true",
           },
           body: blob,
         }
       );
       if (res.ok) {
-        const url = `${SUPABASE_URL}/storage/v1/object/public/admin-media/${filename}`;
+        const url = `${SUPABASE_URL}/storage/v1/object/admin-media/${filename}`;
         setUploadedUrl(url);
         toast({ title: "✅ Загружено в Storage" });
       } else {

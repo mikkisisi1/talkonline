@@ -186,16 +186,18 @@ export const ChatHeader = ({
           className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
-          <div className="w-[47px] h-[47px] flex items-center justify-center">
-              <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Planet circle */}
-                <circle cx="48" cy="48" r="32" stroke="#2B2B2B" strokeWidth="5" fill="none" />
-                {/* Ring ellipse */}
-                <ellipse cx="48" cy="48" rx="48" ry="18" stroke="#2B2B2B" strokeWidth="4.5" fill="none" transform="rotate(-20 48 48)" />
-                {/* Green dot */}
-                <circle cx="66" cy="40" r="5" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="2.5" />
-              </svg>
-            </div>
+          <div className="w-[47px] h-[47px] rounded-full overflow-hidden flex items-center justify-center">
+            <img 
+              src={saturnLogo} 
+              alt="Saturn"
+              className="w-[34px] h-[34px] object-contain pointer-events-none"
+              draggable={false}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              style={{ background: 'transparent' }}
+            />
+          </div>
           <span className="mt-0.5 text-[10.5px] invisible">_</span>
         </div>
       </header>

@@ -1,1 +1,7 @@
 project_id = "zabumzxnwhhucxjbqhig"
+
+[functions.verify-admin-pin]
+verify_jwt = false
+
+[functions.analyze-image]
+verify_jwt = false

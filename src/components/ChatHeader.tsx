@@ -187,7 +187,7 @@ export const ChatHeader = ({
           onClick={() => navigate('/idols')}
         >
           <div className="relative">
-            <div className="rounded-full overflow-hidden flex-shrink-0 w-[47px] h-[47px]">
+            <div className="rounded-full overflow-hidden flex-shrink-0 w-[47px] h-[47px] bg-header">
               <img 
                 src={saturnLogo} 
                 alt="Saturn"

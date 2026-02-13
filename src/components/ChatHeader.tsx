@@ -97,7 +97,7 @@ export const ChatHeader = ({
 
   return (
     <>
-      <header className="bg-header text-header-foreground pl-3 pr-4 py-0 flex items-center gap-1 safe-area-top shadow-sm relative border-b border-[hsl(0,0%,25%)]" style={{ maxHeight: '74px' }}>
+      <header className="bg-header text-header-foreground pl-3 pr-4 py-0 flex items-center gap-1 safe-area-top shadow-sm relative border-b border-[hsl(0,0%,25%)]" style={{ maxHeight: '58px' }}>
 
         {showBack && onBackClick ? (
           <button
@@ -112,7 +112,7 @@ export const ChatHeader = ({
 
         {/* All agents — horizontally scrollable */}
         <div className="flex-1 min-w-0 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth">
-          <div className="flex items-center gap-2.5 w-max">
+          <div className="flex items-center gap-2.5 w-max -mt-1.5">
             {agents.map((agent) => {
               const avatar = getAgentAvatar(agent);
               const isActive = agent.id === activeAgentId;

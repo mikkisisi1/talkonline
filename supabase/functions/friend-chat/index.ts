@@ -817,15 +817,15 @@ serve(async (req) => {
 
     // === END INPUT VALIDATION ===
     
-    const API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    const API_KEY = Deno.env.get("OPENROUTER_API_KEY");
     if (!API_KEY) {
-      console.error("LOVABLE_API_KEY is not configured");
+      console.error("OPENROUTER_API_KEY is not configured");
       return new Response(
         JSON.stringify({ error: "Service not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-    const API_BASE = "https://ai.gateway.lovable.dev/v1/chat/completions";
+    const API_BASE = "https://openrouter.ai/api/v1/chat/completions";
 
     let systemPrompt: string;
 
@@ -1297,7 +1297,7 @@ ${usedPhotosHint}
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: "google/gemini-2.5-flash",
         messages: apiMessages,
         max_tokens: 500,
         temperature: 0.92,

@@ -817,14 +817,15 @@ serve(async (req) => {
 
     // === END INPUT VALIDATION ===
     
-    const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
-    if (!OPENAI_API_KEY) {
-      console.error("OPENAI_API_KEY is not configured");
+    const API_KEY = Deno.env.get("XAI_API_KEY") || Deno.env.get("OPENAI_API_KEY");
+    if (!API_KEY) {
+      console.error("XAI_API_KEY / OPENAI_API_KEY is not configured");
       return new Response(
         JSON.stringify({ error: "Service not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+    const API_BASE = Deno.env.get("XAI_API_KEY") ? "https://api.x.ai/v1/chat/completions" : "https://api.openai.com/v1/chat/completions";
 
     let systemPrompt: string;
 
@@ -1289,14 +1290,14 @@ ${usedPhotosHint}
 
     
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(API_BASE, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: Deno.env.get("XAI_API_KEY") ? "grok-3-mini-fast" : "gpt-4o-mini",
         messages: apiMessages,
         max_tokens: 500,
         temperature: 0.92,

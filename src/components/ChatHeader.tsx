@@ -130,10 +130,10 @@ export const ChatHeader = ({
                   <div className="relative">
                     <div className={`rounded-full overflow-hidden flex-shrink-0 ring-1 ring-[hsl(195,80%,45%)] active:scale-95 transition-all ${
                       isSleeping
-                        ? 'w-[39px] h-[39px]'
+                        ? 'w-[35px] h-[35px]'
                         : isActive 
-                          ? 'w-[47px] h-[47px]' 
-                          : 'w-[39px] h-[39px]'
+                          ? 'w-[42px] h-[42px]' 
+                          : 'w-[35px] h-[35px]'
                     }`}>
                       {avatar ? (
                         <img 
@@ -174,7 +174,7 @@ export const ChatHeader = ({
         <div className="flex flex-col items-center flex-shrink-0">
           <button
             onClick={onSettingsClick}
-            className="w-[39px] h-[39px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
+            className="w-[35px] h-[35px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
             aria-label={t.settings}
           >
             <Plus className="w-5 h-5 text-card-foreground" strokeWidth={1.1} />
@@ -186,8 +186,8 @@ export const ChatHeader = ({
           className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
-          <div className="w-[47px] h-[47px] flex items-center justify-center overflow-visible">
-            <svg width="47" height="47" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div className="w-[42px] h-[42px] flex items-center justify-center overflow-visible">
+            <svg width="42" height="42" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="23.5" cy="23.5" r="22" stroke="#2B2B2B" strokeWidth="1.1" fill="none" />
               <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="#2B2B2B" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
               <circle cx="43" cy="24" r="2.8" fill="#4CAF50" stroke="#2B2B2B" strokeWidth="0.8">

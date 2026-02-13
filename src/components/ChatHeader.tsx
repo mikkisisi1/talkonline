@@ -128,7 +128,7 @@ export const ChatHeader = ({
                   onContextMenu={handleContextMenu}
                 >
                   <div className="relative">
-                    <div className={`rounded-full overflow-hidden flex-shrink-0 ring-1 ring-header-foreground/30 active:scale-95 transition-all ${
+                    <div className={`rounded-full overflow-hidden flex-shrink-0 ring-[0.5px] ring-[#2B2B2B] active:scale-95 transition-all ${
                       isSleeping
                         ? 'w-[39px] h-[39px]'
                         : isActive 
@@ -183,7 +183,7 @@ export const ChatHeader = ({
         </div>
 
         <div
-          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
+          className="flex flex-col items-center justify-center select-none flex-shrink-0 snap-start cursor-pointer self-center"
           onClick={() => navigate('/idols')}
         >
           <div className="w-[40px] h-[40px] flex items-center justify-center overflow-visible text-card-foreground">

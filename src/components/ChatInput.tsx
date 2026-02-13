@@ -272,7 +272,7 @@ export const ChatInput = ({
   const canSend = (text.trim() || previewImage) && !disabled;
 
   return (
-    <div className="px-2 pt-1.5 pb-[env(safe-area-inset-bottom,8px)] safe-area-bottom" style={{ paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}>
+    <div className="px-2 pt-1.5" style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}>
       {/* Image Preview */}
       {previewImage && (
         <div className="mb-1.5 relative inline-block">

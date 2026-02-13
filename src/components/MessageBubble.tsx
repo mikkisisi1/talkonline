@@ -116,7 +116,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
     >
       <div
         className={cn(
-          'max-w-[85%] shadow-sm overflow-hidden relative border border-white/10',
+          'max-w-[80%] shadow-sm overflow-hidden relative border border-white/10',
           hasImage ? 'p-1' : 'px-2.5 py-1',
           isUser
             ? 'bg-bubble-sent text-bubble-sent-foreground rounded-t-bubble rounded-bl-bubble rounded-br-md'
@@ -150,7 +150,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
         {/* Text Content */}
         {text && (
           <div className={cn(
-            "text-[16px] leading-snug whitespace-pre-wrap break-words",
+            "text-[14.5px] leading-snug whitespace-pre-wrap break-words",
             hasImage && "px-2 py-1"
           )}>
             {text}

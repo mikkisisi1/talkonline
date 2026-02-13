@@ -97,7 +97,7 @@ export const ChatHeader = ({
 
   return (
     <>
-      <header className="bg-header text-header-foreground pl-3 pr-4 pt-1 pb-0.5 flex items-end gap-1 shadow-sm relative border-b border-[hsl(0,0%,25%)]">
+      <header className="bg-header text-header-foreground pl-3 pr-4 pt-1 pb-0.5 flex items-center gap-1 shadow-sm relative border-b border-[hsl(0,0%,25%)]">
 
         {showBack && onBackClick ? (
           <button
@@ -139,7 +139,7 @@ export const ChatHeader = ({
                         <img 
                           src={avatar} 
                           alt={agent.name}
-                          className="w-full h-full object-cover scale-[1.2] object-[50%_30%] pointer-events-none"
+                          className="w-full h-full object-cover scale-[1.15] object-[50%_25%] pointer-events-none"
                           draggable={false}
                           loading="eager"
                           fetchPriority="high"
@@ -183,7 +183,7 @@ export const ChatHeader = ({
         </div>
 
         <div
-          className="flex flex-col items-center justify-center select-none flex-shrink-0 snap-start cursor-pointer self-center"
+          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
           <div className="w-[40px] h-[40px] flex items-center justify-center overflow-visible text-card-foreground">

@@ -3,7 +3,7 @@ export type Language = 'ru' | 'en';
 // Dynamic welcome message generator (displayed in chat bubble)
 export const getWelcomeMessage = (language: Language, agentName: string): string => {
   if (language === 'ru') {
-    return `Привет! 😊 Я ${agentName}, твой личный ИИ агент, друг ❤️ или партнёр. Нажми + для перехода в настройки или на значок Сатурна для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится ✨`;
+    return `Привет! 😊 Я ${agentName}, твой личный ИИ агент, друг ❤️ или партнёр. Нажми + для перехода в настройки или на значек Сатурна для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится ✨`;
   }
   return `Hi! 😊 I'm ${agentName}, your personal AI agent, friend ❤️ or partner. Tap + to open settings or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically ✨`;
 };

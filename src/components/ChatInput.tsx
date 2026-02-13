@@ -335,8 +335,8 @@ export const ChatInput = ({
         className="hidden"
       />
 
-      <div className="flex items-center gap-1.5">
-        {/* Input Field with Icons */}
+      <div className="flex items-center">
+        {/* Input Field with Icons — mic/send now INSIDE */}
         <div className="flex-1 bg-[hsl(var(--chat-input-bg)/0.85)] border border-white/10 rounded-3xl flex items-center min-h-[48px]">
           {/* Emoji Button */}
           <button
@@ -382,57 +382,57 @@ export const ChatInput = ({
           {/* Attachment Button */}
           <button
             onClick={() => setShowAttachMenu(!showAttachMenu)}
-            className="p-2.5 hover:opacity-70 transition-opacity flex-shrink-0"
+            className="p-2 hover:opacity-70 transition-opacity flex-shrink-0"
             aria-label="Attach"
           >
             <Paperclip className="w-[18px] h-[18px] stroke-[1.5]" />
           </button>
 
-          {/* Camera Button (only when no text) — opens attach menu with gallery/camera choice */}
+          {/* Camera Button (only when no text) */}
           {!text.trim() && (
             <button
               onClick={() => setShowAttachMenu(!showAttachMenu)}
-              className="p-2.5 hover:opacity-70 transition-opacity flex-shrink-0"
+              className="p-2 hover:opacity-70 transition-opacity flex-shrink-0"
               aria-label="Camera"
             >
               <Camera className="w-[18px] h-[18px] stroke-[1.5]" />
             </button>
           )}
-        </div>
 
-        {/* Main Action Button */}
-        {showVoiceButton ? (
-          <button
-            onClick={handleVoiceClick}
-            className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center transition-all flex-shrink-0',
-              isListening
-                ? 'bg-[hsl(185,100%,65%)] text-[hsl(210,10%,20%)] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%/0.5)]'
-                : 'bg-[hsl(var(--chat-input-bg))] text-[hsl(var(--chat-input-foreground))] hover:bg-[hsl(var(--chat-input-bg))]/80'
-            )}
-            aria-label={isListening ? t.listening : t.tapToSpeak}
-          >
-            {isListening ? (
-              <MicOff className="w-4 h-4" />
-            ) : (
-              <Mic className="w-4 h-4" />
-            )}
-          </button>
-        ) : (
-          <button
-            onClick={handleSubmit}
-            disabled={!canSend}
-            className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center transition-all flex-shrink-0',
-              canSend
-                ? 'bg-[hsl(var(--chat-input-bg))] text-[hsl(var(--chat-input-foreground))] hover:bg-[hsl(var(--chat-input-bg))]/80'
-                : 'bg-[hsl(var(--chat-input-bg))]/50 text-[hsl(var(--chat-input-foreground))]/50'
-            )}
-            aria-label="Send"
-          >
-            <Send className="w-4 h-4" />
-          </button>
-        )}
+          {/* Mic / Send button — INSIDE the input field */}
+          {showVoiceButton ? (
+            <button
+              onClick={handleVoiceClick}
+              className={cn(
+                'w-9 h-9 rounded-full flex items-center justify-center transition-all flex-shrink-0 mr-1',
+                isListening
+                  ? 'bg-[hsl(185,100%,65%)] text-[hsl(210,10%,20%)] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%/0.5)]'
+                  : 'bg-white/10 text-[hsl(var(--chat-input-foreground))] hover:bg-white/15'
+              )}
+              aria-label={isListening ? t.listening : t.tapToSpeak}
+            >
+              {isListening ? (
+                <MicOff className="w-4 h-4" />
+              ) : (
+                <Mic className="w-4 h-4" />
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={!canSend}
+              className={cn(
+                'w-9 h-9 rounded-full flex items-center justify-center transition-all flex-shrink-0 mr-1',
+                canSend
+                  ? 'bg-white/10 text-[hsl(var(--chat-input-foreground))] hover:bg-white/15'
+                  : 'bg-white/5 text-[hsl(var(--chat-input-foreground))]/30'
+              )}
+              aria-label="Send"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Click outside to close menu */}

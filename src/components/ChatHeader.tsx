@@ -157,7 +157,7 @@ export const ChatHeader = ({
                     )}
                     {/* Online indicator — only for awakened agents */}
                     {isActive && !isSleeping && (
-                      <div className="absolute bottom-0.5 right-0.5 w-[6px] h-[6px] rounded-full" style={{ backgroundColor: '#4CAF50', border: '0.8px solid #2B2B2B' }} />
+                      <div className="absolute bottom-0.5 right-0.5 w-[6px] h-[6px] rounded-full" style={{ backgroundColor: '#4CAF50', boxShadow: '0 0 0 0.5px #2B2B2B' }} />
                     )}
                   </div>
                   <span className={`mt-0.5 truncate text-[10.5px] font-normal max-w-[48px] font-mono text-card-foreground`}>

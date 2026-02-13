@@ -183,11 +183,13 @@ export const ChatHeader = ({
         </div>
 
         <div
-          className="flex flex-col items-center cursor-pointer select-none flex-shrink-0 snap-start"
+          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
           <div className="relative">
-            <div className={`rounded-full overflow-hidden flex-shrink-0 ring-1 ring-[hsl(195,80%,45%)] active:scale-95 transition-all w-[39px] h-[39px]`}>
+            <div className={`rounded-full overflow-hidden flex-shrink-0 transition-all ${
+              'w-[39px] h-[39px]'
+            }`}>
               <img 
                 src={saturnLogo} 
                 alt="Saturn"
@@ -199,7 +201,7 @@ export const ChatHeader = ({
               />
             </div>
           </div>
-          <span className={`mt-0.5 truncate text-[10.5px] font-normal max-w-[48px] font-mono text-card-foreground`}>
+          <span className="mt-0.5 truncate text-[10.5px] font-normal max-w-[48px] font-mono text-card-foreground">
             Saturn
           </span>
         </div>

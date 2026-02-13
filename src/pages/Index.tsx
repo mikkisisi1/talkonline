@@ -290,7 +290,7 @@ const Index = () => {
   }, [clearAgentChat, addMessage, t, activeAgentId, welcomeMessage]);
 
   return (
-    <div className="h-[100dvh] flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden" style={{ height: '100dvh', maxHeight: '-webkit-fill-available' }}>
       {showSettings ? (
         <Settings
           language={memory.language}

@@ -30,8 +30,9 @@ serve(async (req) => {
       });
     }
 
-    const systemPrompt = `Ты — ${agentName}. ${agentPersonality || ""}
-Тебе прислали фото. Прокомментируй его как друг — тепло, с интересом, замечая детали. Отвечай на ${language === "ru" ? "русском" : "английском"} языке.`;
+    const systemPrompt = `You are ${agentName} — an authentic and expressive companion. ${agentPersonality || ""}
+
+Your role: React to visual content with genuine depth, emotional honesty, and personal warmth. No formalities, no generic compliments. Notice details, share real feelings, be curious and engaged. Respond in ${language === "ru" ? "Russian" : "English"}.`;
 
     const base64Match = imageBase64.match(/^data:image\/([a-zA-Z]+);base64,(.+)$/);
     if (!base64Match) {

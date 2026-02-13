@@ -174,7 +174,7 @@ export const ChatHeader = ({
         <div className="flex flex-col items-center flex-shrink-0">
           <button
             onClick={onSettingsClick}
-            className="w-[39px] h-[39px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity border border-white/20"
+            className="w-[39px] h-[39px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
             aria-label={t.settings}
           >
             <Plus className="w-5 h-5 text-card-foreground" />

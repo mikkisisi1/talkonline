@@ -137,7 +137,7 @@ const _doStream = async (
   const agentId = memory.activeAgentId || 'ivan';
   
   const response = await fetch(
-    `${backendUrl}/api/friend-chat`,
+    `${backendUrl}/friend-chat`,
     {
       method: 'POST',
       headers: {

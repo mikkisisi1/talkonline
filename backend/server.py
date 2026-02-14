@@ -478,15 +478,15 @@ Your style: warm, natural, free, like with someone close."""
                 "X-Title": "TalkMe Chat"
             }
             # List of free models to try (fallback order)
+            # Note: Avoid reasoning models first (they return 'reasoning' not 'content')
             free_models = [
-                "deepseek/deepseek-r1-0528:free",  # DeepSeek R1 free
-                "mistralai/mistral-small-3.1-24b-instruct:free",  # Mistral Small free
-                "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 free  
-                "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored
+                "mistralai/mistral-small-3.1-24b-instruct:free",  # Mistral Small free - fast
+                "qwen/qwen3-4b:free",  # Qwen3 small free - fast
                 "stepfun/step-3.5-flash:free",  # StepFun free
-                "qwen/qwen3-4b:free",  # Qwen3 small free
+                "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored
                 "nvidia/nemotron-nano-9b-v2:free",  # Nvidia free
-                "openai/gpt-oss-20b:free",  # OpenAI OSS free
+                "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 big free  
+                "deepseek/deepseek-r1-0528:free",  # DeepSeek R1 free (reasoning model - last)
             ]
             model_name = free_models[0]  # Start with first option
         elif deepseek_key:

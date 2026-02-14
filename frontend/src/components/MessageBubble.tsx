@@ -116,19 +116,20 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
     >
       <div
         className={cn(
-          'max-w-[80%] shadow-sm overflow-hidden relative border border-white/10',
-          hasImage ? 'p-1' : 'px-2.5 py-1',
+          'max-w-[85%] shadow-md overflow-hidden relative',
+          hasImage ? 'p-1' : 'px-3 py-2',
           isUser
-            ? 'bg-bubble-sent text-bubble-sent-foreground rounded-t-bubble rounded-bl-bubble rounded-br-md'
-            : 'bg-bubble-received/85 text-bubble-received-foreground rounded-t-bubble rounded-br-bubble rounded-bl-md'
+            ? 'bg-[#00BFA5] text-[#0a2020] rounded-t-2xl rounded-bl-2xl rounded-br-md'
+            : 'bg-[#1a3a3a]/90 backdrop-blur-sm text-[#4AEDC4] rounded-t-2xl rounded-br-2xl rounded-bl-md border border-[#00D4AA]/20'
         )}
+        style={{ fontFamily: "'JetBrains Mono', monospace" }}
       >
         {/* Avatar inside bubble — float top right so text wraps beside it */}
         {!isUser && agentAvatarUrl && (
           <img
             src={agentAvatarUrl}
             alt=""
-            className="w-10 h-10 rounded-full object-cover shrink-0 float-right ml-2 mb-1"
+            className="w-11 h-11 rounded-full object-cover shrink-0 float-right ml-2 mb-1 ring-1 ring-[#00D4AA]/30"
           />
         )}
 

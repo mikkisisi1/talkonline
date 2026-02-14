@@ -23,7 +23,7 @@ const updateAgentMemory = async (userMessage: string, agentId: string, agentName
     const userId = getUserId();
     const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
     
-    await fetch(`${backendUrl}/api/update-memory`, {
+    await fetch(`${backendUrl}/update-memory`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

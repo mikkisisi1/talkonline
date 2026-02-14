@@ -160,45 +160,101 @@ async def update_user_memory(user_id: str, agent_id: str, memory_update: dict):
         logger.error(f"Error updating user memory: {e}")
 
 async def extract_facts_from_message(content: str, agent_name: str) -> dict:
-    """Извлечь факты о пользователе из сообщения с помощью LLM"""
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
-    if not api_key:
-        return {}
+    """Извлечь факты о пользователе из сообщения с помощью простого парсинга"""
+    import re
     
-    extraction_prompt = f"""Ты помощник {agent_name}. Проанализируй сообщение пользователя и извлеки важные факты о нём.
-Верни JSON с полями (только если информация есть в сообщении):
-- user_name: имя пользователя (если упоминает)
-- location: город/страна проживания
-- orientation: сексуальная ориентация (если упоминает)
-- hobbies: список хобби и увлечений
-- personal_traits: личные качества, характер
-- important_facts: другие важные факты о жизни пользователя
-
-Отвечай ТОЛЬКО валидным JSON без markdown. Если информации нет - пустой объект {{}}.
-
-Сообщение пользователя: {content}"""
-
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            response = await client.post(
-                "https://api.deepseek.com/v1/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json={
-                    "model": "deepseek-chat",
-                    "messages": [{"role": "user", "content": extraction_prompt}],
-                    "temperature": 0.1,
-                    "max_tokens": 500
-                }
-            )
-            if response.status_code == 200:
-                result = response.json()
-                text = result["choices"][0]["message"]["content"].strip()
-                # Parse JSON
-                import json
-                return json.loads(text)
-    except Exception as e:
-        logger.error(f"Error extracting facts: {e}")
-    return {}
+    facts = {}
+    content_lower = content.lower()
+    
+    # Извлечь имя (паттерны: "меня зовут X", "я X", "имя X")
+    name_patterns = [
+        r'(?:меня зовут|я\s+)\s*([А-ЯЁа-яё]{2,15})',
+        r'(?:my name is|i\'m|i am)\s+(\w{2,15})',
+        r'(?:зови меня|называй меня)\s+([А-ЯЁа-яё]{2,15})',
+    ]
+    for pattern in name_patterns:
+        match = re.search(pattern, content, re.IGNORECASE)
+        if match:
+            name = match.group(1).strip().capitalize()
+            if len(name) >= 2 and name.lower() not in ['ты', 'как', 'что', 'где', 'это']:
+                facts['user_name'] = name
+                break
+    
+    # Извлечь локацию
+    location_patterns = [
+        r'(?:из|живу в|я в|нахожусь в|в городе|из города)\s+([А-ЯЁа-яё]{3,20})',
+        r'(?:from|live in|i\'m in|located in)\s+(\w{3,20})',
+    ]
+    for pattern in location_patterns:
+        match = re.search(pattern, content, re.IGNORECASE)
+        if match:
+            location = match.group(1).strip().capitalize()
+            cities = ['москва', 'москве', 'питер', 'питере', 'спб', 'екатеринбург', 'казань', 
+                     'новосибирск', 'сочи', 'краснодар', 'владивосток', 'минск', 'киев',
+                     'париж', 'лондон', 'берлин', 'нью-йорк', 'токио', 'бразилия']
+            if location.lower() in cities or len(location) > 3:
+                facts['location'] = location
+                break
+    
+    # Извлечь хобби
+    hobbies = []
+    hobby_keywords = {
+        'йога': ['йог', 'медитац'],
+        'спорт': ['спорт', 'тренир', 'качалк', 'фитнес', 'бег'],
+        'музыка': ['музык', 'гитар', 'пиано', 'петь', 'пою'],
+        'путешествия': ['путешеств', 'travel', 'поездк'],
+        'кино': ['кино', 'фильм', 'сериал', 'смотр'],
+        'книги': ['книг', 'чита', 'читаю'],
+        'игры': ['игр', 'геймер', 'играю'],
+        'кулинария': ['готов', 'кулинар', 'еда'],
+        'фотография': ['фото', 'снимаю', 'камер'],
+        'рисование': ['рисую', 'рисован', 'художник'],
+        'танцы': ['танц', 'dance'],
+        'программирование': ['код', 'программ', 'разработ'],
+    }
+    for hobby, keywords in hobby_keywords.items():
+        for kw in keywords:
+            if kw in content_lower:
+                hobbies.append(hobby)
+                break
+    if hobbies:
+        facts['hobbies'] = list(set(hobbies))[:5]
+    
+    # Извлечь личные качества
+    traits = []
+    trait_keywords = {
+        'романтик': ['романтик', 'романтичн'],
+        'интроверт': ['интроверт', 'замкнут'],
+        'экстраверт': ['экстраверт', 'общительн'],
+        'творческий': ['творчес', 'креатив'],
+        'активный': ['активн', 'энергичн'],
+        'спокойный': ['спокойн', 'тихий'],
+    }
+    for trait, keywords in trait_keywords.items():
+        for kw in keywords:
+            if kw in content_lower:
+                traits.append(trait)
+                break
+    if traits:
+        facts['personal_traits'] = traits[:3]
+    
+    # Извлечь важные факты (простые паттерны)
+    important_facts = []
+    
+    # Работа/учёба
+    work_match = re.search(r'(?:работаю|учусь|я\s+)([\w\s]{3,30})(?:ом|ей|ом|ой)?', content, re.IGNORECASE)
+    if work_match:
+        important_facts.append(f"Работа/учёба: {work_match.group(1).strip()}")
+    
+    # Возраст
+    age_match = re.search(r'мне\s+(\d{1,2})\s*(?:лет|год)', content)
+    if age_match:
+        important_facts.append(f"Возраст: {age_match.group(1)}")
+    
+    if important_facts:
+        facts['important_facts'] = important_facts
+    
+    return facts
 
 def add_natural_speech_markers(text: str) -> str:
     """Добавить естественные речевые маркеры для TTS"""

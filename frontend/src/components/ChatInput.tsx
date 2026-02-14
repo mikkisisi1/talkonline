@@ -226,19 +226,20 @@ export const ChatInput = ({
   }, []);
 
   const handleVoiceClick = () => {
+    console.log('[ChatInput] Voice click - isListening:', isListening, 'isVoiceSupported:', isVoiceSupported);
+    
     // Mic button is a user gesture — unlock audio for upcoming TTS.
     unlockAudioOnce();
 
     if (isListening) {
+      console.log('[ChatInput] Stopping voice...');
       onVoiceStop();
     } else {
       // Check if speech recognition is actually available
       if (!isVoiceSupported) {
-        console.error('[ChatInput] Speech recognition not supported - use Chrome or Edge');
-        alert('Голосовой ввод доступен только в Chrome или Edge. Также проверьте разрешение на микрофон.');
+        console.error('[ChatInput] Speech recognition not supported');
         return;
       }
-      // CRITICAL: start recognition FIRST (needs user gesture), chime after
       console.log('[ChatInput] Starting voice recognition...');
       onVoiceStart();
       playMicChime();

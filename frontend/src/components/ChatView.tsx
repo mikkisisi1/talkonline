@@ -224,6 +224,7 @@ export const ChatView = ({
         <MessageBubble
           message={item.message}
           agentAvatarUrl={activeAgent?.avatarUrl}
+          agentId={activeAgent?.id}
           voiceEnabled={voiceEnabled}
           onSpeak={speak}
           onStopSpeaking={stopSpeaking}
@@ -232,7 +233,7 @@ export const ChatView = ({
         />
       </div>
     );
-  }, [voiceEnabled, speak, stopSpeaking, formatDateLabel]);
+  }, [voiceEnabled, speak, stopSpeaking, formatDateLabel, activeAgent]);
 
   return (
     <div

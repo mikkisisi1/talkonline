@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   AppState, 
   Message, 
@@ -14,6 +14,11 @@ import {
   clearMemory as storageClearMemory,
 } from '@/lib/storage';
 import { Language, getTranslation } from '@/lib/translations';
+import { 
+  debouncedSave, 
+  loadMessagesFromBackend, 
+  clearChatHistoryOnBackend 
+} from '@/lib/chatHistoryApi';
 
 export const useAppState = () => {
   const [state, setState] = useState<AppState>(loadState);

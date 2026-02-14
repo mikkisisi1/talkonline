@@ -145,6 +145,8 @@ export const useAppState = () => {
   }, [updateMemory]);
 
   const setTheme = useCallback((theme: Theme) => {
+    // Отмечаем что пользователь вручную изменил тему
+    localStorage.setItem('talkme_manual_theme_change', Date.now().toString());
     updateMemory({ theme });
   }, [updateMemory]);
 

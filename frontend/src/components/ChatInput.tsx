@@ -232,7 +232,13 @@ export const ChatInput = ({
     if (isListening) {
       onVoiceStop();
     } else {
+      // Check if speech recognition is actually available
+      if (!isVoiceSupported) {
+        console.warn('[ChatInput] Speech recognition not supported in this browser');
+        return;
+      }
       // CRITICAL: start recognition FIRST (needs user gesture), chime after
+      console.log('[ChatInput] Starting voice recognition...');
       onVoiceStart();
       playMicChime();
     }

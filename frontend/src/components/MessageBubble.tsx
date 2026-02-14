@@ -112,9 +112,9 @@ const parseMessageContent = (content: string, agentId?: string): { text: string;
   return { text, videos, sceneVideos, scenePhotos };
 };
 
-export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, MessageBubbleProps>(({ message, agentAvatarUrl, onSpeak, onStopSpeaking, isSpeaking, isLoadingVoice, voiceEnabled }, ref) => {
+export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, MessageBubbleProps>(({ message, agentAvatarUrl, agentId, onSpeak, onStopSpeaking, isSpeaking, isLoadingVoice, voiceEnabled }, ref) => {
   const isUser = message.role === 'user';
-  const { text, videos, sceneVideos, scenePhotos } = parseMessageContent(message.content);
+  const { text, videos, sceneVideos, scenePhotos } = parseMessageContent(message.content, agentId);
   const hasImage = !!message.imageUrl;
   const showSpeaker = !isUser && onSpeak && text;
 

@@ -197,7 +197,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
         )}>
           <span className={cn(
             'text-[11px] leading-none font-mono',
-            isUser ? 'text-[#0a2020]/70' : 'text-[#4AEDC4]/60'
+            isUser ? 'text-[#0a2020]/70' : 'text-[hsl(185,100%,65%)]/60'
           )}>
             {formatTime(message.timestamp)}
           </span>
@@ -209,10 +209,10 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
               className={cn(
                 "p-1.5 rounded-full transition-colors",
                 isLoadingVoice
-                  ? "bg-[#00D4AA]/30 cursor-wait"
+                  ? "bg-[hsl(185,100%,65%)]/30 cursor-wait"
                   : isSpeaking 
-                    ? "bg-[#00D4AA]/50 voice-pulse" 
-                    : "bg-[#00D4AA]/25 hover:bg-[#00D4AA]/40"
+                    ? "bg-[hsl(185,100%,65%)]/50 voice-pulse" 
+                    : "bg-[hsl(185,100%,65%)]/25 hover:bg-[hsl(185,100%,65%)]/40"
               )}
               aria-label={isLoadingVoice ? "Loading voice" : isSpeaking ? "Stop voice" : "Play voice"}
             >

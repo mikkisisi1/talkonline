@@ -159,11 +159,11 @@ export const ChatHeader = ({
                     {/* Green neon online indicator for active agent */}
                     {isActive && !isSleeping && (
                       <div 
-                        className="absolute bottom-0 right-0 w-[10px] h-[10px] rounded-full"
+                        className="absolute bottom-0 right-0 w-[5px] h-[5px] rounded-full"
                         style={{
-                          backgroundColor: '#4CAF50',
-                          boxShadow: '0 0 6px #4CAF50, 0 0 10px #4CAF50',
-                          border: '1px solid hsl(200,10%,25%)'
+                          backgroundColor: '#00FF66',
+                          boxShadow: '0 0 4px #00FF66, 0 0 8px #00FF66',
+                          border: '0.5px solid hsl(200,10%,25%)'
                         }}
                       />
                     )}

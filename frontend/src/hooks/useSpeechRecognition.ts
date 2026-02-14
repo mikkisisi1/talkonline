@@ -168,11 +168,15 @@ export const useSpeechRecognition = (language: Language) => {
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      console.error('[SR] Error:', event.error);
       if (event.error === 'aborted') return;
       if (event.error === 'no-speech') {
         // Just stop gracefully
         stopFully();
         return;
+      }
+      if (event.error === 'not-allowed') {
+        console.error('[SR] Microphone permission denied');
       }
       stopFully();
     };

@@ -468,14 +468,34 @@ Your style: warm, natural, free, like with someone close."""
                 "content": msg.content
             })
         
-        # DeepSeek API request
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
+        # Determine LLM provider and configure API
+        llm_provider = os.environ.get("LLM_PROVIDER", "openrouter")
+        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+        deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
+        
+        # Choose provider based on config and available keys
+        if llm_provider == "openrouter" and openrouter_key:
+            api_url = "https://openrouter.ai/api/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {openrouter_key}",
+                "Content-Type": "application/json",
+                "HTTP-Referer": "https://talkmee.app",
+                "X-Title": "TalkMe Chat"
+            }
+            # Use free uncensored model
+            model_name = "nousresearch/hermes-3-llama-3.1-405b:free"
+        elif deepseek_key:
+            api_url = "https://api.deepseek.com/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {deepseek_key}",
+                "Content-Type": "application/json"
+            }
+            model_name = "deepseek-chat"
+        else:
+            raise HTTPException(status_code=500, detail="No LLM API key configured")
         
         payload = {
-            "model": "deepseek-chat",  # DeepSeek-V3.2 with minimal filters
+            "model": model_name,
             "messages": api_messages,
             "stream": is_streaming,
             "temperature": 0.8,
@@ -488,7 +508,7 @@ Your style: warm, natural, free, like with someone close."""
                 async with httpx.AsyncClient(timeout=60.0) as client:
                     async with client.stream(
                         "POST",
-                        "https://api.deepseek.com/v1/chat/completions",
+                        api_url,
                         headers=headers,
                         json=payload
                     ) as response:
@@ -501,13 +521,14 @@ Your style: warm, natural, free, like with someone close."""
             # Non-streaming response
             async with httpx.AsyncClient(timeout=60.0) as client:
                 response = await client.post(
-                    "https://api.deepseek.com/v1/chat/completions",
+                    api_url,
                     headers=headers,
                     json=payload
                 )
                 
                 if response.status_code != 200:
-                    raise HTTPException(status_code=response.status_code, detail="DeepSeek API error")
+                    logger.error(f"LLM API error: {response.status_code} - {response.text}")
+                    raise HTTPException(status_code=response.status_code, detail="LLM API error")
                 
                 result = response.json()
                 content = result["choices"][0]["message"]["content"]

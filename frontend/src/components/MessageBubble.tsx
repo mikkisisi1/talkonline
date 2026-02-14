@@ -120,7 +120,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
           hasImage ? 'p-1' : 'px-3 py-2',
           isUser
             ? 'bg-[hsl(185,100%,65%)]/85 text-[hsl(200,10%,20%)] rounded-t-2xl rounded-bl-2xl rounded-br-md'
-            : 'bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm text-[hsl(185,100%,65%)] rounded-t-2xl rounded-br-2xl rounded-bl-md border border-[hsl(185,100%,65%)]/30'
+            : 'bg-[#2a2a2a]/75 backdrop-blur-sm text-[hsl(185,100%,65%)] rounded-t-2xl rounded-br-2xl rounded-bl-md border border-[hsl(185,100%,65%)]/20'
         )}
         style={{ fontFamily: "'JetBrains Mono', monospace" }}
       >

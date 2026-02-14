@@ -185,7 +185,7 @@ export const ChatHeader = ({
             className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
             aria-label={t.settings}
           >
-            <Plus className="w-6 h-6 text-[hsl(200,10%,20%)]" strokeWidth={1.5} />
+            <Plus className="w-6 h-6 text-[#2d3436]" strokeWidth={1.5} />
           </button>
           <span className="mt-0.5 text-[10px] invisible">_</span>
         </div>

@@ -749,6 +749,78 @@ async def get_memory_endpoint(user_id: str, agent_id: str):
         return {"memory": {}}
 
 
+# ==================== CHAT HISTORY ENDPOINTS ====================
+
+@api_router.post("/chat-history/save")
+async def save_chat_history(body: SaveMessagesRequest):
+    """
+    Сохранить историю чата для пользователя и агента.
+    Полностью заменяет историю новыми сообщениями.
+    """
+    try:
+        # Convert messages to dict format
+        messages_data = [msg.model_dump() for msg in body.messages]
+        
+        # Upsert: replace existing chat history
+        await db.chat_history.update_one(
+            {"user_id": body.userId, "agent_id": body.agentId},
+            {
+                "$set": {
+                    "user_id": body.userId,
+                    "agent_id": body.agentId,
+                    "messages": messages_data,
+                    "updated_at": datetime.now(timezone.utc)
+                },
+                "$setOnInsert": {"created_at": datetime.now(timezone.utc)}
+            },
+            upsert=True
+        )
+        
+        logger.info(f"Saved {len(messages_data)} messages for user={body.userId}, agent={body.agentId}")
+        return {"status": "saved", "count": len(messages_data)}
+    except Exception as e:
+        logger.error(f"Error saving chat history: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/chat-history/{user_id}/{agent_id}")
+async def get_chat_history(user_id: str, agent_id: str, limit: int = 100):
+    """
+    Получить историю чата для пользователя и агента
+    """
+    try:
+        doc = await db.chat_history.find_one(
+            {"user_id": user_id, "agent_id": agent_id},
+            {"_id": 0}  # Exclude MongoDB _id
+        )
+        
+        if not doc:
+            return {"messages": []}
+        
+        messages = doc.get("messages", [])
+        # Return last N messages
+        return {"messages": messages[-limit:]}
+    except Exception as e:
+        logger.error(f"Error getting chat history: {e}")
+        return {"messages": []}
+
+
+@api_router.delete("/chat-history/{user_id}/{agent_id}")
+async def clear_chat_history(user_id: str, agent_id: str):
+    """
+    Очистить историю чата для пользователя и агента
+    """
+    try:
+        result = await db.chat_history.delete_one(
+            {"user_id": user_id, "agent_id": agent_id}
+        )
+        logger.info(f"Cleared chat history for user={user_id}, agent={agent_id}")
+        return {"status": "cleared", "deleted": result.deleted_count}
+    except Exception as e:
+        logger.error(f"Error clearing chat history: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Include router in app
 app.include_router(api_router)
 

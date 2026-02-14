@@ -585,13 +585,20 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
         reference_id = FISH_VOICES.get(body.voice)
         
         # Build request body for Fish Audio S1
+        # Default to soft, gentle tone: slightly slower (0.9) and quieter (-3dB)
+        default_speed = 0.9  # Slightly slower for calm delivery
+        default_volume = -3  # Slightly quieter for intimate feel
+        
+        final_speed = body.speed if body.speed != 1.0 else default_speed
+        final_volume = body.volume if body.volume != 0 else default_volume
+        
         tts_request = {
             "text": processed_text,
             "format": "mp3",
             "mp3_bitrate": 128,  # Higher quality
             "model": "s1",  # Flagship model with full emotional control
-            "speed": max(0.5, min(2.0, body.speed)),
-            "volume": max(-20, min(20, body.volume)),
+            "speed": max(0.5, min(2.0, final_speed)),
+            "volume": max(-20, min(20, final_volume)),
         }
         
         if reference_id:

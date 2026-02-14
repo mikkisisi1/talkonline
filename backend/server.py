@@ -318,6 +318,16 @@ def preprocess_text_for_tts(text: str) -> str:
     # Strip bracket tags
     result = re.sub(r'\[[^\]]*\]', '', result)
     
+    # Remove any voice/tone setting descriptions that LLM might output
+    # Matches patterns like "тон: тёплый", "голос мягкий", "настройки голоса", etc.
+    tone_patterns = [
+        r'(?:тон|голос|настройки|стиль)[:\s]+[а-яёА-ЯЁ\s,]+(?:\.|,|$)',
+        r'(?:tone|voice|style|setting)[:\s]+[a-zA-Z\s,]+(?:\.|,|$)',
+        r'\*[^*]+\*',  # Remove asterisk annotations like *говорит тепло*
+    ]
+    for pattern in tone_patterns:
+        result = re.sub(pattern, '', result, flags=re.IGNORECASE)
+    
     # Remove emojis
     result = re.sub(r'[\U0001F300-\U0001F9FF]|[\u2600-\u26FF]|[\u2700-\u27BF]', '', result)
     

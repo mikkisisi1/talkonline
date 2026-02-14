@@ -31,7 +31,7 @@ const formatTime = (timestamp: number): string => {
 };
 
 // Parse message content to find video links (YouTube, RuTube, VK) and separate text
-const parseMessageContent = (content: string): { text: string; videos: ParsedVideo[]; sceneVideos: string[]; scenePhotos: string[] } => {
+const parseMessageContent = (content: string, agentId?: string): { text: string; videos: ParsedVideo[]; sceneVideos: string[]; scenePhotos: string[] } => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const videos: ParsedVideo[] = [];
   const sceneVideos: string[] = [];
@@ -44,11 +44,13 @@ const parseMessageContent = (content: string): { text: string; videos: ParsedVid
   let sendPhotoMatch;
   while ((sendPhotoMatch = sendPhotoRegex.exec(content)) !== null) {
     const description = sendPhotoMatch[1].toLowerCase();
-    // Try to find matching photo - for now use sofia photos
-    const photoId = findMatchingPhoto(description);
-    if (photoId) {
-      const url = getPhotoUrl(photoId);
-      if (url) scenePhotos.push(url);
+    // Only Sofia has photos
+    if (agentId === 'sofia') {
+      const photoId = findMatchingPhoto(description, agentId);
+      if (photoId) {
+        const url = getPhotoUrl(photoId);
+        if (url) scenePhotos.push(url);
+      }
     }
     text = text.replace(sendPhotoMatch[0], '').trim();
   }
@@ -58,8 +60,8 @@ const parseMessageContent = (content: string): { text: string; videos: ParsedVid
   let sendVideoMatch;
   while ((sendVideoMatch = sendVideoRegex.exec(content)) !== null) {
     const description = sendVideoMatch[1].toLowerCase();
-    // Find matching video scene by description
-    const sceneId = findMatchingVideo(description);
+    // Find matching video scene for this agent
+    const sceneId = findMatchingVideo(description, agentId);
     if (sceneId) {
       const url = getVideoUrl(sceneId);
       if (url) sceneVideos.push(url);

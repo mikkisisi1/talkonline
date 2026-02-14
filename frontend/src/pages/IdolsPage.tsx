@@ -237,7 +237,7 @@ const IdolsPage = () => {
         <p className="text-[hsl(185,100%,65%)]/60 text-sm mb-4 text-center">
           Выбери персонажа и начни разговор прямо сейчас
         </p>
-        <div className="grid grid-cols-3 gap-3 max-w-lg mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
           {IDOLS.map((idol) => (
             <button
               key={idol.name}

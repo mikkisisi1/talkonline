@@ -195,10 +195,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
           'flex items-center gap-2 justify-end mt-1',
           hasImage && 'px-2 pb-1'
         )}>
-          <span className={cn(
-            'text-[11px] leading-none font-mono',
-            isUser ? 'text-white/70' : 'text-[hsl(185,100%,65%)]/60'
-          )}>
+          <span className="text-[11px] leading-none font-mono text-[hsl(185,100%,65%)]/60">
             {formatTime(message.timestamp)}
           </span>
           {/* Speaker icon */}

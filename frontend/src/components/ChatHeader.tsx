@@ -179,7 +179,7 @@ export const ChatHeader = ({
 
 
         {/* + and Saturn aligned like agent columns */}
-        <div className="flex flex-col items-center flex-shrink-0 -ml-16">
+        <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-4">
           <button
             onClick={onSettingsClick}
             className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"

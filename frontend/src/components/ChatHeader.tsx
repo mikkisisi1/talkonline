@@ -171,28 +171,28 @@ export const ChatHeader = ({
         <div className="flex flex-col items-center flex-shrink-0">
           <button
             onClick={onSettingsClick}
-            className="w-[39px] h-[39px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
+            className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
             aria-label={t.settings}
           >
-            <Plus className="w-5 h-5 text-card-foreground" strokeWidth={1.1} />
+            <Plus className="w-6 h-6 text-white" strokeWidth={1.5} />
           </button>
-          <span className="mt-0 text-[9.5px] invisible">_</span>
+          <span className="mt-0.5 text-[10px] invisible">_</span>
         </div>
 
         <div
           className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer"
           onClick={() => navigate('/idols')}
         >
-          <div className="w-[40px] h-[40px] flex items-center justify-center overflow-visible text-card-foreground">
-            <svg width="40" height="40" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23.5" cy="23.5" r="22" stroke="currentColor" strokeWidth="1.1" fill="none" />
-              <ellipse cx="23.5" cy="23.5" rx="28" ry="9" stroke="currentColor" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
-              <circle cx="43" cy="24" r="2.8" fill="#4CAF50" stroke="currentColor" strokeWidth="0.8">
+          <div className="w-[42px] h-[42px] flex items-center justify-center overflow-visible text-white">
+            <svg width="42" height="42" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23.5" cy="23.5" r="21" stroke="currentColor" strokeWidth="1.2" fill="none" />
+              <ellipse cx="23.5" cy="23.5" rx="28" ry="8" stroke="currentColor" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
+              <circle cx="43" cy="24" r="2.5" fill="#00D4AA" stroke="currentColor" strokeWidth="0.6">
                 <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
               </circle>
             </svg>
           </div>
-          <span className="mt-0 text-[9.5px] invisible">_</span>
+          <span className="mt-0.5 text-[10px] invisible">_</span>
         </div>
       </header>
 

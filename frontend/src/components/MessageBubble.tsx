@@ -192,12 +192,12 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
         
         {/* Timestamp + Speaker row */}
         <div className={cn(
-          'flex items-center gap-1.5 justify-end',
+          'flex items-center gap-2 justify-end mt-1',
           hasImage && 'px-2 pb-1'
         )}>
           <span className={cn(
-            'text-[10px] leading-none',
-            isUser ? 'text-bubble-sent-foreground/70' : 'text-bubble-received-foreground/60'
+            'text-[11px] leading-none font-mono',
+            isUser ? 'text-[#0a2020]/70' : 'text-[#4AEDC4]/60'
           )}>
             {formatTime(message.timestamp)}
           </span>
@@ -207,12 +207,12 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
               onClick={handleSpeakClick}
               disabled={isLoadingVoice}
               className={cn(
-                "p-1 rounded-full transition-colors",
+                "p-1.5 rounded-full transition-colors",
                 isLoadingVoice
-                  ? "bg-white/20 cursor-wait"
+                  ? "bg-[#00D4AA]/30 cursor-wait"
                   : isSpeaking 
-                    ? "bg-white/30 voice-pulse" 
-                    : "bg-white/20 hover:bg-white/30"
+                    ? "bg-[#00D4AA]/50 voice-pulse" 
+                    : "bg-[#00D4AA]/25 hover:bg-[#00D4AA]/40"
               )}
               aria-label={isLoadingVoice ? "Loading voice" : isSpeaking ? "Stop voice" : "Play voice"}
             >

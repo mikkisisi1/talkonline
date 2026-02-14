@@ -109,7 +109,12 @@ export const useSpeechRecognition = (language: Language) => {
    */
   const startListening = useCallback(() => {
     const API = getSpeechAPI();
-    if (!API) return;
+    if (!API) {
+      console.error('[SR] Speech API not available');
+      return;
+    }
+
+    console.log('[SR] Starting speech recognition, lang:', languageRef.current);
 
     if (isListeningRef.current) {
       isListeningRef.current = false;

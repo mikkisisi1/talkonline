@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  .theme-teal {
+    /* TalkMe Blue-Cyan Design System */
+    
+    /* Global font */
+    font-family: 'JetBrains Mono', monospace;
+    
+    /* Primary - Bright Cyan (same as bubble text) */
+    --primary: 185 100% 65%;
+    --primary-foreground: 210 10% 12%;
+    --primary-dark: 185 100% 55%;
+    --primary-light: 185 100% 75%;
+    
+    /* Secondary - Warm cream */
+    --secondary: 195 30% 96%;
+    --secondary-foreground: 195 80% 30%;
+    
+    /* Global text - neon cyan */
+    --foreground: 185 100% 65%;
+    
+    /* Chat specific */
+    --chat-bg: 210 20% 94%;
+
+    /* Agent (received) bubble — graphite bg, bright cyan text */
+    --bubble-received: 210 10% 18%;
+    --bubble-received-foreground: 185 100% 65%;
+    /* User (sent) bubble — blue like header, graphite text */
+    --bubble-sent: 185 100% 35%;
+    --bubble-sent-foreground: 210 10% 12%;
+
+    /* Chat input (separate from message bubbles) */
+    --chat-input-bg: 210 10% 18%;
+    --chat-input-foreground: 185 100% 65%;
+    
+    --header: 185 100% 35%;
+    --header-foreground: 185 100% 85%;
+    
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 200 15% 15%;
+    
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 15% 15%;
+    
+    /* Muted */
+    --muted: 210 15% 92%;
+    --muted-foreground: 200 10% 45%;
+    
+    /* Accent */
+    --accent: 195 50% 95%;
+    --accent-foreground: 195 80% 30%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 200 10% 85%;
+    --input: 200 10% 85%;
+    --ring: 195 80% 50%;
+    
+    --radius: 1rem;
+    
+    /* Sidebar (settings) */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 200 15% 15%;
+    --sidebar-primary: 195 80% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 195 50% 95%;
+    --sidebar-accent-foreground: 195 80% 30%;
+    --sidebar-border: 200 10% 90%;
+    --sidebar-ring: 195 80% 50%;
+  }
+
+  /* Purple Theme */
+  .theme-purple {
+    --primary: 270 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 270 60% 40%;
+    --primary-light: 270 50% 60%;
+    
+    --secondary: 270 30% 96%;
+    --secondary-foreground: 270 60% 30%;
+    
+    --background: 270 20% 97%;
+    --foreground: 270 20% 15%;
+    
+    --chat-bg: 270 15% 94%;
+    --bubble-sent: 270 60% 55%;
+    --bubble-sent-foreground: 0 0% 100%;
+    --bubble-received: 0 0% 100%;
+    --bubble-received-foreground: 270 20% 15%;
+    
+    --header: 270 60% 50%;
+    --header-foreground: 0 0% 100%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 270 20% 15%;
+    
+    --muted: 270 15% 90%;
+    --muted-foreground: 270 10% 45%;
+    
+    --accent: 270 40% 95%;
+    --accent-foreground: 270 60% 30%;
+    
+    --ring: 270 60% 50%;
+    
+    --sidebar-primary: 270 60% 50%;
+  }
+
+  /* Blue Theme */
+  .theme-blue {
+    --primary: 210 80% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 210 80% 40%;
+    --primary-light: 210 70% 60%;
+    
+    --secondary: 210 30% 96%;
+    --secondary-foreground: 210 80% 30%;
+    
+    --background: 210 20% 97%;
+    --foreground: 210 20% 15%;
+    
+    --chat-bg: 210 15% 94%;
+    --bubble-sent: 210 80% 55%;
+    --bubble-sent-foreground: 0 0% 100%;
+    --bubble-received: 0 0% 100%;
+    --bubble-received-foreground: 210 20% 15%;
+    
+    --header: 210 80% 50%;
+    --header-foreground: 0 0% 100%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 15%;
+    
+    --muted: 210 15% 90%;
+    --muted-foreground: 210 10% 45%;
+    
+    --accent: 210 40% 95%;
+    --accent-foreground: 210 80% 30%;
+    
+    --ring: 210 80% 50%;
+    
+    --sidebar-primary: 210 80% 50%;
+  }
+
+  /* Rose Theme */
+  .theme-rose {
+    --primary: 350 70% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 350 70% 45%;
+    --primary-light: 350 60% 65%;
+    
+    --secondary: 350 30% 96%;
+    --secondary-foreground: 350 70% 35%;
+    
+    --background: 350 20% 97%;
+    --foreground: 350 20% 15%;
+    
+    --chat-bg: 350 15% 94%;
+    --bubble-sent: 350 70% 60%;
+    --bubble-sent-foreground: 0 0% 100%;
+    --bubble-received: 0 0% 100%;
+    --bubble-received-foreground: 350 20% 15%;
+    
+    --header: 350 70% 55%;
+    --header-foreground: 0 0% 100%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 350 20% 15%;
+    
+    --muted: 350 15% 90%;
+    --muted-foreground: 350 10% 45%;
+    
+    --accent: 350 40% 95%;
+    --accent-foreground: 350 70% 35%;
+    
+    --ring: 350 70% 55%;
+    
+    --sidebar-primary: 350 70% 55%;
+  }
+
+  /* Dark Theme */
+  .theme-dark {
+    --primary: 195 80% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 195 80% 38%;
+    --primary-light: 195 70% 55%;
+    
+    --secondary: 200 15% 15%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --background: 200 20% 10%;
+    --foreground: 0 0% 95%;
+    
+    --chat-bg: 200 20% 12%;
+    --bubble-sent: 195 80% 40%;
+    --bubble-sent-foreground: 0 0% 100%;
+    --bubble-received: 200 15% 20%;
+    --bubble-received-foreground: 0 0% 95%;
+    
+    --header: 200 20% 15%;
+    --header-foreground: 0 0% 95%;
+    
+    --card: 200 15% 15%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 200 15% 15%;
+    --popover-foreground: 0 0% 95%;
+    
+    --muted: 200 15% 20%;
+    --muted-foreground: 200 10% 60%;
+    
+    --accent: 195 30% 20%;
+    --accent-foreground: 195 60% 70%;
+    
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 200 15% 25%;
+    --input: 200 15% 25%;
+    --ring: 195 80% 45%;
+    
+    --sidebar-background: 200 15% 12%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 195 80% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 195 30% 20%;
+    --sidebar-accent-foreground: 195 60% 70%;
+    --sidebar-border: 200 15% 20%;
+    --sidebar-ring: 195 80% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Chat background pattern like WhatsApp */
+.chat-background {
+  background-color: hsl(var(--chat-bg));
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23128C7E' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Smooth message animations */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-animate {
+  animation: messageSlideIn 0.2s ease-out;
+}
+
+/* Typing indicator animation */
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+}
+
+.typing-dot {
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Voice recording pulse */
+@keyframes voicePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.voice-pulse {
+  animation: voicePulse 1.5s infinite ease-in-out;
+}
+
+/* Wave animation for voice recording in input */
+@keyframes waveShift {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Safe area for mobile */
+.safe-area-top {
+  /* Base top padding + device safe area (status bar, notch) */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1rem);
+}
+
+.safe-area-bottom {
+  /* Base bottom padding + device safe area */
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
+
+/* Hide scrollbar for horizontal agent list */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}

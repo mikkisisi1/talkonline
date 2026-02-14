@@ -92,13 +92,13 @@ export async function getWelcomeAudioUrl(
   const maxRetries = 3;
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fish-audio-tts`,
+        `${backendUrl}/fish-audio-tts`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
             'Accept': 'audio/mpeg',
           },
           body: JSON.stringify({ text: enhanceProsody(text), language, voice: voiceId, speed: voiceSpeed }),

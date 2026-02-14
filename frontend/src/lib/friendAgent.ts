@@ -200,9 +200,13 @@ const _doStream = async (
 
       try {
         const json = JSON.parse(trimmed.slice(6));
+        // Support both regular content and reasoning (OpenRouter wraps some models)
         const delta = json.choices?.[0]?.delta?.content || '';
-        if (delta) {
-          fullText += delta;
+        const reasoning = json.choices?.[0]?.delta?.reasoning || '';
+        const textDelta = delta || reasoning;
+        
+        if (textDelta) {
+          fullText += textDelta;
 
           const loopTrimmed = detectRepetitionLoop(fullText);
           if (loopTrimmed !== null) {

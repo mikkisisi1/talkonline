@@ -391,8 +391,8 @@ export const ChatInput = ({
             className={cn(
               'w-11 h-11 rounded-full flex items-center justify-center transition-all flex-shrink-0',
               isListening
-                ? 'bg-[hsl(185,100%,65%)] text-[#0a2020] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%,0.5)]'
-                : 'bg-[#1a3a3a]/85 text-[hsl(185,100%,65%)] border border-[hsl(185,100%,65%)]/20'
+                ? 'bg-[hsl(185,100%,65%)] text-[hsl(200,10%,15%)] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%,0.5)]'
+                : 'bg-[hsl(200,15%,18%)]/85 text-[hsl(185,100%,65%)]'
             )}
             aria-label={isListening ? t.listening : t.tapToSpeak}
           >
@@ -409,8 +409,8 @@ export const ChatInput = ({
             className={cn(
               'w-11 h-11 rounded-full flex items-center justify-center transition-all flex-shrink-0',
               canSend
-                ? 'bg-[#1a3a3a]/85 text-[hsl(185,100%,65%)] border border-[hsl(185,100%,65%)]/20'
-                : 'bg-[#1a3a3a]/50 text-[hsl(185,100%,65%)]/30'
+                ? 'bg-[hsl(200,15%,18%)]/85 text-[hsl(185,100%,65%)]'
+                : 'bg-[hsl(200,15%,18%)]/50 text-[hsl(185,100%,65%)]/30'
             )}
             aria-label="Send"
           >

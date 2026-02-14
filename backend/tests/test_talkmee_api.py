@@ -13,7 +13,7 @@ import re
 import base64
 
 # Use environment variable for base URL
-BASE_URL = os.environ.get('VITE_BACKEND_URL', 'https://warm-gentle-ai.preview.emergentagent.com/api')
+BASE_URL = os.environ.get('VITE_BACKEND_URL', 'https://agent-voices.preview.emergentagent.com/api')
 
 class TestHealthCheck:
     """Health check endpoint tests"""

@@ -81,4 +81,4 @@
 - Chat history не сохраняется между сессиями
 
 ## Preview URL
-https://warm-gentle-ai.preview.emergentagent.com
+https://agent-voices.preview.emergentagent.com

@@ -203,7 +203,6 @@ async def extract_facts_from_message(content: str, agent_name: str) -> dict:
 def add_natural_speech_markers(text: str) -> str:
     """Добавить естественные речевые маркеры для TTS"""
     import re
-    import random
     
     result = text
     

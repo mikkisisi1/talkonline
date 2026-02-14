@@ -209,7 +209,7 @@ export const ChatView = ({
     if (item.type === 'date') {
       return (
         <div className="flex justify-center my-4">
-          <span className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[hsl(185,100%,65%)] text-[13px] px-4 py-1.5 rounded-full shadow-md font-mono border border-[hsl(185,100%,65%)]/20">
+          <span className="bg-[#2a2a2a]/80 backdrop-blur-sm text-[hsl(185,100%,65%)] text-[13px] px-4 py-1.5 rounded-full shadow-md font-mono border border-[hsl(185,100%,65%)]/20">
             {formatDateLabel(item.timestamp)}
           </span>
         </div>
@@ -267,7 +267,7 @@ export const ChatView = ({
                 <div className="h-full flex flex-col justify-start relative z-10">
                   <div className="max-w-3xl mx-auto px-3 py-4 w-full">
                     <div className="flex justify-center">
-                      <div className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[hsl(185,100%,65%)] text-[14px] px-4 py-2 rounded-full shadow-md font-mono border border-[hsl(185,100%,65%)]/20">
+                      <div className="bg-[#2a2a2a]/80 backdrop-blur-sm text-[hsl(185,100%,65%)] text-[14px] px-4 py-2 rounded-full shadow-md font-mono border border-[hsl(185,100%,65%)]/20">
                         {language === 'ru' ? '☝️ Нажми на кружок с аватаром чтобы начать диалог' : '☝️ Tap an avatar circle to start a chat'}
                       </div>
                     </div>

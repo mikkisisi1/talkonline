@@ -208,8 +208,8 @@ export const ChatView = ({
   const renderItem = useCallback((_index: number, item: ChatItem) => {
     if (item.type === 'date') {
       return (
-        <div className="flex justify-start my-3 pl-3">
-          <span className="bg-[hsl(220,10%,20%)]/90 backdrop-blur-sm text-[hsl(185,100%,65%)] text-xs px-3 py-1 rounded-full shadow-sm">
+        <div className="flex justify-center my-4">
+          <span className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[#4AEDC4] text-[13px] px-4 py-1.5 rounded-full shadow-md font-mono border border-[#00D4AA]/20">
             {formatDateLabel(item.timestamp)}
           </span>
         </div>
@@ -220,7 +220,7 @@ export const ChatView = ({
     }
     if (item.type !== 'message') return null;
     return (
-      <div className="py-0.5">
+      <div className="py-1">
         <MessageBubble
           message={item.message}
           agentAvatarUrl={activeAgent?.avatarUrl}

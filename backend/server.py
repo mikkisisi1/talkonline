@@ -493,49 +493,62 @@ Your style: warm, natural, free, like with someone close."""
                 "Content-Type": "application/json"
             }
             model_name = "deepseek-chat"
+            free_models = []  # No fallback for DeepSeek
         else:
             raise HTTPException(status_code=500, detail="No LLM API key configured")
         
-        payload = {
-            "model": model_name,
-            "messages": api_messages,
-            "stream": is_streaming,
-            "temperature": 0.8,
-            "max_tokens": 2000
-        }
+        # Try models with fallback on rate limit
+        last_error = None
+        models_to_try = free_models if free_models else [model_name]
         
-        if is_streaming:
-            # Streaming response
-            async def generate():
+        for current_model in models_to_try:
+            payload = {
+                "model": current_model,
+                "messages": api_messages,
+                "stream": is_streaming,
+                "temperature": 0.8,
+                "max_tokens": 2000
+            }
+            
+            if is_streaming:
+                # Streaming response - try with current model
+                async def generate():
+                    async with httpx.AsyncClient(timeout=60.0) as client:
+                        async with client.stream(
+                            "POST",
+                            api_url,
+                            headers=headers,
+                            json=payload
+                        ) as response:
+                            async for line in response.aiter_lines():
+                                if line.strip():
+                                    yield f"{line}\n"
+                
+                return StreamingResponse(generate(), media_type="text/event-stream")
+            else:
+                # Non-streaming response with fallback
                 async with httpx.AsyncClient(timeout=60.0) as client:
-                    async with client.stream(
-                        "POST",
+                    response = await client.post(
                         api_url,
                         headers=headers,
                         json=payload
-                    ) as response:
-                        async for line in response.aiter_lines():
-                            if line.strip():
-                                yield f"{line}\n"
-            
-            return StreamingResponse(generate(), media_type="text/event-stream")
-        else:
-            # Non-streaming response
-            async with httpx.AsyncClient(timeout=60.0) as client:
-                response = await client.post(
-                    api_url,
-                    headers=headers,
-                    json=payload
-                )
-                
-                if response.status_code != 200:
-                    logger.error(f"LLM API error: {response.status_code} - {response.text}")
-                    raise HTTPException(status_code=response.status_code, detail="LLM API error")
-                
-                result = response.json()
-                content = result["choices"][0]["message"]["content"]
-                
-                return {"content": content}
+                    )
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        content = result["choices"][0]["message"]["content"]
+                        return {"content": content}
+                    elif response.status_code in [429, 402]:
+                        # Rate limited or payment required - try next model
+                        logger.warning(f"Model {current_model} rate limited, trying next...")
+                        last_error = f"Model {current_model}: {response.status_code}"
+                        continue
+                    else:
+                        logger.error(f"LLM API error: {response.status_code} - {response.text}")
+                        raise HTTPException(status_code=response.status_code, detail="LLM API error")
+        
+        # All models failed
+        raise HTTPException(status_code=429, detail=f"All models rate limited. {last_error}")
     
     except Exception as e:
         logger.error(f"Error in friend_chat: {str(e)}")

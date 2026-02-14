@@ -9,6 +9,7 @@ import { Volume2, VolumeX, Loader2 } from 'lucide-react';
 interface MessageBubbleProps {
   message: Message;
   agentAvatarUrl?: string;
+  agentId?: string;
   onSpeak?: (text: string) => void;
   onStopSpeaking?: () => void;
   isSpeaking?: boolean;

@@ -209,7 +209,7 @@ export const ChatView = ({
     if (item.type === 'date') {
       return (
         <div className="flex justify-center my-4">
-          <span className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[#4AEDC4] text-[13px] px-4 py-1.5 rounded-full shadow-md font-mono border border-[#00D4AA]/20">
+          <span className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[hsl(185,100%,65%)] text-[13px] px-4 py-1.5 rounded-full shadow-md font-mono border border-[hsl(185,100%,65%)]/20">
             {formatDateLabel(item.timestamp)}
           </span>
         </div>

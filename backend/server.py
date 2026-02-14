@@ -618,29 +618,16 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
         if not fish_api_key:
             raise HTTPException(status_code=500, detail="Fish Audio API key not configured")
         
-        # Preprocess text for natural speech
+        # Preprocess text for natural speech - ONLY clean the text, no emotion prefixes
         processed_text = preprocess_text_for_tts(body.text)
         
-        # Add natural speech markers for more realistic voice
+        # Add natural speech markers for more realistic voice (pauses, "мм", etc.)
         if body.add_breath:
             processed_text = add_natural_speech_markers(processed_text)
         
-        # Add emotional hints to text based on emotion parameter
-        emotion_prefixes = {
-            'happy': '(радостно) ',
-            'sad': '(грустно) ',
-            'angry': '(злобно) ',
-            'excited': '(восторженно) ',
-            'whisper': '(шёпотом) ',
-            'tender': '(нежно) ',
-            'playful': '(игриво) ',
-            'calm': '(спокойно) ',
-            'flirty': '(кокетливо) ',
-            'seductive': '(соблазнительно) ',
-        }
-        
-        if body.emotion and body.emotion in emotion_prefixes:
-            processed_text = emotion_prefixes[body.emotion] + processed_text
+        # REMOVED: emotion prefixes that were being spoken aloud
+        # Fish Audio S1 doesn't use text prefixes for emotion - it uses prosody from the voice model
+        # The emotion is conveyed through the reference voice itself
         
         if not processed_text:
             raise HTTPException(status_code=400, detail="Text cannot be empty")

@@ -197,38 +197,38 @@ export const Settings = ({
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-[hsl(220,10%,15%)]">
-      <header className="bg-header text-header-foreground pl-3 pr-4 py-0 flex items-center gap-1 safe-area-top shadow-sm min-h-[30px] relative border-b border-[hsl(0,0%,25%)]">
+    <div className="flex flex-col h-[100dvh] bg-[hsl(210,10%,12%)]">
+      <header className="bg-[hsl(185,100%,35%)] text-[hsl(200,10%,20%)] pl-3 pr-4 py-2 flex items-center gap-1 safe-area-top shadow-sm min-h-[40px] relative border-b border-[hsl(200,10%,25%)]">
         <button
           onClick={onBack}
-          className="p-1 -ml-1 hover:bg-header-foreground/10 rounded-full transition-colors"
+          className="p-1 -ml-1 hover:bg-[hsl(200,10%,20%)]/20 rounded-full transition-colors"
           aria-label={t.back}
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="font-normal text-[10.5px] font-mono flex-1 text-card-foreground ml-1">{t.settings}</h1>
+        <h1 className="font-medium text-sm font-mono flex-1 ml-1">{t.settings}</h1>
         <button
           onClick={toggleLanguage}
-          className="p-2 hover:bg-header-foreground/10 rounded-full transition-colors flex items-center justify-center"
+          className="p-2 hover:bg-[hsl(200,10%,20%)]/20 rounded-full transition-colors flex items-center justify-center"
           aria-label="Toggle language"
         >
-          <span className="text-[10.5px] font-normal font-mono text-card-foreground">{language === 'ru' ? 'EN' : 'RU'}</span>
+          <span className="text-sm font-medium font-mono">{language === 'ru' ? 'EN' : 'RU'}</span>
         </button>
         <button
           onClick={toggleTheme}
-          className="p-2 hover:bg-header-foreground/10 rounded-full transition-colors"
+          className="p-2 hover:bg-[hsl(200,10%,20%)]/20 rounded-full transition-colors"
           aria-label={theme === 'light' ? 'Dark mode' : 'Light mode'}
         >
-          {theme === 'light' ? <Moon className="w-4 h-4 text-card-foreground" /> : <Sun className="w-4 h-4 text-card-foreground" />}
+          {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
         </button>
       </header>
 
       <div className="flex-1 overflow-auto p-4 space-y-6">
         {/* Wallpaper Selection */}
-        <div className="bg-[hsl(220,10%,20%)] rounded-xl p-4 shadow-sm text-foreground">
+        <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
           <div className="flex items-center gap-3 mb-4">
-            <Image className="w-5 h-5 text-primary" />
-            <span className="font-medium">{language === 'ru' ? 'Фон чата' : 'Chat Background'}</span>
+            <Image className="w-5 h-5 text-[hsl(185,100%,65%)]" />
+            <span className="font-medium text-[hsl(185,100%,65%)] font-mono">{language === 'ru' ? 'Фон чата' : 'Chat Background'}</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {wallpapers.map((wp) => (
@@ -239,8 +239,8 @@ export const Settings = ({
                   'relative aspect-[9/16] rounded-lg overflow-hidden transition-all',
                   'w-[90%] mx-auto',
                   wallpaper === wp.id
-                    ? 'ring-1 ring-[hsl(185,100%,65%)]'
-                    : 'hover:opacity-80'
+                    ? 'ring-2 ring-[hsl(185,100%,65%)]'
+                    : 'ring-1 ring-[hsl(200,10%,25%)] hover:ring-[hsl(185,100%,65%)]/50'
                 )}
               >
                 <img
@@ -248,8 +248,8 @@ export const Settings = ({
                   alt={language === 'ru' ? wp.labelRu : wp.labelEn}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-black/50 py-1 px-2">
-                  <span className="text-xs text-white font-medium">
+                <div className="absolute bottom-0 left-0 right-0 bg-[hsl(200,15%,18%)]/80 py-1 px-2">
+                  <span className="text-xs text-[hsl(185,100%,65%)] font-medium font-mono">
                     {language === 'ru' ? wp.labelRu : wp.labelEn}
                   </span>
                 </div>
@@ -259,13 +259,13 @@ export const Settings = ({
         </div>
 
         {/* Bilingual Learning Mode */}
-        <div className="bg-[hsl(220,10%,20%)] rounded-xl p-4 shadow-sm text-foreground">
+        <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Languages className="w-5 h-5 text-primary" />
+              <Languages className="w-5 h-5 text-[hsl(185,100%,65%)]" />
               <div>
-                <span className="font-medium">{t.learningMode}</span>
-                <p className="text-xs text-muted-foreground">{t.learningModeDescription}</p>
+                <span className="font-medium text-[hsl(185,100%,65%)] font-mono">{t.learningMode}</span>
+                <p className="text-xs text-[hsl(185,100%,65%)]/60 font-mono">{t.learningModeDescription}</p>
               </div>
             </div>
             <Switch checked={learningMode} onCheckedChange={onLearningModeToggle} />
@@ -276,24 +276,24 @@ export const Settings = ({
 
       {/* Install Section at Bottom */}
       {!isStandalone && (
-        <div className="p-4 border-t border-border/20 bg-[hsl(220,10%,18%)] safe-area-bottom">
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-4 border border-primary/20">
+        <div className="p-4 border-t border-[hsl(200,10%,25%)] bg-[hsl(210,10%,12%)] safe-area-bottom">
+          <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-2xl p-4 border border-[hsl(185,100%,65%)]/30">
             {/* Header with icon */}
             <div className="flex items-start gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[hsl(185,100%,35%)] flex items-center justify-center flex-shrink-0">
                 {installComplete ? (
-                  <Check className="w-5 h-5 text-primary-foreground" />
+                  <Check className="w-5 h-5 text-[hsl(200,10%,20%)]" />
                 ) : isInstalling ? (
-                  <Download className="w-5 h-5 text-primary-foreground animate-pulse" />
+                  <Download className="w-5 h-5 text-[hsl(200,10%,20%)] animate-pulse" />
                 ) : (
-                  <Smartphone className="w-5 h-5 text-primary-foreground" />
+                  <Smartphone className="w-5 h-5 text-[hsl(200,10%,20%)]" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-foreground">
+                <h3 className="font-semibold text-[hsl(185,100%,65%)] font-mono">
                   {language === 'ru' ? 'В приложении удобнее' : 'Better as an app'}
                 </h3>
-                <p className="text-sm text-muted-foreground mt-0.5">
+                <p className="text-sm text-[hsl(185,100%,65%)]/60 mt-0.5 font-mono">
                   {installComplete
                     ? (language === 'ru' ? 'Установлено! Ищите на главном экране' : 'Installed! Find on home screen')
                     : isInstalling
@@ -312,7 +312,7 @@ export const Settings = ({
 
             {/* Install hint */}
             {showInstallHint && !installComplete && !isInstalling && (
-              <div className="mb-3 p-3 bg-primary/20 border border-primary/30 rounded-xl text-sm text-foreground text-center">
+              <div className="mb-3 p-3 bg-[hsl(185,100%,35%)]/20 border border-[hsl(185,100%,65%)]/30 rounded-xl text-sm text-[hsl(185,100%,65%)] text-center font-mono">
                 {showInstallHint}
               </div>
             )}
@@ -321,7 +321,7 @@ export const Settings = ({
             {!installComplete && !isInstalling && (
               <button
                 onClick={handleBannerInstall}
-                className="w-full py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                className="w-full py-3 bg-[hsl(185,100%,35%)] text-[hsl(200,10%,20%)] hover:bg-[hsl(185,100%,40%)] rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2 font-mono"
               >
                 <Download className="w-4 h-4" />
                 {language === 'ru' ? 'Скачать' : 'Download'}
@@ -330,7 +330,7 @@ export const Settings = ({
 
             {/* Success state */}
             {installComplete && (
-              <div className="flex items-center justify-center gap-2 py-2 text-primary font-medium text-sm">
+              <div className="flex items-center justify-center gap-2 py-2 text-[hsl(185,100%,65%)] font-medium text-sm font-mono">
                 <Check className="w-4 h-4" />
                 {language === 'ru' ? 'Готово!' : 'Done!'}
               </div>

@@ -10,8 +10,8 @@
 ## Tech Stack
 - **Frontend**: Vite + React + TypeScript + Tailwind CSS + shadcn/ui
 - **Backend**: FastAPI (Python)
-- **Database**: MongoDB (доступна, но история чата не реализована)
-- **AI/LLM**: DeepSeek API (deepseek-chat)
+- **Database**: MongoDB (память агентов)
+- **AI/LLM**: OpenRouter API (бесплатные модели с автоматическим fallback)
 - **TTS**: Fish Audio API
 
 ## Architecture

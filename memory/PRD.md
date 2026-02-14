@@ -18,7 +18,7 @@
 ```
 /app
 ├── backend/
-│   ├── .env (DEEPSEEK_API_KEY, FISH_AUDIO_API_KEY, MONGO_URL)
+│   ├── .env (OPENROUTER_API_KEY, FISH_AUDIO_API_KEY, MONGO_URL)
 │   ├── requirements.txt
 │   └── server.py           # FastAPI: /api/friend-chat, /api/fish-audio-tts
 ├── frontend/
@@ -38,56 +38,46 @@
 ```
 
 ## Key API Endpoints
-- `POST /api/friend-chat` - Streaming chat с DeepSeek API
+- `POST /api/friend-chat` - Streaming chat с OpenRouter API
 - `POST /api/fish-audio-tts` - Text-to-Speech с Fish Audio
 
 ## What's Implemented ✅
 - [x] Миграция проекта с Supabase на FastAPI
 - [x] Chat с AI-агентами (Лукас, София)
-- [x] Streaming ответы через DeepSeek API
+- [x] Streaming ответы через OpenRouter API
 - [x] TTS через Fish Audio API
 - [x] Видео контент для агентов (33+ видео Ивана, 5 видео Софии)
-- [x] Секретный альбом Софии (10 фото) - обновлено 14.02.2026
+- [x] Секретный альбом Софии (10 фото)
 - [x] Страница Settings (фон чата, язык, PWA)
 - [x] Страница Idols (18 персонажей)
 - [x] PWA поддержка
-- [x] **Адаптивный дизайн** - обновлено 14.02.2026:
-  - iPhone SE (375px): 2 колонки персонажей, 2 колонки обоев
-  - iPhone 14 Pro (430px): 2 колонки персонажей, 3 колонки обоев
-  - iPad (768px): 3-4 колонки
-  - Laptop (1440px): 5-6 колонок
-- [x] **Память агентов в MongoDB** - обновлено 14.02.2026:
-  - Сохранение: имя, локация, хобби, личные качества
-  - Агент помнит пользователя между сессиями
-  - Endpoint: POST /api/update-memory, GET /api/memory/{userId}/{agentId}
-- [x] **Автоматическая тема** - обновлено 14.02.2026:
-  - 06:00-18:00 → светлая тема
-  - 18:00-06:00 → тёмная тема
-  - Ручное изменение сбрасывается через 6 часов
-- [x] **OpenRouter интеграция** - обновлено 14.02.2026:
-  - 7 бесплатных моделей с автоматическим fallback при rate limit
-  - Модели: Mistral Small, Qwen3, StepFun, Venice Uncensored, Nvidia Nemotron
-  - Фильтрация reasoning от content для чистого ответа
-- [x] **Fish Audio S1** - обновлено 14.02.2026:
-  - Флагманская модель с 4B параметров
-  - Эмоциональный контроль: happy, sad, flirty, tender, playful, calm
-  - Автоопределение эмоции из текста
-  - Естественные паузы и вдохи (add_breath)
-  - Битрейт 128kbps для качества
-
-## Content Library (14.02.2026)
-### София - Секретный альбом (10 фото):
-- sofia_secret_1.jpg - sofia_secret_10.jpg
-- Описания в `/app/frontend/src/lib/videoScenes.ts`
+- [x] Адаптивный дизайн для всех устройств
+- [x] Память агентов в MongoDB
+- [x] Автоматическая тема (день/ночь)
+- [x] OpenRouter интеграция с fallback на 7 моделей
+- [x] **Исправлен баг TTS** - обновлено 14.02.2026:
+  - Агенты больше не озвучивают настройки ("warm, friendly tone...")
+  - Emotion prefix удалён из текста
+- [x] **Обновлён стиль общения** - обновлено 14.02.2026:
+  - Короткие и средние ответы (60%/40%)
+  - Разговорный стиль ("ну", "ага", "короче")
+  - Без поэзии и философии
+- [x] **Обновлён UI дизайн** - обновлено 14.02.2026:
+  - Cyan обводка (#00D4AA) у активного агента
+  - Тёмно-бирюзовый header (#0a3d3d)
+  - Сообщения: тёмный фон + cyan текст (#4AEDC4)
+  - Аватар агента внутри каждого сообщения
+  - Моноширинный шрифт JetBrains Mono
+  - Input bar с backdrop blur
 
 ## Not Implemented / Backlog ❌
-- [ ] **P1**: Vision capabilities - агент видит фото пользователя (требует multimodal модель)
-- [ ] **P2**: Cleanup workspace - удалить /app/talkmee_lovable_app/
-- [ ] **P2**: История чата в MongoDB (сейчас только память о пользователе)
+- [ ] **P1**: Полная история чата в MongoDB (сейчас только факты о пользователе)
+- [ ] **P2**: Vision capabilities - агент видит фото пользователя
+- [ ] **P3**: Уникальные личности для Idols
+- [ ] **P3**: Cleanup workspace - удалить /app/talkmee_lovable_app/
 
 ## Known Issues
-- Chat history не сохраняется между сессиями (критично)
-- Multimodal не поддерживается (DeepSeek text-only)
+- Chat history не сохраняется между сессиями
 
 ## Preview URL
 https://chat-with-sofia.preview.emergentagent.com

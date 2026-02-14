@@ -234,7 +234,8 @@ export const ChatInput = ({
     } else {
       // Check if speech recognition is actually available
       if (!isVoiceSupported) {
-        console.warn('[ChatInput] Speech recognition not supported in this browser');
+        console.error('[ChatInput] Speech recognition not supported - use Chrome or Edge');
+        alert('Голосовой ввод доступен только в Chrome или Edge. Также проверьте разрешение на микрофон.');
         return;
       }
       // CRITICAL: start recognition FIRST (needs user gesture), chime after

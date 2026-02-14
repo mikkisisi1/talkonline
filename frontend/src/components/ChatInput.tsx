@@ -335,36 +335,20 @@ export const ChatInput = ({
         className="hidden"
       />
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         {/* Input Field with Icons */}
-        <div className="flex-1 min-w-0 bg-[hsl(var(--chat-input-bg)/0.85)] border border-white/10 rounded-3xl flex items-center min-h-[48px]">
+        <div className="flex-1 min-w-0 bg-[#1a3a3a]/85 backdrop-blur-sm border border-[#00D4AA]/20 rounded-3xl flex items-center min-h-[50px]">
           {/* Emoji Button */}
           <button
             className="p-2.5 hover:opacity-70 transition-opacity flex-shrink-0"
             aria-label="Emoji"
           >
-            <Smile className="w-[18px] h-[18px] stroke-[1.5]" />
+            <Smile className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
           </button>
 
           {isListening ? (
             <div className="flex-1 flex items-center justify-center py-3">
-              <svg viewBox="0 0 200 40" className="w-full h-6 max-w-[240px]" preserveAspectRatio="none">
-                <path
-                  d="M0,20 Q10,5 20,20 Q30,35 40,20 Q50,5 60,20 Q70,35 80,20 Q90,5 100,20 Q110,35 120,20 Q130,5 140,20 Q150,35 160,20 Q170,5 180,20 Q190,35 200,20"
-                  fill="none"
-                  stroke="hsl(185,100%,65%)"
-                  strokeWidth="1.5"
-                  className="animate-[waveShift_1.2s_ease-in-out_infinite]"
-                />
-                <path
-                  d="M0,20 Q10,30 20,20 Q30,10 40,20 Q50,30 60,20 Q70,10 80,20 Q90,30 100,20 Q110,10 120,20 Q130,30 140,20 Q150,10 160,20 Q170,30 180,20 Q190,10 200,20"
-                  fill="none"
-                  stroke="hsl(185,100%,65%)"
-                  strokeWidth="1"
-                  opacity="0.5"
-                  className="animate-[waveShift_1.5s_ease-in-out_infinite_reverse]"
-                />
-              </svg>
+              <span className="text-[#4AEDC4] text-sm font-mono">...</span>
             </div>
           ) : (
             <textarea
@@ -374,8 +358,8 @@ export const ChatInput = ({
               onKeyDown={handleKeyDown}
               placeholder={t.typeMessage}
               disabled={disabled}
-              rows={2}
-              className="flex-1 min-w-0 bg-transparent resize-none outline-none text-[hsl(var(--chat-input-foreground))] placeholder:text-[hsl(var(--chat-input-foreground))]/40 text-[16px] leading-5 max-h-[100px] py-2.5"
+              rows={1}
+              className="flex-1 min-w-0 bg-transparent resize-none outline-none text-[#4AEDC4] placeholder:text-[#4AEDC4]/40 text-[15px] leading-5 max-h-[100px] py-3 font-mono"
             />
           )}
 
@@ -385,7 +369,7 @@ export const ChatInput = ({
             className="p-2 hover:opacity-70 transition-opacity flex-shrink-0"
             aria-label="Attach"
           >
-            <Paperclip className="w-[18px] h-[18px] stroke-[1.5]" />
+            <Paperclip className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
           </button>
 
           {/* Camera Button (only when no text) */}
@@ -395,7 +379,7 @@ export const ChatInput = ({
               className="p-2 pr-3 hover:opacity-70 transition-opacity flex-shrink-0"
               aria-label="Camera"
             >
-              <Camera className="w-[18px] h-[18px] stroke-[1.5]" />
+              <Camera className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
             </button>
           )}
         </div>

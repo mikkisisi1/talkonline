@@ -3,7 +3,7 @@ import { Message } from '@/lib/storage';
 import { cn } from '@/lib/utils';
 import { VideoEmbed, VideoPlatform, extractVideoInfo } from './VideoEmbed';
 import { ChatVideoPlayer } from './ChatVideoPlayer';
-import { getVideoUrl, getPhotoUrl } from '@/lib/videoScenes';
+import { getVideoUrl, getPhotoUrl, findMatchingVideo, findMatchingPhoto } from '@/lib/videoScenes';
 import { Volume2, VolumeX, Loader2 } from 'lucide-react';
 
 interface MessageBubbleProps {

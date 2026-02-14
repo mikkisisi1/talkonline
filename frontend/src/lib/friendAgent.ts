@@ -200,10 +200,20 @@ const _doStream = async (
 
       try {
         const json = JSON.parse(trimmed.slice(6));
-        // Support both regular content and reasoning (OpenRouter wraps some models)
+        // Prefer content over reasoning (reasoning is model's internal thinking)
         const delta = json.choices?.[0]?.delta?.content || '';
-        const reasoning = json.choices?.[0]?.delta?.reasoning || '';
-        const textDelta = delta || reasoning;
+        
+        // Only use reasoning if there's no content at all in this chunk
+        // Skip reasoning that looks like internal monologue
+        let textDelta = delta;
+        if (!textDelta) {
+          const reasoning = json.choices?.[0]?.delta?.reasoning || '';
+          // Skip reasoning if it contains meta-thinking patterns
+          const isMetaThinking = reasoning.match(/^[\(\[\{]|Okay|okay|thinking|думаю|начина|пользовател|человек|сообщен/i);
+          if (!isMetaThinking && reasoning) {
+            textDelta = reasoning;
+          }
+        }
         
         if (textDelta) {
           fullText += textDelta;

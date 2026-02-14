@@ -198,7 +198,7 @@ export const ChatHeader = ({
             <svg width="42" height="42" viewBox="0 0 47 47" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="23.5" cy="23.5" r="21" stroke="currentColor" strokeWidth="1.2" fill="none" />
               <ellipse cx="23.5" cy="23.5" rx="28" ry="8" stroke="currentColor" strokeWidth="1" fill="none" transform="rotate(-20 23.5 23.5)" />
-              <circle cx="43" cy="24" r="2.5" fill="hsl(185,100%,65%)" stroke="currentColor" strokeWidth="0.6">
+              <circle cx="43" cy="24" r="2" fill="#00FF66" stroke="currentColor" strokeWidth="0.5">
                 <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
               </circle>
             </svg>

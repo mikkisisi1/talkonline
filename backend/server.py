@@ -484,6 +484,9 @@ Your style: warm, natural, free, like with someone close."""
                 "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 free  
                 "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored
                 "stepfun/step-3.5-flash:free",  # StepFun free
+                "qwen/qwen3-4b:free",  # Qwen3 small free
+                "nvidia/nemotron-nano-9b-v2:free",  # Nvidia free
+                "openai/gpt-oss-20b:free",  # OpenAI OSS free
             ]
             model_name = free_models[0]  # Start with first option
         elif deepseek_key:

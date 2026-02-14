@@ -179,7 +179,7 @@ export const ChatHeader = ({
 
 
         {/* + and Saturn aligned like agent columns */}
-        <div className="flex flex-col items-center flex-shrink-0 -ml-1">
+        <div className="flex flex-col items-center flex-shrink-0 -ml-3">
           <button
             onClick={onSettingsClick}
             className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
@@ -191,7 +191,7 @@ export const ChatHeader = ({
         </div>
 
         <div
-          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer -ml-1"
+          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer -ml-3"
           onClick={() => navigate('/idols')}
         >
           <div className="w-[42px] h-[42px] flex items-center justify-center overflow-visible text-[hsl(200,10%,20%)]">

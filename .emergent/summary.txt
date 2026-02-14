@@ -1,0 +1,168 @@
+<analysis>**original_problem_statement:**
+The user wants to continue developing their Talkmee AI chat application. The core of the app is conversations with AI agents (like Sofia and Lucas) who have distinct personalities and can share content like photos.
+
+Initial requests included migrating the app from a Supabase architecture, adding more photos to an agent's secret album, and verifying the functionality of the Settings and Idols pages.
+
+Subsequent requests during the session involved:
+1.  Making the application responsive for mobile, tablet, and desktop.
+2.  Implementing agent memory so they can remember user details (name, location, hobbies).
+3.  Adding an automatic light/dark theme based on system time.
+4.  Improving the realism of the agent voices using advanced features of the Fish Audio API (pauses, emotions).
+5.  Switching the core LLM from DeepSeek (which ran out of credits) to an alternative (OpenRouter).
+6.  Tuning the agent's personality to be less poetic and more like a casual friend, with varied response lengths.
+7.  Fixing a bug where agents speak their voice settings (e.g., warm, friendly tone...) before their actual message.
+
+**User's preferred language**: Russian. The next agent MUST respond in Russian.
+
+**what currently exists?**
+The application is a full-stack React + FastAPI project.
+-   **Backend ()**: A FastAPI server that handles:
+    -   **LLM Chat**: Integrates with OpenRouter, using a fallback mechanism to cycle through several free models to improve reliability.
+    -   **Agent Memory**: A basic memory system using MongoDB to store and retrieve key facts about the user (e.g., name, location) to maintain conversation context.
+    -   **Text-to-Speech (TTS)**: Integrates with the Fish Audio S1 model, including logic to detect emotion from the text and add natural pauses to the speech.
+-   **Frontend ()**: A React application featuring:
+    -   A chat interface for interacting with AI agents.
+    -   Idols and Settings pages that are verified and functional.
+    -   A fully responsive design that adapts to mobile, tablet, and desktop screens.
+    -   An automatic dark/light theme that switches based on the user's local time.
+-   **Content**: Static assets, including agent avatars and photos, are located in .
+
+**Last working item**:
+-   **Last item agent was working**: The user reported a critical bug where the AI agents announce their TTS settings (e.g., warm, friendly, calm tone...) before speaking their actual response. The agent was about to investigate and fix this issue.
+-   **Status**: NOT STARTED
+-   **Agent Testing Done**: N
+-   **Which testing method agent to use?**: manual testing by curl. The agent needs to call the  endpoint and listen to the resulting audio file to confirm the instructional text is gone.
+-   **User Testing Done**: N
+
+**All Pending/In progress Issue list**:
+-   **Issue 1 (P0): Agents announce their TTS settings before speaking.**
+    -   **Attempted fixes**: None.
+    -   **Next debug checklist**:
+        1.  Inspect the  endpoint in .
+        2.  The logic that sets the voice tone (e.g., warm, friendly, calm) is likely concatenating this instruction with the agent's message text before sending it to the Fish Audio API.
+        3.  The fix is to ensure only the agent's conversational reply is passed in the  parameter of the TTS request, while style/tone instructions are passed in the appropriate separate parameters for the Fish Audio S1 API.
+    -   **Why fix this issue and what will be achieved with the fix?**: This is a major bug that breaks immersion and makes the agents sound robotic. Fixing it is critical for user experience.
+    -   **Status**: NOT STARTED
+    -   **Is recurring issue?**: N
+    -   **Should Test frontend/backend/both after fix?**: backend
+
+**In progress Task List**:
+There are no tasks currently in progress.
+
+**Upcoming and Future Tasks**
+-   **Task 1 (P1): Adjust Agent Personality and Response Style.**
+    -   The user wants the agents' speech to be less poetic and more like a normal conversation between friends. They also requested a mix of short and medium-length responses.
+    -   **Where to start**: Modify the system prompts in  for the agents. Add explicit instructions to use casual, friendly language and vary response length.
+-   **Task 2 (P2): Implement Full Chat History.**
+    -   The current memory system only saves key facts, not the entire conversation log. This is a regression from the user's original application.
+    -   **Where to start**: Modify the backend to save every user and assistant message to a MongoDB collection, linked by a session or conversation ID. Update the chat endpoint to load the last N messages to provide context for new conversations.
+-   **Task 3 (P2): Enhance Agent Memory.**
+    -   The user wants agents to remember more details like orientation, personal qualities, and hobbies.
+    -   **Where to start**: Improve the fact-extraction logic in . The current regex-based approach is too simple. A more robust solution might involve a dedicated, small LLM call to summarize facts from the conversation.
+-   **Task 4 (P3): Investigate and Implement User-to-Agent Image Sharing.**
+    -   A feature from the original problem statement where the user can send an image to the agent, and the agent can see it.
+    -   **Where to start**: This requires integrating a multimodal LLM (like GPT-4o, available via OpenRouter if the user's plan supports it). Plan the implementation for file uploads on the frontend and processing the image data on the backend.
+-   **Task 5 (P3): Add Unique Personalities to Idols.**
+    -   While the idols have unique voices, their personalities are likely generic.
+    -   **Where to start**: In , create specific and detailed system prompts for each idol character to give them a unique personality, background, and speech style.
+
+**Completed work in this session**
+-   **LLM Migration**: Successfully migrated from DeepSeek to OpenRouter, implementing a fallback system to cycle through free models and handle rate limits.
+-   **Agent Memory**: Implemented a foundational agent memory feature using MongoDB to store and recall key user details.
+-   **Responsive UI**: Refactored the Idols, Settings, and Chat pages to be fully responsive across mobile, tablet, and desktop devices.
+-   **Auto Dark/Light Theme**: Implemented a theme that automatically adjusts based on the user's system time.
+-   **Advanced TTS**: Upgraded the backend to use Fish Audio's S1 model, with logic to detect emotion and add natural pauses to speech.
+-   **Bug Fixes**: Resolved a URL bug causing a double  prefix and fixed the frontend streaming parser to correctly handle OpenRouter's response format.
+
+**Earlier issues found/mentioned but not fixed**
+-   **Issue 1: Lack of Full Chat History Persistence.**
+    -   **Debug checklist**: See Upcoming and Future Tasks, Task 2.
+    -   **Why to solve this issue and what will be achieved with this?**: This is a core feature for any chatbot, allowing for continuous conversations. The original application had this feature, and it was lost during migration.
+    -   **Should Test frontend/backend/both after fix**: Both.
+    -   **Is recurring issue?**: N
+-   **Issue 2: Vision Capabilities for AI Agent.**
+    -   **Debug checklist**: See Upcoming and Future Tasks, Task 4.
+    -   **Why to solve this issue and what will be achieved with this?**: Fulfills a user-mentioned feature where the AI can see images sent by the user.
+    -   **Should Test frontend/backend/both after fix**: Both.
+    -   **Is recurring issue?**: N
+
+**Known issue recurrence from previous fork**
+-   N/A
+
+**Code Architecture**
+
+
+**Key Technical Concepts**
+-   **Frontend**: Vite, React, TypeScript, Tailwind CSS, shadcn/ui
+-   **Backend**: FastAPI (Python)
+-   **Database**: MongoDB (used for agent memory)
+-   **AI/LLM**: OpenRouter (with a fallback mechanism across free models)
+-   **TTS**: Fish Audio API (S1 Model with emotion and pause control)
+
+**key DB schema**
+-    collection: 
+
+**changes in tech stack**
+-   **LLM Provider**: Migrated from a direct DeepSeek API integration to the OpenRouter API.
+
+**All files of reference**
+-   : The single most important file, containing all backend logic for chat, memory, and TTS.
+-   : Contains the frontend logic for parsing streamed chat responses from OpenRouter.
+-   : Frontend logic for making TTS requests.
+-   : Manages global state, including the auto dark/light theme.
+-   : The idols gallery page, updated for responsiveness.
+-   : The settings panel, updated for responsiveness.
+
+**Areas that need refactoring**:
+-   The original project directory  is obsolete and should be deleted to clean up the workspace.
+-   The agent memory feature needs to be expanded into a full chat history feature to restore functionality from the user's original app.
+
+**key api endpoints**
+-   : Handles streaming chat with an agent, incorporating memory.
+-   : Generates speech from text using Fish Audio S1 with emotion control.
+-   : Saves extracted facts about the user to the MongoDB database.
+
+**Critical Info for New Agent**
+-   The user has topped up their OpenRouter account with . Premium models may now be viable, which could solve the speed and reliability issues of the free models.
+-   The most critical, user-facing bug is that agents speak their TTS settings aloud. This MUST be fixed first.
+-   The user's next priority is improving the naturalness of the agent's conversation style. This is a prompt engineering task.
+-   The agent has implemented memory (key facts) but NOT chat history (full log). This is an important distinction and a major pending feature.
+
+**documents and test reports created in this job**
+-    (updated during the session)
+
+**Last 10 User Messages and any pending HUMAN messages**
+1.  **User**: Set a warm, friendly, calm tone for agents by default. They are now speaking the settings before their speech. Fix it. - **Status: PENDING FIX**
+2.  **User**: Hey agent / Are you sleeping? - Multiple pings. - **Status: PENDING RESPONSE**
+3.  **User**: Testing showed that sometimes the messages are very long. Its better to alternate medium and short answers. The speech is too poetic right now, it needs to be grounded like a normal conversation between friends." - **Status: PENDING IMPLEMENTATION**
+4.  **User**: "Topped up OpenRouter with $6." - **Status: ACKNOWLEDGED**
+5.  **User**: "Think about how to liven up the voices and characters of the models more. And did you add voices and characters for the idols?" - **Status: PENDING ENHANCEMENT**
+6.  **User**: "Need to squeeze the maximum potential out of Fish Audio. They can do so much!" - **Status: PARTIALLY COMPLETED** (S1 model integrated, more can be done).
+7.  **User**: "Sofia is silent." - **Status: INVESTIGATED** (Likely due to slow free models).
+8.  **User**: "Ill top up later. Can it switch models if one gets stuck? - **Status: COMPLETED**.
+9.  **User**: Lets find an alternative from some trendy garage devs. Search." - **Status: COMPLETED** (Switched to OpenRouter).
+10. **User**: "Yes, lets have it switch to dark automatically. Agent memory is very important... The voice is the most important thing!... - **Status: COMPLETED** (Auto-theme, basic memory, and voice improvements were implemented).
+
+**Project Health Check:**
+-   **Broken**:
+    -   **TTS Output**: Agents are incorrectly speaking their internal TTS instructions.
+    -   **Chat History**: The application does not save the full conversation log, a key feature that was present in the user's original app.
+-   **Mocked**: N/A
+
+**3rd Party Integrations**
+-   **OpenRouter**: Powers the AI agent's chat. Requires a User-provided API Key (balance was recently topped up).
+-   **Fish Audio**: Provides Text-to-Speech functionality (S1 model). Requires a User-provided API Key.
+
+**Testing status**
+-   **Testing agent used after significant changes**: NO
+-   **Troubleshoot agent used after agent stuck in loop**: NO
+-   **Test files created**: None.
+-   **Known regressions**: Full chat history persistence was lost during the migration and has not been reimplemented.
+
+**Credentials to test flow:**
+-   The OpenRouter API key is stored in .
+-   No user authentication is implemented in the application.
+
+**What agent forgot to execute**
+-   The agent did not implement full chat history persistence, only a basic fact memory system. This is a significant regression from the user's original application and a standard feature for chatbots.
+-   The agent did not test the TTS implementation thoroughly before finishing, which allowed the speaking the settings bug to get through to the user.</analysis>

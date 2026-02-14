@@ -90,4 +90,4 @@
 - Multimodal не поддерживается (DeepSeek text-only)
 
 ## Preview URL
-https://sofia-secrets.preview.emergentagent.com
+https://chat-with-sofia.preview.emergentagent.com

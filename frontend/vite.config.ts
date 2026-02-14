@@ -13,8 +13,13 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
       clientPort: 443,
     },
-    // Allow all hosts for Kubernetes preview URL
-    allowedHosts: "all",
+    // Allow explicit preview URL patterns (Vite 5.4.12+ doesn't allow "all")
+    allowedHosts: [
+      '.preview.emergentagent.com',    // Public preview URLs
+      '.preview.emergentcf.cloud',     // Internal K8s cluster hostnames  
+      '.emergent.host',                // Production domains
+      'localhost',
+    ],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

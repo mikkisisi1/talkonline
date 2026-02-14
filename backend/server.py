@@ -130,6 +130,99 @@ FISH_VOICES = {
 
 # ==================== HELPER FUNCTIONS ====================
 
+async def get_user_memory(user_id: str, agent_id: str) -> dict:
+    """Получить память агента о пользователе из MongoDB"""
+    try:
+        memory_doc = await db.agent_memories.find_one({
+            "user_id": user_id,
+            "agent_id": agent_id
+        })
+        if memory_doc:
+            # Remove MongoDB _id before returning
+            memory_doc.pop('_id', None)
+            return memory_doc
+        return {}
+    except Exception as e:
+        logger.error(f"Error getting user memory: {e}")
+        return {}
+
+async def update_user_memory(user_id: str, agent_id: str, memory_update: dict):
+    """Обновить память агента о пользователе"""
+    try:
+        await db.agent_memories.update_one(
+            {"user_id": user_id, "agent_id": agent_id},
+            {"$set": memory_update, "$setOnInsert": {"created_at": datetime.now(timezone.utc)}},
+            upsert=True
+        )
+    except Exception as e:
+        logger.error(f"Error updating user memory: {e}")
+
+async def extract_facts_from_message(content: str, agent_name: str) -> dict:
+    """Извлечь факты о пользователе из сообщения с помощью LLM"""
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    if not api_key:
+        return {}
+    
+    extraction_prompt = f"""Ты помощник {agent_name}. Проанализируй сообщение пользователя и извлеки важные факты о нём.
+Верни JSON с полями (только если информация есть в сообщении):
+- user_name: имя пользователя (если упоминает)
+- location: город/страна проживания
+- orientation: сексуальная ориентация (если упоминает)
+- hobbies: список хобби и увлечений
+- personal_traits: личные качества, характер
+- important_facts: другие важные факты о жизни пользователя
+
+Отвечай ТОЛЬКО валидным JSON без markdown. Если информации нет - пустой объект {{}}.
+
+Сообщение пользователя: {content}"""
+
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            response = await client.post(
+                "https://api.deepseek.com/v1/chat/completions",
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json={
+                    "model": "deepseek-chat",
+                    "messages": [{"role": "user", "content": extraction_prompt}],
+                    "temperature": 0.1,
+                    "max_tokens": 500
+                }
+            )
+            if response.status_code == 200:
+                result = response.json()
+                text = result["choices"][0]["message"]["content"].strip()
+                # Parse JSON
+                import json
+                return json.loads(text)
+    except Exception as e:
+        logger.error(f"Error extracting facts: {e}")
+    return {}
+
+def add_natural_speech_markers(text: str) -> str:
+    """Добавить естественные речевые маркеры для TTS"""
+    import re
+    import random
+    
+    result = text
+    
+    # Добавляем паузы после запятых (через ...)
+    result = re.sub(r',\s*', ', ', result)
+    
+    # Добавляем паузы перед "но", "а", "однако" 
+    result = re.sub(r'\s+(но|а|однако|хотя)\s+', r'... \1 ', result, flags=re.IGNORECASE)
+    
+    # Иногда добавляем "мм" или "ну" в начало предложений (с вероятностью 15%)
+    sentences = result.split('. ')
+    new_sentences = []
+    for i, sent in enumerate(sentences):
+        if i > 0 and len(sent) > 20 and random.random() < 0.15:
+            prefix = random.choice(['Мм... ', 'Ну... ', 'Знаешь... ', ''])
+            sent = prefix + sent
+        new_sentences.append(sent)
+    result = '. '.join(new_sentences)
+    
+    return result
+
 def preprocess_text_for_tts(text: str) -> str:
     """Preprocess text for natural TTS pronunciation"""
     import re

@@ -113,6 +113,11 @@ export const useAppState = () => {
 
   useEffect(() => {
     saveState(state);
+    
+    // Auto-save to backend when messages change (debounced)
+    if (state.memory.activeAgentId && state.messages.length > 0) {
+      debouncedSave(state.memory.activeAgentId, state.messages);
+    }
   }, [state]);
 
   const addMessage = useCallback(

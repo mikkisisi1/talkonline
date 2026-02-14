@@ -154,7 +154,7 @@ export const ChatHeader = ({
                     </div>
                     {/* Gray transparent overlay for sleeping agents */}
                     {isSleeping && (
-                      <div className="absolute inset-0 bg-gray-400/40 rounded-full" />
+                      <div className="absolute inset-0 bg-gray-600/60 rounded-full" />
                     )}
                     {/* Green neon online indicator on the ring line */}
                     {isActive && !isSleeping && (

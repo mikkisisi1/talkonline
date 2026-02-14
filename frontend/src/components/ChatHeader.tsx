@@ -156,10 +156,10 @@ export const ChatHeader = ({
                     {isSleeping && (
                       <div className="absolute inset-0 bg-black/30 rounded-full" />
                     )}
-                    {/* Green neon online indicator for active agent */}
+                    {/* Green neon online indicator on the ring line */}
                     {isActive && !isSleeping && (
                       <div 
-                        className="absolute bottom-0 right-0 w-[5px] h-[5px] rounded-full"
+                        className="absolute bottom-[2px] right-[2px] w-[5px] h-[5px] rounded-full"
                         style={{
                           backgroundColor: '#00FF66',
                           boxShadow: '0 0 4px #00FF66, 0 0 8px #00FF66',

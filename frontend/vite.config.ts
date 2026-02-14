@@ -13,6 +13,8 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
       clientPort: 443,
     },
+    // Allow all hosts for Kubernetes preview URL
+    allowedHosts: "all",
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

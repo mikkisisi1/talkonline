@@ -90,13 +90,11 @@ const _doStream = async (
   imageBase64?: string
 ): Promise<string> => {
   const response = await fetch(
-    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/friend-chat`,
+    `${import.meta.env.VITE_BACKEND_URL}/api/friend-chat`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         'x-stream': 'true',
       },
       body: JSON.stringify({

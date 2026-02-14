@@ -557,6 +557,80 @@ async def text_to_speech(body: TTSRequest):
     return await fish_audio_tts(body)
 
 
+class UpdateMemoryRequest(BaseModel):
+    userId: str
+    agentId: str
+    agentName: str
+    userMessage: str
+
+@api_router.post("/update-memory")
+async def update_memory_endpoint(body: UpdateMemoryRequest):
+    """
+    Извлекает факты из сообщения пользователя и сохраняет в память агента
+    """
+    try:
+        # Извлекаем факты из сообщения
+        facts = await extract_facts_from_message(body.userMessage, body.agentName)
+        
+        if not facts:
+            return {"status": "no_facts_extracted"}
+        
+        # Получаем текущую память
+        current_memory = await get_user_memory(body.userId, body.agentId)
+        
+        # Обновляем память
+        update_data = {
+            "user_id": body.userId,
+            "agent_id": body.agentId,
+            "updated_at": datetime.now(timezone.utc)
+        }
+        
+        if facts.get("user_name"):
+            update_data["user_name"] = facts["user_name"]
+        
+        if facts.get("location"):
+            update_data["location"] = facts["location"]
+        
+        if facts.get("orientation"):
+            update_data["orientation"] = facts["orientation"]
+        
+        if facts.get("hobbies"):
+            existing_hobbies = current_memory.get("hobbies", [])
+            new_hobbies = list(set(existing_hobbies + facts["hobbies"]))[:10]  # Макс 10 хобби
+            update_data["hobbies"] = new_hobbies
+        
+        if facts.get("personal_traits"):
+            existing_traits = current_memory.get("personal_traits", [])
+            new_traits = list(set(existing_traits + facts["personal_traits"]))[:10]
+            update_data["personal_traits"] = new_traits
+        
+        if facts.get("important_facts"):
+            existing_facts = current_memory.get("important_facts", [])
+            new_facts = existing_facts + facts["important_facts"]
+            update_data["important_facts"] = new_facts[-20:]  # Последние 20 фактов
+        
+        await update_user_memory(body.userId, body.agentId, update_data)
+        
+        return {"status": "memory_updated", "extracted_facts": facts}
+    
+    except Exception as e:
+        logger.error(f"Error updating memory: {e}")
+        return {"status": "error", "message": str(e)}
+
+
+@api_router.get("/memory/{user_id}/{agent_id}")
+async def get_memory_endpoint(user_id: str, agent_id: str):
+    """
+    Получить память агента о пользователе
+    """
+    try:
+        memory = await get_user_memory(user_id, agent_id)
+        return {"memory": memory}
+    except Exception as e:
+        logger.error(f"Error getting memory: {e}")
+        return {"memory": {}}
+
+
 # Include router in app
 app.include_router(api_router)
 

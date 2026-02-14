@@ -313,20 +313,20 @@ def preprocess_text_for_tts(text: str) -> str:
     result = re.sub(r'\([a-zA-Z][a-zA-Z\s-]*\)\s*', '', result)
     # Strip URLs
     result = re.sub(r'https?://[^\s]+', '', result)
-    # Strip markdown
+    # Strip markdown asterisks and underscores with content
+    result = re.sub(r'\*[^*]+\*', '', result)  # *text*
     result = re.sub(r'[*~`_]', '', result)
     # Strip bracket tags
     result = re.sub(r'\[[^\]]*\]', '', result)
     
-    # Remove any voice/tone setting descriptions that LLM might output
-    # Matches patterns like "тон: тёплый", "голос мягкий", "настройки голоса", etc.
-    tone_patterns = [
-        r'(?:тон|голос|настройки|стиль)[:\s]+[а-яёА-ЯЁ\s,]+(?:\.|,|$)',
-        r'(?:tone|voice|style|setting)[:\s]+[a-zA-Z\s,]+(?:\.|,|$)',
-        r'\*[^*]+\*',  # Remove asterisk annotations like *говорит тепло*
-    ]
-    for pattern in tone_patterns:
-        result = re.sub(pattern, '', result, flags=re.IGNORECASE)
+    # Remove any voice/tone setting descriptions that LLM might output at the START
+    # Matches patterns like "тон: тёплый.", "голос мягкий,", "настройки голоса:", etc.
+    result = re.sub(r'^(?:тон|голос|настройки\s*голоса?|стиль\s*голоса?)[:\s][^.!?]*[.!?,]\s*', '', result, flags=re.IGNORECASE)
+    result = re.sub(r'^(?:tone|voice|style|setting)[:\s][^.!?]*[.!?,]\s*', '', result, flags=re.IGNORECASE)
+    
+    # Also remove if it appears mid-text
+    result = re.sub(r'(?:тон|голос)[:\s]+(?:тёплый|мягкий|нежный|спокойный)[,.\s]*', '', result, flags=re.IGNORECASE)
+    result = re.sub(r'(?:tone|voice)[:\s]+(?:warm|soft|gentle|calm)[,.\s]*', '', result, flags=re.IGNORECASE)
     
     # Remove emojis
     result = re.sub(r'[\U0001F300-\U0001F9FF]|[\u2600-\u26FF]|[\u2700-\u27BF]', '', result)

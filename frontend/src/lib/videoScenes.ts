@@ -368,3 +368,91 @@ export const getPhotoUrl = (photoId: string): string | null => {
   if (!scene) return null;
   return `/images/${scene.agent}/${scene.file}`;
 };
+
+// Find matching video by description/keywords
+export const findMatchingVideo = (description: string): string | null => {
+  const desc = description.toLowerCase();
+  
+  // Search in Ivan's videos first (more content)
+  let bestMatch: { id: string; score: number } | null = null;
+  
+  for (const scene of ivanVideoScenes) {
+    let score = 0;
+    // Check keywords
+    for (const keyword of scene.keywords_ru) {
+      if (desc.includes(keyword.toLowerCase())) {
+        score += 2;
+      }
+    }
+    // Check description
+    const descWords = scene.description.toLowerCase().split(/\s+/);
+    for (const word of descWords) {
+      if (word.length > 3 && desc.includes(word)) {
+        score += 1;
+      }
+    }
+    if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+      bestMatch = { id: scene.id, score };
+    }
+  }
+  
+  // Also search Sofia videos
+  for (const scene of sofiaVideoScenes) {
+    let score = 0;
+    for (const keyword of scene.keywords_ru) {
+      if (desc.includes(keyword.toLowerCase())) {
+        score += 2;
+      }
+    }
+    const descWords = scene.description.toLowerCase().split(/\s+/);
+    for (const word of descWords) {
+      if (word.length > 3 && desc.includes(word)) {
+        score += 1;
+      }
+    }
+    if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+      bestMatch = { id: scene.id, score };
+    }
+  }
+  
+  // If no match found, return a random video
+  if (!bestMatch) {
+    const randomIndex = Math.floor(Math.random() * ivanVideoScenes.length);
+    return ivanVideoScenes[randomIndex].id;
+  }
+  
+  return bestMatch.id;
+};
+
+// Find matching photo by description/keywords  
+export const findMatchingPhoto = (description: string): string | null => {
+  const desc = description.toLowerCase();
+  
+  let bestMatch: { id: string; score: number } | null = null;
+  
+  for (const scene of sofiaPhotoScenes) {
+    let score = 0;
+    for (const keyword of scene.keywords_ru) {
+      if (desc.includes(keyword.toLowerCase())) {
+        score += 2;
+      }
+    }
+    const descWords = scene.description.toLowerCase().split(/\s+/);
+    for (const word of descWords) {
+      if (word.length > 3 && desc.includes(word)) {
+        score += 1;
+      }
+    }
+    if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+      bestMatch = { id: scene.id, score };
+    }
+  }
+  
+  // If no match found, return a random photo
+  if (!bestMatch) {
+    const randomIndex = Math.floor(Math.random() * sofiaPhotoScenes.length);
+    return sofiaPhotoScenes[randomIndex].id;
+  }
+  
+  return bestMatch.id;
+};

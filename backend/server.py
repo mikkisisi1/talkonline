@@ -321,11 +321,6 @@ async def friend_chat(request: Request, body: FriendChatRequest):
         # Check if streaming is requested
         is_streaming = request.headers.get("x-stream") == "true"
         
-        # Get DeepSeek API key
-        api_key = os.environ.get("DEEPSEEK_API_KEY")
-        if not api_key:
-            raise HTTPException(status_code=500, detail="DeepSeek API key not configured")
-        
         # Build system prompt (simplified version - you can expand this)
         agent_name = body.agent.name if body.agent else "Лукас"
         agent_gender = body.agent.gender if body.agent else "male"

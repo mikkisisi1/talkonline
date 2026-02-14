@@ -68,6 +68,12 @@
   - 7 бесплатных моделей с автоматическим fallback при rate limit
   - Модели: Mistral Small, Qwen3, StepFun, Venice Uncensored, Nvidia Nemotron
   - Фильтрация reasoning от content для чистого ответа
+- [x] **Fish Audio S1** - обновлено 14.02.2026:
+  - Флагманская модель с 4B параметров
+  - Эмоциональный контроль: happy, sad, flirty, tender, playful, calm
+  - Автоопределение эмоции из текста
+  - Естественные паузы и вдохи (add_breath)
+  - Битрейт 128kbps для качества
 
 ## Content Library (14.02.2026)
 ### София - Секретный альбом (10 фото):

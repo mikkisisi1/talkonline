@@ -71,9 +71,9 @@
 - Описания в `/app/frontend/src/lib/videoScenes.ts`
 
 ## Not Implemented / Backlog ❌
-- [ ] **P0**: Сохранение истории чата в MongoDB
-- [ ] **P1**: Vision capabilities - агент видит фото пользователя
+- [ ] **P1**: Vision capabilities - агент видит фото пользователя (требует multimodal модель)
 - [ ] **P2**: Cleanup workspace - удалить /app/talkmee_lovable_app/
+- [ ] **P2**: История чата в MongoDB (сейчас только память о пользователе)
 
 ## Known Issues
 - Chat history не сохраняется между сессиями (критично)

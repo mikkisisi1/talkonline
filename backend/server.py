@@ -588,8 +588,8 @@ Your style: warm, natural, free, like with someone close."""
 @api_router.post("/fish-audio-tts")
 async def fish_audio_tts(request: Request, body: TTSRequest):
     """
-    Fish Audio TTS endpoint
-    Replaces Supabase fish-audio-tts function
+    Fish Audio TTS endpoint with S1 model
+    Supports emotional control and natural speech
     """
     try:
         # Get Fish Audio API key
@@ -597,8 +597,29 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
         if not fish_api_key:
             raise HTTPException(status_code=500, detail="Fish Audio API key not configured")
         
-        # Preprocess text
+        # Preprocess text for natural speech
         processed_text = preprocess_text_for_tts(body.text)
+        
+        # Add natural speech markers for more realistic voice
+        if body.add_breath:
+            processed_text = add_natural_speech_markers(processed_text)
+        
+        # Add emotional hints to text based on emotion parameter
+        emotion_prefixes = {
+            'happy': '(радостно) ',
+            'sad': '(грустно) ',
+            'angry': '(злобно) ',
+            'excited': '(восторженно) ',
+            'whisper': '(шёпотом) ',
+            'tender': '(нежно) ',
+            'playful': '(игриво) ',
+            'calm': '(спокойно) ',
+            'flirty': '(кокетливо) ',
+            'seductive': '(соблазнительно) ',
+        }
+        
+        if body.emotion and body.emotion in emotion_prefixes:
+            processed_text = emotion_prefixes[body.emotion] + processed_text
         
         if not processed_text:
             raise HTTPException(status_code=400, detail="Text cannot be empty")
@@ -606,21 +627,18 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
         # Get voice reference ID
         reference_id = FISH_VOICES.get(body.voice)
         
-        # Build request body
+        # Build request body for Fish Audio S1
         tts_request = {
             "text": processed_text,
             "format": "mp3",
-            "mp3_bitrate": 64,
-            "model": "s1"
+            "mp3_bitrate": 128,  # Higher quality
+            "model": "s1",  # Flagship model with full emotional control
+            "speed": max(0.5, min(2.0, body.speed)),
+            "volume": max(-20, min(20, body.volume)),
         }
         
         if reference_id:
             tts_request["reference_id"] = reference_id
-        
-        if body.speed != 1.0:
-            tts_request["prosody"] = {
-                "speed": max(0.5, min(2.0, body.speed))
-            }
         
         # Make request to Fish Audio
         async with httpx.AsyncClient(timeout=30.0) as client:
@@ -634,6 +652,7 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
             )
             
             if response.status_code != 200:
+                logger.error(f"Fish Audio error: {response.status_code} - {response.text}")
                 # Try without reference_id if it failed
                 if reference_id:
                     del tts_request["reference_id"]

@@ -131,7 +131,7 @@ export const ChatHeader = ({
                     {/* Thin graphite ring for all agents */}
                     <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ring-[1px] ring-[hsl(200,10%,25%)] ${
                       isSleeping
-                        ? 'w-[42px] h-[42px]'
+                        ? 'w-[46px] h-[46px]'
                         : isActive 
                           ? 'w-[50px] h-[50px]' 
                           : 'w-[42px] h-[42px]'
@@ -152,9 +152,9 @@ export const ChatHeader = ({
                         </div>
                       )}
                     </div>
-                    {/* Dark overlay for sleeping agents */}
+                    {/* Gray transparent overlay for sleeping agents */}
                     {isSleeping && (
-                      <div className="absolute inset-0 bg-black/30 rounded-full" />
+                      <div className="absolute inset-0 bg-gray-400/40 rounded-full" />
                     )}
                     {/* Green neon online indicator on the ring line */}
                     {isActive && !isSleeping && (

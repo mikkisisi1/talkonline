@@ -658,6 +658,29 @@ class UpdateMemoryRequest(BaseModel):
     agentName: str
     userMessage: str
 
+
+# ==================== CHAT HISTORY MODELS ====================
+
+class ChatMessageDB(BaseModel):
+    """Single message in chat history"""
+    id: str
+    role: str  # 'user' or 'assistant'
+    content: str
+    timestamp: int
+    imageUrl: Optional[str] = None
+
+class SaveMessagesRequest(BaseModel):
+    """Request to save messages for a user+agent pair"""
+    userId: str
+    agentId: str
+    messages: List[ChatMessageDB]
+
+class GetMessagesRequest(BaseModel):
+    """Request to get messages for a user+agent pair"""
+    userId: str
+    agentId: str
+    limit: int = 100
+
 @api_router.post("/update-memory")
 async def update_memory_endpoint(body: UpdateMemoryRequest):
     """

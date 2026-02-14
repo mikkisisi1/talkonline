@@ -133,7 +133,7 @@ export const ChatHeader = ({
                       isSleeping
                         ? 'w-[42px] h-[42px] ring-[1px] ring-white/20'
                         : isActive 
-                          ? 'w-[50px] h-[50px] ring-[2.5px] ring-[#00D4AA] shadow-[0_0_12px_rgba(0,212,170,0.5)]' 
+                          ? 'w-[50px] h-[50px] ring-[2.5px] ring-[hsl(185,100%,65%)] shadow-[0_0_12px_hsl(185,100%,65%,0.5)]' 
                           : 'w-[42px] h-[42px] ring-[1px] ring-white/30'
                     }`}>
                       {avatar ? (

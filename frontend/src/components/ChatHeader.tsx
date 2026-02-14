@@ -128,13 +128,13 @@ export const ChatHeader = ({
                   onContextMenu={handleContextMenu}
                 >
                   <div className="relative">
-                    {/* Cyan glow ring for active agent */}
-                    <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ${
+                    {/* Thin graphite ring, cyan glow for active */}
+                    <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ring-[1px] ring-[hsl(200,10%,25%)] ${
                       isSleeping
-                        ? 'w-[42px] h-[42px] ring-[1px] ring-white/20'
+                        ? 'w-[42px] h-[42px]'
                         : isActive 
-                          ? 'w-[50px] h-[50px] ring-[2.5px] ring-[hsl(185,100%,65%)] shadow-[0_0_12px_hsl(185,100%,65%,0.5)]' 
-                          : 'w-[42px] h-[42px] ring-[1px] ring-white/30'
+                          ? 'w-[50px] h-[50px] ring-[2px] ring-[hsl(185,100%,65%)] shadow-[0_0_10px_hsl(185,100%,65%,0.4)]' 
+                          : 'w-[42px] h-[42px]'
                     }`}>
                       {avatar ? (
                         <img 
@@ -148,7 +148,7 @@ export const ChatHeader = ({
                         />
                       ) : (
                         <div className="w-full h-full bg-primary/30 flex items-center justify-center">
-                          <User className={isActive ? 'w-6 h-6 text-header-foreground/80' : 'w-5 h-5 text-header-foreground/80'} />
+                          <User className={isActive ? 'w-6 h-6 text-[hsl(200,10%,25%)]' : 'w-5 h-5 text-[hsl(200,10%,25%)]'} />
                         </div>
                       )}
                     </div>
@@ -157,7 +157,7 @@ export const ChatHeader = ({
                       <div className="absolute inset-0 bg-black/30 rounded-full" />
                     )}
                   </div>
-                  <span className={`mt-0.5 truncate text-[10px] font-normal max-w-[52px] font-mono ${isActive ? 'text-white' : 'text-white/70'}`}>
+                  <span className={`mt-0.5 truncate text-[10px] font-normal max-w-[52px] font-mono text-[hsl(200,10%,20%)]`}>
                     {agent.name.split(' ').pop()}
                   </span>
                 </div>

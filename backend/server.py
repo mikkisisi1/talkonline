@@ -477,8 +477,15 @@ Your style: warm, natural, free, like with someone close."""
                 "HTTP-Referer": "https://talkmee.app",
                 "X-Title": "TalkMe Chat"
             }
-            # Use Venice Uncensored - truly uncensored Dolphin model
-            model_name = "cognitivecomputations/dolphin-mistral-24b-venice-edition:free"
+            # List of free models to try (fallback order)
+            free_models = [
+                "google/gemini-2.0-flash-thinking-exp:free",  # Google Gemini free
+                "deepseek/deepseek-r1:free",  # DeepSeek R1 free
+                "meta-llama/llama-3.3-70b-instruct:free",  # Meta Llama free
+                "qwen/qwen-2.5-72b-instruct:free",  # Qwen free
+                "openrouter/auto",  # Auto-select best available
+            ]
+            model_name = free_models[0]  # Start with first option
         elif deepseek_key:
             api_url = "https://api.deepseek.com/v1/chat/completions"
             headers = {

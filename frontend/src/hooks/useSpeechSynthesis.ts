@@ -3,8 +3,8 @@ import { Language } from '@/lib/translations';
 import { VoiceId, isFishVoice } from '@/lib/storage';
 import { playBlobWithSharedAudio } from '@/lib/audioUnlock';
 
-const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/text-to-speech`;
-const FISH_TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fish-audio-tts`;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+const FISH_TTS_URL = `${BACKEND_URL}/fish-audio-tts`;
 
 /** Strip emoji and other non-speech symbols from text */
 function stripEmoji(text: string): string {
@@ -15,6 +15,38 @@ function stripEmoji(text: string): string {
     .trim();
 }
 
+/** Detect emotion from text content */
+function detectEmotion(text: string): string | undefined {
+  const lower = text.toLowerCase();
+  
+  // Flirty/seductive
+  if (lower.match(/секретн|альбом|покажу|соблазн|желан|страст|хочу тебя|поцелу/)) {
+    return 'flirty';
+  }
+  // Happy/excited
+  if (lower.match(/ха-ха|хаха|круто|класс|ура|обожаю|люблю|счастлив|радост/)) {
+    return 'happy';
+  }
+  // Tender/soft
+  if (lower.match(/нежн|милый|дорогой|солнц|родной|скучаю|обним/)) {
+    return 'tender';
+  }
+  // Playful
+  if (lower.match(/шутк|прикол|игрив|\?\s*😏|хитр/)) {
+    return 'playful';
+  }
+  // Sad
+  if (lower.match(/грустн|печальн|жаль|увы|к сожален/)) {
+    return 'sad';
+  }
+  // Calm (default for long thoughtful messages)
+  if (text.length > 200) {
+    return 'calm';
+  }
+  
+  return undefined;
+}
+
 /** Fetch TTS audio for the full text and return a blob URL */
 async function fetchTts(
   text: string,
@@ -23,47 +55,39 @@ async function fetchTts(
   voiceSpeed: number,
   signal: AbortSignal,
 ): Promise<string | null> {
-  const isFish = isFishVoice(voiceId);
-  const url = isFish ? FISH_TTS_URL : TTS_URL;
-
+  const cleanText = stripEmoji(text);
+  const emotion = detectEmotion(text);
+  
   const body: Record<string, unknown> = {
-    text: stripEmoji(text),
+    text: cleanText,
     language,
     voice: voiceId,
     speed: voiceSpeed,
+    emotion: emotion,
+    add_breath: true,  // Natural breathing
   };
 
-  const response = await fetch(url, {
+  const response = await fetch(FISH_TTS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-      'Accept': isFish ? 'audio/mpeg' : 'application/json',
+      'Accept': 'audio/mpeg',
     },
     body: JSON.stringify(body),
     signal,
   });
 
-  if (!response.ok) throw new Error('TTS request failed');
-
-  if (isFish) {
-    const blob = await response.blob();
-    if (blob.size < 100) {
-      console.error('[TTS] Empty audio blob from Fish TTS:', blob.size);
-      throw new Error('Empty audio response');
-    }
-    return URL.createObjectURL(blob);
-  } else {
-    const data = await response.json();
-    if (!data.audio) return null;
-    const audioBytes = atob(data.audio);
-    const audioArray = new Uint8Array(audioBytes.length);
-    for (let i = 0; i < audioBytes.length; i++) {
-      audioArray[i] = audioBytes.charCodeAt(i);
-    }
-    const audioBlob = new Blob([audioArray], { type: 'audio/mp3' });
-    return URL.createObjectURL(audioBlob);
+  if (!response.ok) {
+    console.error('[TTS] Request failed:', response.status);
+    throw new Error('TTS request failed');
   }
+
+  const blob = await response.blob();
+  if (blob.size < 100) {
+    console.error('[TTS] Empty audio blob:', blob.size);
+    throw new Error('Empty audio response');
+  }
+  return URL.createObjectURL(blob);
 }
 
 /** Generate a soft exhale sound via Web Audio API */

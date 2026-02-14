@@ -230,7 +230,7 @@ export const Settings = ({
             <Image className="w-5 h-5 text-primary" />
             <span className="font-medium">{language === 'ru' ? 'Фон чата' : 'Chat Background'}</span>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {wallpapers.map((wp) => (
               <button
                 key={wp.id}

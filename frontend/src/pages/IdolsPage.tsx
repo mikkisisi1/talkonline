@@ -244,7 +244,7 @@ const IdolsPage = () => {
               onClick={() => handleIdolClick(idol)}
               className="flex flex-col items-center gap-2 p-3 rounded-2xl hover:bg-[hsl(210,10%,18%)] active:scale-95 transition-all"
             >
-              <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-[hsl(195,80%,45%)]/30 hover:ring-[hsl(195,80%,45%)]/60 transition-all">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-2 ring-[hsl(195,80%,45%)]/30 hover:ring-[hsl(195,80%,45%)]/60 transition-all">
                 <img
                   src={idol.avatar}
                   alt={idol.name}

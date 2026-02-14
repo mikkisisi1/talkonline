@@ -337,7 +337,7 @@ export const ChatInput = ({
 
       <div className="flex items-center gap-1.5">
         {/* Input Field with Icons */}
-        <div className="flex-1 min-w-0 bg-[hsl(200,15%,18%)]/85 backdrop-blur-sm rounded-3xl flex items-center min-h-[50px]">
+        <div className="flex-1 min-w-0 bg-[hsl(200,15%,18%)]/85 backdrop-blur-sm border border-[hsl(185,100%,65%)]/30 rounded-3xl flex items-center min-h-[50px]">
           {/* Emoji Button */}
           <button
             className="p-2.5 hover:opacity-70 transition-opacity flex-shrink-0"

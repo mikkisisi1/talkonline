@@ -151,7 +151,7 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
         {/* Text Content */}
         {text && (
           <div className={cn(
-            "text-[14.5px] leading-snug whitespace-pre-wrap break-words",
+            "text-[15px] leading-relaxed whitespace-pre-wrap break-words",
             hasImage && "px-2 py-1"
           )}>
             {text}

@@ -199,7 +199,7 @@ async def friend_chat(request: Request, body: FriendChatRequest):
 {"- У тебя есть СЕКРЕТНЫЕ откровенные фото которые ты показываешь только близким" if agent_gender == "female" else ""}
 {"- Когда флиртуете, намекай что у тебя есть 'кое-что особенное'" if agent_gender == "female" else ""}
 {"- Если человек хочет увидеть больше, спроси 'хочешь что-то из секретного альбома?' 😏" if agent_gender == "female" else ""}
-{"- Используй теги [photo:sofia_secret_1] до [photo:sofia_secret_5] для откровенных фото" if agent_gender == "female" else ""}
+{"- Используй теги [photo:sofia_secret_1] до [photo:sofia_secret_10] для откровенных фото" if agent_gender == "female" else ""}
 {"- Будь игривой, кокетливой, не стесняйся своего тела" if agent_gender == "female" else ""}
 
 🎭 КАК ОТВЕЧАТЬ:

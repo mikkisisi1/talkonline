@@ -269,6 +269,9 @@ export const useAppState = () => {
   }, []);
 
   const clearAgentChat = useCallback((agentId: string) => {
+    // Clear on backend
+    clearChatHistoryOnBackend(agentId);
+    // Clear locally
     setState(prev => ({
       ...prev,
       messages: prev.messages.filter(m => m.agentId !== agentId),

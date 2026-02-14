@@ -222,19 +222,19 @@ const IdolsPage = () => {
   return (
     <div className="h-[100dvh] flex flex-col bg-[hsl(210,10%,12%)]">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-[hsl(210,10%,20%)]">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[hsl(185,100%,35%)] border-b border-[hsl(200,10%,25%)]">
         <button
           onClick={() => navigate('/')}
-          className="p-2 rounded-full hover:bg-[hsl(210,10%,20%)] transition-colors"
+          className="p-2 rounded-full hover:bg-[hsl(200,10%,20%)]/30 transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-[hsl(185,100%,65%)]" />
+          <ArrowLeft className="w-5 h-5 text-[hsl(200,10%,20%)]" />
         </button>
-        <h1 className="text-base sm:text-lg font-bold text-[hsl(185,100%,65%)]">Пообщайся со своими кумирами</h1>
+        <h1 className="text-base sm:text-lg font-bold text-[hsl(200,10%,20%)] font-mono">Пообщайся со своими кумирами</h1>
       </div>
 
       {/* Grid */}
       <div className="flex-1 overflow-y-auto p-4">
-        <p className="text-[hsl(185,100%,65%)]/60 text-sm mb-4 text-center">
+        <p className="text-[hsl(185,100%,65%)]/60 text-sm mb-4 text-center font-mono">
           Выбери персонажа и начни разговор прямо сейчас
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
@@ -242,9 +242,9 @@ const IdolsPage = () => {
             <button
               key={idol.name}
               onClick={() => handleIdolClick(idol)}
-              className="flex flex-col items-center gap-2 p-3 rounded-2xl hover:bg-[hsl(210,10%,18%)] active:scale-95 transition-all"
+              className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[hsl(200,15%,18%)]/70 border border-[hsl(185,100%,65%)]/30 hover:bg-[hsl(200,15%,18%)]/90 active:scale-95 transition-all"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-2 ring-[hsl(195,80%,45%)]/30 hover:ring-[hsl(195,80%,45%)]/60 transition-all">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-1 ring-[hsl(200,10%,25%)] hover:ring-[hsl(185,100%,65%)]/60 transition-all">
                 <img
                   src={idol.avatar}
                   alt={idol.name}
@@ -253,8 +253,8 @@ const IdolsPage = () => {
                 />
               </div>
               <div className="text-center">
-                <p className="text-xs font-semibold text-[hsl(185,100%,65%)] leading-tight">{idol.name}</p>
-                <p className="text-[10px] text-[hsl(185,100%,65%)]/50 leading-tight mt-0.5">{idol.subtitle}</p>
+                <p className="text-xs font-semibold text-[hsl(185,100%,65%)] leading-tight font-mono">{idol.name}</p>
+                <p className="text-[10px] text-[hsl(185,100%,65%)]/50 leading-tight mt-0.5 font-mono">{idol.subtitle}</p>
               </div>
             </button>
           ))}

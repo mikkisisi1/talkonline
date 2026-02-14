@@ -97,7 +97,7 @@ export const ChatHeader = ({
 
   return (
     <>
-      <header className="bg-[hsl(185,100%,35%)] text-white pl-3 pr-4 pt-2 pb-1 flex items-end gap-1 shadow-lg relative">
+      <header className="bg-[hsl(185,100%,35%)] text-[hsl(200,10%,20%)] pl-3 pr-4 pt-2 pb-1 flex items-end gap-1 shadow-lg relative border-b border-[hsl(200,10%,25%)]">
 
         {showBack && onBackClick ? (
           <button

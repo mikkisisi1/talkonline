@@ -37,7 +37,6 @@ async function fetchTts(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
       'Accept': isFish ? 'audio/mpeg' : 'application/json',
     },
     body: JSON.stringify(body),

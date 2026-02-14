@@ -128,12 +128,13 @@ export const ChatHeader = ({
                   onContextMenu={handleContextMenu}
                 >
                   <div className="relative">
-                    <div className={`rounded-full overflow-hidden flex-shrink-0 ring-[0.5px] ring-[#2B2B2B] active:scale-95 transition-all ${
+                    {/* Cyan glow ring for active agent */}
+                    <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ${
                       isSleeping
-                        ? 'w-[39px] h-[39px]'
+                        ? 'w-[42px] h-[42px] ring-[1px] ring-white/20'
                         : isActive 
-                          ? 'w-[47px] h-[47px]' 
-                          : 'w-[39px] h-[39px]'
+                          ? 'w-[50px] h-[50px] ring-[2.5px] ring-[#00D4AA] shadow-[0_0_12px_rgba(0,212,170,0.5)]' 
+                          : 'w-[42px] h-[42px] ring-[1px] ring-white/30'
                     }`}>
                       {avatar ? (
                         <img 
@@ -153,14 +154,10 @@ export const ChatHeader = ({
                     </div>
                     {/* Dark overlay for sleeping agents */}
                     {isSleeping && (
-                      <div className="absolute inset-0 bg-black/15 rounded-full" />
-                    )}
-                    {/* Online indicator — only for awakened agents */}
-                    {isActive && !isSleeping && (
-                      <div className="absolute bottom-0.5 right-0.5 w-[6px] h-[6px] rounded-full" style={{ backgroundColor: '#4CAF50', boxShadow: '0 0 0 0.5px #2B2B2B' }} />
+                      <div className="absolute inset-0 bg-black/30 rounded-full" />
                     )}
                   </div>
-                  <span className={`mt-0 truncate text-[9.5px] font-normal max-w-[48px] font-mono text-card-foreground`}>
+                  <span className={`mt-0.5 truncate text-[10px] font-normal max-w-[52px] font-mono ${isActive ? 'text-white' : 'text-white/70'}`}>
                     {agent.name.split(' ').pop()}
                   </span>
                 </div>

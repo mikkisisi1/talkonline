@@ -4,8 +4,9 @@ import { cn } from '@/lib/utils';
 import { Language } from '@/lib/translations';
 import { VoiceId, isFishVoice } from '@/lib/storage';
 
-const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/text-to-speech`;
-const FISH_TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fish-audio-tts`;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+const TTS_URL = `${BACKEND_URL}/text-to-speech`;
+const FISH_TTS_URL = `${BACKEND_URL}/fish-audio-tts`;
 
 type VoiceCategory = 'male' | 'female' | 'child' | 'premium';
 

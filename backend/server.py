@@ -501,51 +501,75 @@ Your style: warm, natural, free, like with someone close."""
         last_error = None
         models_to_try = free_models if free_models else [model_name]
         
+        if is_streaming:
+            # For streaming, create generator with fallback
+            async def generate_with_fallback():
+                for current_model in models_to_try:
+                    payload = {
+                        "model": current_model,
+                        "messages": api_messages,
+                        "stream": True,
+                        "temperature": 0.8,
+                        "max_tokens": 2000
+                    }
+                    
+                    try:
+                        async with httpx.AsyncClient(timeout=60.0) as client:
+                            async with client.stream(
+                                "POST",
+                                api_url,
+                                headers=headers,
+                                json=payload
+                            ) as response:
+                                if response.status_code in [429, 402]:
+                                    logger.warning(f"[Streaming] Model {current_model} rate limited, trying next...")
+                                    continue
+                                elif response.status_code != 200:
+                                    logger.error(f"[Streaming] Model {current_model} error: {response.status_code}")
+                                    continue
+                                
+                                # Model works, stream the response
+                                async for line in response.aiter_lines():
+                                    if line.strip():
+                                        yield f"{line}\n"
+                                return  # Success, exit the loop
+                    except Exception as e:
+                        logger.error(f"[Streaming] Model {current_model} exception: {e}")
+                        continue
+                
+                # All models failed - yield error
+                yield 'data: {"error": "All models rate limited. Please wait a moment."}\n'
+            
+            return StreamingResponse(generate_with_fallback(), media_type="text/event-stream")
+        
+        # Non-streaming with fallback
         for current_model in models_to_try:
             payload = {
                 "model": current_model,
                 "messages": api_messages,
-                "stream": is_streaming,
+                "stream": False,
                 "temperature": 0.8,
                 "max_tokens": 2000
             }
             
-            if is_streaming:
-                # Streaming response - try with current model
-                async def generate():
-                    async with httpx.AsyncClient(timeout=60.0) as client:
-                        async with client.stream(
-                            "POST",
-                            api_url,
-                            headers=headers,
-                            json=payload
-                        ) as response:
-                            async for line in response.aiter_lines():
-                                if line.strip():
-                                    yield f"{line}\n"
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.post(
+                    api_url,
+                    headers=headers,
+                    json=payload
+                )
                 
-                return StreamingResponse(generate(), media_type="text/event-stream")
-            else:
-                # Non-streaming response with fallback
-                async with httpx.AsyncClient(timeout=60.0) as client:
-                    response = await client.post(
-                        api_url,
-                        headers=headers,
-                        json=payload
-                    )
-                    
-                    if response.status_code == 200:
-                        result = response.json()
-                        content = result["choices"][0]["message"]["content"]
-                        return {"content": content}
-                    elif response.status_code in [429, 402]:
-                        # Rate limited or payment required - try next model
-                        logger.warning(f"Model {current_model} rate limited, trying next...")
-                        last_error = f"Model {current_model}: {response.status_code}"
-                        continue
-                    else:
-                        logger.error(f"LLM API error: {response.status_code} - {response.text}")
-                        raise HTTPException(status_code=response.status_code, detail="LLM API error")
+                if response.status_code == 200:
+                    result = response.json()
+                    content = result["choices"][0]["message"]["content"]
+                    return {"content": content}
+                elif response.status_code in [429, 402]:
+                    logger.warning(f"Model {current_model} rate limited, trying next...")
+                    last_error = f"Model {current_model}: {response.status_code}"
+                    continue
+                else:
+                    logger.error(f"LLM API error: {response.status_code} - {response.text}")
+                    raise HTTPException(status_code=response.status_code, detail="LLM API error")
         
         # All models failed
         raise HTTPException(status_code=429, detail=f"All models rate limited. {last_error}")

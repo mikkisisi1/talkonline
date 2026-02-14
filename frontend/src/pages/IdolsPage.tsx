@@ -229,7 +229,7 @@ const IdolsPage = () => {
         >
           <ArrowLeft className="w-5 h-5 text-[hsl(185,100%,65%)]" />
         </button>
-        <h1 className="text-lg font-bold text-[hsl(185,100%,65%)]">Пообщайся со своими кумирами</h1>
+        <h1 className="text-base sm:text-lg font-bold text-[hsl(185,100%,65%)]">Пообщайся со своими кумирами</h1>
       </div>
 
       {/* Grid */}

@@ -272,7 +272,7 @@ export const ChatInput = ({
   const canSend = (text.trim() || previewImage) && !disabled;
 
   return (
-    <div className="pl-2 pr-1 pt-1.5 pb-4 safe-area-bottom">
+    <div className="pl-2 pr-1 pt-1.5 pb-6 safe-area-bottom">
       {/* Image Preview */}
       {previewImage && (
         <div className="mb-1.5 relative inline-block">

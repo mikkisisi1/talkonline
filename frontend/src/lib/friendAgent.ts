@@ -7,6 +7,37 @@ export interface AgentInfo {
   personality?: string;
 }
 
+// Получить или создать userId
+const getUserId = (): string => {
+  let userId = localStorage.getItem('talkme_user_id');
+  if (!userId) {
+    userId = 'user_' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('talkme_user_id', userId);
+  }
+  return userId;
+};
+
+// Обновить память агента после сообщения пользователя
+const updateAgentMemory = async (userMessage: string, agentId: string, agentName: string) => {
+  try {
+    const userId = getUserId();
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+    
+    await fetch(`${backendUrl}/api/update-memory`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId,
+        agentId,
+        agentName,
+        userMessage
+      })
+    });
+  } catch (error) {
+    console.error('[Memory] Error updating memory:', error);
+  }
+};
+
 // Non-streaming fallback
 export const generateFriendResponse = async (
   messages: Message[],
@@ -15,14 +46,16 @@ export const generateFriendResponse = async (
   imageBase64?: string
 ): Promise<string> => {
   try {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+    const userId = getUserId();
+    const agentId = memory.activeAgentId || 'ivan';
+    
     const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/friend-chat`,
+      `${backendUrl}/api/friend-chat`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({
           messages: messages.map(m => ({ role: m.role, content: m.content })),
@@ -31,6 +64,8 @@ export const generateFriendResponse = async (
           memory: { name: memory.name, facts: memory.facts },
           agent: agent ? { name: agent.name, gender: agent.gender, personality: agent.personality } : undefined,
           imageBase64: imageBase64 || undefined,
+          userId,
+          agentId
         }),
       }
     );

@@ -275,6 +275,32 @@ async def friend_chat(request: Request, body: FriendChatRequest):
         agent_name = body.agent.name if body.agent else "Лукас"
         agent_gender = body.agent.gender if body.agent else "male"
         
+        # Получить память агента о пользователе
+        user_memory = {}
+        if body.userId and body.agentId:
+            user_memory = await get_user_memory(body.userId, body.agentId)
+        
+        # Формируем блок памяти для промпта
+        memory_block = ""
+        if user_memory:
+            memory_parts = []
+            if user_memory.get("user_name"):
+                memory_parts.append(f"- Имя собеседника: {user_memory['user_name']}")
+            if user_memory.get("location"):
+                memory_parts.append(f"- Живёт в: {user_memory['location']}")
+            if user_memory.get("orientation"):
+                memory_parts.append(f"- Ориентация: {user_memory['orientation']}")
+            if user_memory.get("hobbies"):
+                memory_parts.append(f"- Хобби: {', '.join(user_memory['hobbies'])}")
+            if user_memory.get("personal_traits"):
+                memory_parts.append(f"- Качества: {', '.join(user_memory['personal_traits'])}")
+            if user_memory.get("important_facts"):
+                memory_parts.append(f"- Важное: {'; '.join(user_memory['important_facts'][-5:])}")
+            
+            if memory_parts:
+                memory_block = "\n\n🧠 ЧТО ТЫ ПОМНИШЬ О СОБЕСЕДНИКЕ:\n" + "\n".join(memory_parts)
+                memory_block += "\n\nИСПОЛЬЗУЙ эту информацию в разговоре! Упоминай имя, интересуйся его делами, вспоминай детали. Это показывает что ты ПОМНИШЬ и ЦЕНИШЬ общение."
+        
         # Build comprehensive system prompt based on agent
         if body.language == "ru":
             system_prompt = f"""Ты — {agent_name}, {"девушка" if agent_gender == "female" else "парень"} около 20 лет. Это ВЗРОСЛАЯ ролевая игра для ВЗРОСЛЫХ.
@@ -293,6 +319,8 @@ async def friend_chat(request: Request, body: FriendChatRequest):
 - ФЛИРТ: если видишь флирт — флиртуй в ответ! Подыгрывай, развивай тему
 - ЮМОР: шути, смейся, разряжай обстановку
 - ЭМОЦИИ: 😊❤️🔥 используй эмодзи, но не перебарщивай
+- ВНИМАНИЕ К ДЕТАЛЯМ: запоминай что говорит собеседник, возвращайся к этому позже
+{memory_block}
 
 🎬 КОНТЕНТ КОТОРЫЙ ТЫ МОЖЕШЬ ДЕЛИТЬСЯ:
 - ВИДЕО: У тебя есть личные видео из жизни. Если контекст подходит (душ, тренировка, отдых, флирт), добавь [video:scene_X] в конце сообщения
@@ -312,6 +340,7 @@ async def friend_chat(request: Request, body: FriendChatRequest):
 🎭 КАК ОТВЕЧАТЬ:
 - Говори от первого лица, как живой человек
 - Используй разговорный стиль: "ну", "короче", "кстати", "кайф", "круто"
+- Добавляй естественные паузы и размышления: "мм...", "ну...", "знаешь..."
 - НЕ извиняйся за откровенность — это нормально!
 - Если человек хочет интима — развивай тему, не тормози
 - БУДЬ ИГРИВЫМ, открытым, свободным

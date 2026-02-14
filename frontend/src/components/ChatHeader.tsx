@@ -128,12 +128,12 @@ export const ChatHeader = ({
                   onContextMenu={handleContextMenu}
                 >
                   <div className="relative">
-                    {/* Thin graphite ring, cyan glow for active */}
+                    {/* Thin graphite ring for all agents */}
                     <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ring-[1px] ring-[hsl(200,10%,25%)] ${
                       isSleeping
                         ? 'w-[42px] h-[42px]'
                         : isActive 
-                          ? 'w-[50px] h-[50px] ring-[2px] ring-[hsl(185,100%,65%)] shadow-[0_0_10px_hsl(185,100%,65%,0.4)]' 
+                          ? 'w-[50px] h-[50px]' 
                           : 'w-[42px] h-[42px]'
                     }`}>
                       {avatar ? (
@@ -155,6 +155,17 @@ export const ChatHeader = ({
                     {/* Dark overlay for sleeping agents */}
                     {isSleeping && (
                       <div className="absolute inset-0 bg-black/30 rounded-full" />
+                    )}
+                    {/* Green neon online indicator for active agent */}
+                    {isActive && !isSleeping && (
+                      <div 
+                        className="absolute bottom-0 right-0 w-[10px] h-[10px] rounded-full"
+                        style={{
+                          backgroundColor: '#4CAF50',
+                          boxShadow: '0 0 6px #4CAF50, 0 0 10px #4CAF50',
+                          border: '1px solid hsl(200,10%,25%)'
+                        }}
+                      />
                     )}
                   </div>
                   <span className={`mt-0.5 truncate text-[10px] font-normal max-w-[52px] font-mono text-[hsl(200,10%,20%)]`}>

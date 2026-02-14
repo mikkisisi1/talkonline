@@ -93,6 +93,9 @@ class TTSRequest(BaseModel):
     language: str = "ru"
     voice: str = "fish_drug"
     speed: float = 1.0
+    emotion: Optional[str] = None  # calm, happy, sad, angry, excited, whisper, tender, playful
+    volume: int = 0  # -20 to +20 dB
+    add_breath: bool = True  # Добавить естественные вдохи/выдохи
 
 
 # ==================== FISH AUDIO VOICES ====================

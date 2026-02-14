@@ -103,6 +103,12 @@ export const generateFriendResponseStream = async (
   agent?: AgentInfo,
   imageBase64?: string
 ): Promise<string> => {
+  // Обновляем память после сообщения пользователя (в фоне)
+  const lastUserMessage = messages.filter(m => m.role === 'user').pop();
+  if (lastUserMessage && agent) {
+    updateAgentMemory(lastUserMessage.content, memory.activeAgentId || 'ivan', agent.name);
+  }
+  
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const result = await _doStream(messages, memory, onChunk, agent, imageBase64);
@@ -126,14 +132,16 @@ const _doStream = async (
   agent?: AgentInfo,
   imageBase64?: string
 ): Promise<string> => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+  const userId = getUserId();
+  const agentId = memory.activeAgentId || 'ivan';
+  
   const response = await fetch(
-    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/friend-chat`,
+    `${backendUrl}/api/friend-chat`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         'x-stream': 'true',
       },
       body: JSON.stringify({
@@ -143,6 +151,8 @@ const _doStream = async (
         memory: { name: memory.name, facts: memory.facts },
         agent: agent ? { name: agent.name, gender: agent.gender, personality: agent.personality } : undefined,
         imageBase64: imageBase64 || undefined,
+        userId,
+        agentId
       }),
     }
   );

@@ -66,6 +66,16 @@ class MemoryInfo(BaseModel):
     name: Optional[str] = None
     facts: List[str] = []
 
+class UserMemory(BaseModel):
+    """Память агента о пользователе"""
+    user_name: Optional[str] = None
+    location: Optional[str] = None
+    orientation: Optional[str] = None
+    hobbies: List[str] = []
+    personal_traits: List[str] = []
+    important_facts: List[str] = []
+    last_topics: List[str] = []
+
 class FriendChatRequest(BaseModel):
     messages: List[ChatMessage]
     language: str = "ru"
@@ -73,6 +83,8 @@ class FriendChatRequest(BaseModel):
     memory: Optional[MemoryInfo] = None
     agent: Optional[AgentInfo] = None
     imageBase64: Optional[str] = None
+    userId: Optional[str] = None
+    agentId: Optional[str] = None
 
 class TTSRequest(BaseModel):
     text: str

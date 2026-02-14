@@ -477,8 +477,8 @@ Your style: warm, natural, free, like with someone close."""
                 "HTTP-Referer": "https://talkmee.app",
                 "X-Title": "TalkMe Chat"
             }
-            # Use free uncensored model
-            model_name = "nousresearch/hermes-3-llama-3.1-405b:free"
+            # Use Venice Uncensored - truly uncensored Dolphin model
+            model_name = "cognitivecomputations/dolphin-mistral-24b-venice-edition:free"
         elif deepseek_key:
             api_url = "https://api.deepseek.com/v1/chat/completions"
             headers = {

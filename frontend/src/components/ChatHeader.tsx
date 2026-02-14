@@ -131,7 +131,7 @@ export const ChatHeader = ({
                     {/* Thin graphite ring for all agents */}
                     <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ring-[1px] ring-[hsl(200,10%,25%)] ${
                       isSleeping
-                        ? 'w-[42px] h-[42px]'
+                        ? 'w-[38px] h-[38px]'
                         : 'w-[50px] h-[50px]'
                     }`}>
                       {avatar ? (

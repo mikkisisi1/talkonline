@@ -38,6 +38,34 @@ const parseMessageContent = (content: string): { text: string; videos: ParsedVid
   
   let text = content;
   
+  // Extract [SEND_PHOTO:description] tags - match to available photos by keywords
+  const sendPhotoRegex = /\[SEND_PHOTO:([^\]]+)\]/gi;
+  let sendPhotoMatch;
+  while ((sendPhotoMatch = sendPhotoRegex.exec(content)) !== null) {
+    const description = sendPhotoMatch[1].toLowerCase();
+    // Try to find matching photo - for now use sofia photos
+    const photoId = findMatchingPhoto(description);
+    if (photoId) {
+      const url = getPhotoUrl(photoId);
+      if (url) scenePhotos.push(url);
+    }
+    text = text.replace(sendPhotoMatch[0], '').trim();
+  }
+  
+  // Extract [SEND_VIDEO:description] tags - match to available videos by keywords
+  const sendVideoRegex = /\[SEND_VIDEO:([^\]]+)\]/gi;
+  let sendVideoMatch;
+  while ((sendVideoMatch = sendVideoRegex.exec(content)) !== null) {
+    const description = sendVideoMatch[1].toLowerCase();
+    // Find matching video scene by description
+    const sceneId = findMatchingVideo(description);
+    if (sceneId) {
+      const url = getVideoUrl(sceneId);
+      if (url) sceneVideos.push(url);
+    }
+    text = text.replace(sendVideoMatch[0], '').trim();
+  }
+  
   // Extract [photo:sofia_photo_X] tags
   const photoRegex = /\[photo:(sofia_photo_\d+)\]/g;
   let photoMatch;

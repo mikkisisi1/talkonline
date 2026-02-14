@@ -19,6 +19,38 @@ export const useAppState = () => {
   const [state, setState] = useState<AppState>(loadState);
   const t = getTranslation(state.memory.language);
 
+  // Автоматическое переключение темы по времени суток
+  useEffect(() => {
+    const updateThemeByTime = () => {
+      const hour = new Date().getHours();
+      // Тёмная тема: 18:00 - 06:00, Светлая: 06:00 - 18:00
+      const shouldBeDark = hour >= 18 || hour < 6;
+      const currentTheme = state.memory.theme;
+      const newTheme = shouldBeDark ? 'dark' : 'light';
+      
+      // Автоматически переключаем только если пользователь не менял вручную
+      const autoThemeKey = 'talkme_auto_theme';
+      const lastManualChange = localStorage.getItem('talkme_manual_theme_change');
+      const now = Date.now();
+      
+      // Если прошло более 6 часов с ручного изменения - снова включаем авто
+      if (!lastManualChange || (now - parseInt(lastManualChange)) > 6 * 60 * 60 * 1000) {
+        if (currentTheme !== newTheme) {
+          setState(prev => ({
+            ...prev,
+            memory: { ...prev.memory, theme: newTheme },
+          }));
+        }
+      }
+    };
+    
+    // Проверяем при загрузке и каждый час
+    updateThemeByTime();
+    const interval = setInterval(updateThemeByTime, 60 * 60 * 1000);
+    
+    return () => clearInterval(interval);
+  }, [state.memory.theme]);
+
   // One-time migration: ensure all messages have agentId (covers old localStorage + HMR state)
   useEffect(() => {
     setState(prev => {

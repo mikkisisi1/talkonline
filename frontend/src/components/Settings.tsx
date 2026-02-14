@@ -225,7 +225,7 @@ export const Settings = ({
 
       <div className="flex-1 overflow-auto p-4 space-y-6">
         {/* Wallpaper Selection */}
-        <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
+        <div className="bg-[#2a2a2a]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
           <div className="flex items-center gap-3 mb-4">
             <Image className="w-5 h-5 text-[hsl(185,100%,65%)]" />
             <span className="font-medium text-[hsl(185,100%,65%)] font-mono">{language === 'ru' ? 'Фон чата' : 'Chat Background'}</span>
@@ -248,7 +248,7 @@ export const Settings = ({
                   alt={language === 'ru' ? wp.labelRu : wp.labelEn}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-[hsl(200,15%,18%)]/80 py-1 px-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-[#2a2a2a]/80 py-1 px-2">
                   <span className="text-xs text-[hsl(185,100%,65%)] font-medium font-mono">
                     {language === 'ru' ? wp.labelRu : wp.labelEn}
                   </span>
@@ -259,7 +259,7 @@ export const Settings = ({
         </div>
 
         {/* Bilingual Learning Mode */}
-        <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
+        <div className="bg-[#2a2a2a]/70 backdrop-blur-sm rounded-xl p-4 border border-[hsl(185,100%,65%)]/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Languages className="w-5 h-5 text-[hsl(185,100%,65%)]" />
@@ -277,7 +277,7 @@ export const Settings = ({
       {/* Install Section at Bottom */}
       {!isStandalone && (
         <div className="p-4 border-t border-[hsl(200,10%,25%)] bg-[hsl(210,10%,12%)] safe-area-bottom">
-          <div className="bg-[hsl(200,15%,18%)]/70 backdrop-blur-sm rounded-2xl p-4 border border-[hsl(185,100%,65%)]/30">
+          <div className="bg-[#2a2a2a]/70 backdrop-blur-sm rounded-2xl p-4 border border-[hsl(185,100%,65%)]/30">
             {/* Header with icon */}
             <div className="flex items-start gap-3 mb-3">
               <div className="w-10 h-10 rounded-xl bg-[hsl(185,100%,35%)] flex items-center justify-center flex-shrink-0">

@@ -242,7 +242,7 @@ const IdolsPage = () => {
             <button
               key={idol.name}
               onClick={() => handleIdolClick(idol)}
-              className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[hsl(200,15%,18%)]/70 border border-[hsl(185,100%,65%)]/30 hover:bg-[hsl(200,15%,18%)]/90 active:scale-95 transition-all"
+              className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#2a2a2a]/70 border border-[hsl(185,100%,65%)]/30 hover:bg-[#2a2a2a]/90 active:scale-95 transition-all"
             >
               <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-1 ring-[hsl(200,10%,25%)] hover:ring-[hsl(185,100%,65%)]/60 transition-all">
                 <img

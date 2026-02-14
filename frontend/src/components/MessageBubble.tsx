@@ -99,12 +99,12 @@ export const MessageBubble = React.memo(React.forwardRef<HTMLDivElement, Message
   // Determine icon state
   const renderSpeakerIcon = () => {
     if (isLoadingVoice) {
-      return <Loader2 className="w-3.5 h-3.5 text-bubble-received-foreground/80 animate-spin" />;
+      return <Loader2 className="w-4 h-4 text-[#4AEDC4] animate-spin" />;
     }
     if (isSpeaking) {
-      return <VolumeX className="w-3.5 h-3.5 text-bubble-received-foreground/80" />;
+      return <VolumeX className="w-4 h-4 text-[#4AEDC4]" />;
     }
-    return <Volume2 className="w-3.5 h-3.5 text-bubble-received-foreground/80" />;
+    return <Volume2 className="w-4 h-4 text-[#4AEDC4]" />;
   };
 
   return (

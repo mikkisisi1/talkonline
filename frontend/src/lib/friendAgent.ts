@@ -200,23 +200,12 @@ const _doStream = async (
 
       try {
         const json = JSON.parse(trimmed.slice(6));
-        // Prefer content over reasoning (reasoning is model's internal thinking)
+        // ONLY use content field - skip reasoning entirely
+        // Content is the actual response, reasoning is internal model thinking
         const delta = json.choices?.[0]?.delta?.content || '';
         
-        // Only use reasoning if there's no content at all in this chunk
-        // Skip reasoning that looks like internal monologue
-        let textDelta = delta;
-        if (!textDelta) {
-          const reasoning = json.choices?.[0]?.delta?.reasoning || '';
-          // Skip reasoning if it contains meta-thinking patterns
-          const isMetaThinking = reasoning.match(/^[\(\[\{]|Okay|okay|thinking|думаю|начина|пользовател|человек|сообщен/i);
-          if (!isMetaThinking && reasoning) {
-            textDelta = reasoning;
-          }
-        }
-        
-        if (textDelta) {
-          fullText += textDelta;
+        if (delta) {
+          fullText += delta;
 
           const loopTrimmed = detectRepetitionLoop(fullText);
           if (loopTrimmed !== null) {

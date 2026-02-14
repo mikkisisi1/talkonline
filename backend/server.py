@@ -262,33 +262,24 @@ async def extract_facts_from_message(content: str, agent_name: str) -> dict:
 def add_natural_speech_markers(text: str) -> str:
     """Добавить естественные речевые маркеры для Fish Audio S1
     
-    Fish Audio рекомендует:
-    - (soft tone) - мягкий тон
-    - (breathing) - вдох
-    - (sighing) - вздох  
-    - ... - паузы
-    - Ha,ha,ha - смех
+    Fish Audio использует prosody control (speed, volume) для интонации.
+    В тексте только паузы для естественности.
     """
     import re
     
     result = text
     
-    # Добавляем мягкие паузы после длинных предложений
+    # Добавляем мягкие паузы после длинных предложений (15% шанс)
     sentences = result.split('. ')
     new_sentences = []
     for i, sent in enumerate(sentences):
         new_sentences.append(sent)
-        # Добавляем паузу после длинного предложения с 15% вероятностью
-        if len(sent) > 40 and random.random() < 0.15:
+        if len(sent) > 50 and random.random() < 0.15:
             new_sentences[-1] = sent + '...'
     result = '. '.join(new_sentences)
     
-    # Добавляем паузы перед "но", "а", "однако" 
+    # Паузы перед союзами для естественного ритма
     result = re.sub(r'\s+(но|а|однако|хотя)\s+', r'... \1 ', result, flags=re.IGNORECASE)
-    
-    # Для вопросов иногда добавляем (soft tone) в начале
-    if '?' in result and random.random() < 0.2:
-        result = '(soft tone) ' + result
     
     return result
 

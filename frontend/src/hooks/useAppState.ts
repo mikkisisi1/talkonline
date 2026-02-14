@@ -23,6 +23,44 @@ import {
 export const useAppState = () => {
   const [state, setState] = useState<AppState>(loadState);
   const t = getTranslation(state.memory.language);
+  
+  // Track loaded agents to avoid duplicate loads
+  const loadedAgentsRef = useRef<Set<string>>(new Set());
+  
+  // Load chat history from backend when agent is selected
+  useEffect(() => {
+    const loadHistory = async () => {
+      const agentId = state.memory.activeAgentId;
+      if (!agentId || loadedAgentsRef.current.has(agentId)) return;
+      
+      loadedAgentsRef.current.add(agentId);
+      
+      try {
+        const backendMessages = await loadMessagesFromBackend(agentId);
+        if (backendMessages.length > 0) {
+          // Merge with local: prefer backend if newer or local is empty
+          setState(prev => {
+            const localAgentMessages = prev.messages.filter(m => m.agentId === agentId);
+            const otherMessages = prev.messages.filter(m => m.agentId !== agentId);
+            
+            // If backend has more messages, use backend
+            if (backendMessages.length > localAgentMessages.length) {
+              console.log(`[useAppState] Loaded ${backendMessages.length} messages from backend for ${agentId}`);
+              return {
+                ...prev,
+                messages: [...otherMessages, ...backendMessages],
+              };
+            }
+            return prev;
+          });
+        }
+      } catch (error) {
+        console.error('[useAppState] Failed to load history:', error);
+      }
+    };
+    
+    loadHistory();
+  }, [state.memory.activeAgentId]);
 
   // Автоматическое переключение темы по времени суток
   useEffect(() => {

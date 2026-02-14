@@ -355,8 +355,19 @@ export const ChatInput = ({
           </button>
 
           {isListening ? (
-            <div className="flex-1 flex items-center justify-center py-3">
-              <span className="text-[hsl(185,100%,65%)] text-sm font-mono">...</span>
+            <div className="flex-1 flex items-center justify-center py-3 gap-1">
+              {/* Voice wave animation */}
+              <div className="flex items-center gap-[3px] h-6">
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-1"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-2"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-3"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-4"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-5"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-4"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-3"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-2"></span>
+                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-1"></span>
+              </div>
             </div>
           ) : (
             <textarea

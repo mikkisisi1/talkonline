@@ -80,4 +80,4 @@
 - Chat history не сохраняется между сессиями
 
 ## Preview URL
-https://chat-with-sofia.preview.emergentagent.com
+https://warm-gentle-ai.preview.emergentagent.com

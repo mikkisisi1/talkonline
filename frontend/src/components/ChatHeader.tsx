@@ -132,7 +132,7 @@ export const ChatHeader = ({
                     <div className={`rounded-full overflow-hidden flex-shrink-0 active:scale-95 transition-all ring-[1px] ring-[hsl(200,10%,25%)] ${
                       isActive
                         ? 'w-[50px] h-[50px]'
-                        : 'w-[42px] h-[42px]'
+                        : 'w-[45px] h-[45px]'
                     }`}>
                       {avatar ? (
                         <img 

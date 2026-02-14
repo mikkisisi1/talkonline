@@ -389,17 +389,17 @@ export const ChatInput = ({
           <button
             onClick={handleVoiceClick}
             className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center transition-all flex-shrink-0',
+              'w-11 h-11 rounded-full flex items-center justify-center transition-all flex-shrink-0',
               isListening
-                ? 'bg-[hsl(185,100%,65%)] text-[hsl(210,10%,20%)] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%/0.5)]'
-                : 'bg-[hsl(var(--chat-input-bg)/0.85)] text-[hsl(var(--chat-input-foreground))]'
+                ? 'bg-[#00D4AA] text-[#0a2020] voice-pulse shadow-[0_0_20px_rgba(0,212,170,0.5)]'
+                : 'bg-[#1a3a3a]/85 text-[#4AEDC4] border border-[#00D4AA]/20'
             )}
             aria-label={isListening ? t.listening : t.tapToSpeak}
           >
             {isListening ? (
-              <MicOff className="w-4 h-4" />
+              <MicOff className="w-5 h-5" />
             ) : (
-              <Mic className="w-4 h-4" />
+              <Mic className="w-5 h-5" />
             )}
           </button>
         ) : (
@@ -407,14 +407,14 @@ export const ChatInput = ({
             onClick={handleSubmit}
             disabled={!canSend}
             className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center transition-all flex-shrink-0',
+              'w-11 h-11 rounded-full flex items-center justify-center transition-all flex-shrink-0',
               canSend
-                ? 'bg-[hsl(var(--chat-input-bg)/0.85)] text-[hsl(var(--chat-input-foreground))]'
-                : 'bg-[hsl(var(--chat-input-bg)/0.5)] text-[hsl(var(--chat-input-foreground))]/30'
+                ? 'bg-[#1a3a3a]/85 text-[#4AEDC4] border border-[#00D4AA]/20'
+                : 'bg-[#1a3a3a]/50 text-[#4AEDC4]/30'
             )}
             aria-label="Send"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-5 h-5" />
           </button>
         )}
       </div>

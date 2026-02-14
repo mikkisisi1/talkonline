@@ -260,47 +260,35 @@ async def extract_facts_from_message(content: str, agent_name: str) -> dict:
     return facts
 
 def add_natural_speech_markers(text: str) -> str:
-    """Добавить естественные речевые маркеры для более живого TTS (Fish Audio S1)"""
+    """Добавить естественные речевые маркеры для Fish Audio S1
+    
+    Fish Audio рекомендует:
+    - (soft tone) - мягкий тон
+    - (breathing) - вдох
+    - (sighing) - вздох  
+    - ... - паузы
+    - Ha,ha,ha - смех
+    """
     import re
     
     result = text
     
-    # Добавляем паузы после запятых с 25% вероятностью
-    def maybe_add_pause(match):
-        if random.random() < 0.25:
-            return match.group(0) + '...'
-        return match.group(0)
-    
-    result = re.sub(r',(?=\s)', maybe_add_pause, result)
+    # Добавляем мягкие паузы после длинных предложений
+    sentences = result.split('. ')
+    new_sentences = []
+    for i, sent in enumerate(sentences):
+        new_sentences.append(sent)
+        # Добавляем паузу после длинного предложения с 15% вероятностью
+        if len(sent) > 40 and random.random() < 0.15:
+            new_sentences[-1] = sent + '...'
+    result = '. '.join(new_sentences)
     
     # Добавляем паузы перед "но", "а", "однако" 
     result = re.sub(r'\s+(но|а|однако|хотя)\s+', r'... \1 ', result, flags=re.IGNORECASE)
     
-    # Добавляем эмоциональные вдохи перед длинными предложениями
-    sentences = result.split('. ')
-    new_sentences = []
-    for i, sent in enumerate(sentences):
-        if i > 0 and len(sent) > 50 and random.random() < 0.2:
-            prefix = random.choice(['Мм... ', 'Ну... ', 'Знаешь... ', 'А... ', ''])
-            sent = prefix + sent
-        elif i > 0 and len(sent) > 20 and random.random() < 0.1:
-            prefix = random.choice(['Мм... ', 'Ну... ', ''])
-            sent = prefix + sent
-        new_sentences.append(sent)
-    result = '. '.join(new_sentences)
-    
-    # Добавляем "хм" перед вопросами (15%)
-    def add_thinking(match):
-        if random.random() < 0.15:
-            prefix = random.choice(['Хм, ', 'А, '])
-            return prefix + match.group(0)
-        return match.group(0)
-    result = re.sub(r'(?<=[.!]\s)([А-ЯA-Z][^?]*\?)', add_thinking, result)
-    
-    # Добавляем смешки для позитивных сообщений
-    if any(word in result.lower() for word in ['круто', 'классно', 'ха-ха', 'смешно', 'прикольно']):
-        if random.random() < 0.25:
-            result = result.rstrip('!.') + ', ха-ха!'
+    # Для вопросов иногда добавляем (soft tone) в начале
+    if '?' in result and random.random() < 0.2:
+        result = '(soft tone) ' + result
     
     return result
 

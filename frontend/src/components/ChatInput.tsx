@@ -337,18 +337,18 @@ export const ChatInput = ({
 
       <div className="flex items-center gap-1.5">
         {/* Input Field with Icons */}
-        <div className="flex-1 min-w-0 bg-[#1a3a3a]/85 backdrop-blur-sm border border-[#00D4AA]/20 rounded-3xl flex items-center min-h-[50px]">
+        <div className="flex-1 min-w-0 bg-[#1a3a3a]/85 backdrop-blur-sm border border-[hsl(185,100%,65%)]/20 rounded-3xl flex items-center min-h-[50px]">
           {/* Emoji Button */}
           <button
             className="p-2.5 hover:opacity-70 transition-opacity flex-shrink-0"
             aria-label="Emoji"
           >
-            <Smile className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
+            <Smile className="w-5 h-5 stroke-[1.5] text-[hsl(185,100%,65%)]" />
           </button>
 
           {isListening ? (
             <div className="flex-1 flex items-center justify-center py-3">
-              <span className="text-[#4AEDC4] text-sm font-mono">...</span>
+              <span className="text-[hsl(185,100%,65%)] text-sm font-mono">...</span>
             </div>
           ) : (
             <textarea
@@ -359,7 +359,7 @@ export const ChatInput = ({
               placeholder={t.typeMessage}
               disabled={disabled}
               rows={1}
-              className="flex-1 min-w-0 bg-transparent resize-none outline-none text-[#4AEDC4] placeholder:text-[#4AEDC4]/40 text-[15px] leading-5 max-h-[100px] py-3 font-mono"
+              className="flex-1 min-w-0 bg-transparent resize-none outline-none text-[hsl(185,100%,65%)] placeholder:text-[hsl(185,100%,65%)]/40 text-[15px] leading-5 max-h-[100px] py-3 font-mono"
             />
           )}
 
@@ -369,7 +369,7 @@ export const ChatInput = ({
             className="p-2 hover:opacity-70 transition-opacity flex-shrink-0"
             aria-label="Attach"
           >
-            <Paperclip className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
+            <Paperclip className="w-5 h-5 stroke-[1.5] text-[hsl(185,100%,65%)]" />
           </button>
 
           {/* Camera Button (only when no text) */}
@@ -379,7 +379,7 @@ export const ChatInput = ({
               className="p-2 pr-3 hover:opacity-70 transition-opacity flex-shrink-0"
               aria-label="Camera"
             >
-              <Camera className="w-5 h-5 stroke-[1.5] text-[#4AEDC4]" />
+              <Camera className="w-5 h-5 stroke-[1.5] text-[hsl(185,100%,65%)]" />
             </button>
           )}
         </div>

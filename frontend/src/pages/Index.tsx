@@ -85,29 +85,42 @@ const Index = () => {
       if (ctx.state === 'suspended') await ctx.resume();
       const now = ctx.currentTime;
 
-      // Очень нежный, тихий звоночек
+      // Маленький необычный колокольчик - с лёгким мерцанием
+      // Две близкие частоты создают эффект "биения"
       const osc1 = ctx.createOscillator();
       const gain1 = ctx.createGain();
       osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(392, now); // G4 - мягкая нота Соль
-      gain1.gain.setValueAtTime(0.08, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+      osc1.frequency.setValueAtTime(1319, now); // E6
+      gain1.gain.setValueAtTime(0.1, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
       osc1.connect(gain1);
       gain1.connect(ctx.destination);
       osc1.start(now);
-      osc1.stop(now + 0.6);
+      osc1.stop(now + 0.5);
 
-      // Лёгкая октава - едва слышно
+      // Чуть расстроенная нота - создаёт "мерцание"
       const osc2 = ctx.createOscillator();
       const gain2 = ctx.createGain();
       osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(784, now); // G5
-      gain2.gain.setValueAtTime(0.03, now);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      osc2.frequency.setValueAtTime(1325, now); // чуть выше - биение
+      gain2.gain.setValueAtTime(0.1, now);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
       osc2.connect(gain2);
       gain2.connect(ctx.destination);
       osc2.start(now);
-      osc2.stop(now + 0.4);
+      osc2.stop(now + 0.5);
+
+      // Высокий призвук - "блик"
+      const osc3 = ctx.createOscillator();
+      const gain3 = ctx.createGain();
+      osc3.type = 'sine';
+      osc3.frequency.setValueAtTime(2637, now); // E7
+      gain3.gain.setValueAtTime(0.04, now);
+      gain3.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc3.connect(gain3);
+      gain3.connect(ctx.destination);
+      osc3.start(now);
+      osc3.stop(now + 0.25);
     } catch {}
   }, []);
 

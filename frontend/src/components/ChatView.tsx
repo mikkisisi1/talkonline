@@ -266,11 +266,9 @@ export const ChatView = ({
               {noAgentSelected ? (
                 <div className="h-full flex flex-col justify-start relative z-10">
                   <div className="max-w-3xl mx-auto px-3 py-4 w-full">
-                    <div className="flex justify-start">
-                      <div className="max-w-[85%] shadow-sm px-2.5 py-1 bg-[hsl(var(--chat-input-bg)/0.85)] text-[hsl(var(--chat-input-foreground))] rounded-t-bubble rounded-br-bubble rounded-bl-md">
-                        <p className="text-[16px] leading-snug">
-                          {language === 'ru' ? '☝️ Нажми на кружок с аватаром чтобы начать диалог' : '☝️ Tap an avatar circle to start a chat'}
-                        </p>
+                    <div className="flex justify-center">
+                      <div className="bg-[#1a3a3a]/80 backdrop-blur-sm text-[#4AEDC4] text-[14px] px-4 py-2 rounded-full shadow-md font-mono border border-[#00D4AA]/20">
+                        {language === 'ru' ? '☝️ Нажми на кружок с аватаром чтобы начать диалог' : '☝️ Tap an avatar circle to start a chat'}
                       </div>
                     </div>
                   </div>

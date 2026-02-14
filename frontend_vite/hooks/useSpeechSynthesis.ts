@@ -3,8 +3,8 @@ import { Language } from '@/lib/translations';
 import { VoiceId, isFishVoice } from '@/lib/storage';
 import { playBlobWithSharedAudio } from '@/lib/audioUnlock';
 
-const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/text-to-speech`;
-const FISH_TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fish-audio-tts`;
+const TTS_URL = `${import.meta.env.VITE_BACKEND_URL}/api/text-to-speech`;
+const FISH_TTS_URL = `${import.meta.env.VITE_BACKEND_URL}/api/fish-audio-tts`;
 
 /** Strip emoji and other non-speech symbols from text */
 function stripEmoji(text: string): string {

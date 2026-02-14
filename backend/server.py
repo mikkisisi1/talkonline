@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
+from datetime import datetime, timezone
 from pathlib import Path
 import os
 import logging
@@ -17,6 +18,7 @@ import json
 import asyncio
 import httpx
 import base64
+import random
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent

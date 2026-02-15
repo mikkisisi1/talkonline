@@ -17,6 +17,7 @@ interface ChatInputProps {
   onVoiceStop: () => void;
   voiceTranscript: string;
   onMicroReaction?: () => void;
+  isSpeaking?: boolean;
 }
 
 const AUTO_SEND_DELAY = 2000; // 2 seconds

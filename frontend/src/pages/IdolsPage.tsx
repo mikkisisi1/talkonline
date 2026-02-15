@@ -325,7 +325,19 @@ const IdolsPage = () => {
       sessionStorage.setItem(`welcome_heard_${existing.id}`, '1');
       const currentState = loadState();
       saveState({ ...currentState, memory: { ...currentState.memory, activeAgentId: existing.id } });
+      navigate('/');
     } else {
+      // Check if max agents reached
+      if (memory.agents.length >= MAX_AGENTS) {
+        toast.error(
+          memory.language === 'ru' 
+            ? 'Максимум 5 агентов. Удерживай аватар агента чтобы удалить его.' 
+            : 'Maximum 5 agents. Long-press an agent avatar to delete it.',
+          { duration: 4000 }
+        );
+        return;
+      }
+      
       const newAgent = addAgent({
         name: idol.name,
         avatarUrl: idol.avatar,
@@ -353,8 +365,8 @@ const IdolsPage = () => {
           },
         });
       }
+      navigate('/');
     }
-    navigate('/');
   }, [memory.agents, memory.language, addAgent, setActiveAgent, addMessage, navigate]);
 
   return (

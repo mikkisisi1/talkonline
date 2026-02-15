@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -10,9 +10,14 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasError, setHasError] = useState(false);
 
-  // If video has error, skip splash
+  // If video has error, skip splash using useEffect to avoid setState during render
+  useEffect(() => {
+    if (hasError) {
+      onComplete();
+    }
+  }, [hasError, onComplete]);
+
   if (hasError) {
-    onComplete();
     return null;
   }
 

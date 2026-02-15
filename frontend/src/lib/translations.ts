@@ -19,10 +19,19 @@ export const getWelcomeMessage = (language: Language, agentName: string): string
 
 // TTS-optimized welcome text — clean of emoji, with punctuation for natural rhythm
 export const getWelcomeSpeechText = (language: Language, agentName: string): string => {
+  // Check if it's a default agent (Lucas/Sofia) or an idol
+  const isDefaultAgent = agentName === 'Лукас' || agentName === 'София' || agentName === 'Lucas' || agentName === 'Sofia';
+  
   if (language === 'ru') {
-    return `Привет! Я ${agentName}, твой личный ИИ агент, друг или партнёр. Нажми плюс, для перехода в настройки, или на значок Сатурна, для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится мне.`;
+    if (isDefaultAgent) {
+      return `Привет! Я ${agentName}, твой личный ИИ агент, друг или партнёр. Нажми плюс, для перехода в настройки, или на значок Сатурна, для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится мне.`;
+    }
+    return `Я ${agentName}, хочешь что-нибудь обсудить? Говори, я весь во внимании.`;
   }
-  return `Hi! I'm ${agentName}, your personal AI agent, friend or partner. Tap plus to open settings, or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically.`;
+  if (isDefaultAgent) {
+    return `Hi! I'm ${agentName}, your personal AI agent, friend or partner. Tap plus to open settings, or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically.`;
+  }
+  return `I'm ${agentName}, want to discuss something? Go ahead, I'm all ears.`;
 };
 
 export const translations = {

@@ -152,11 +152,13 @@ export const ChatHeader = ({
                 <div
                   key={agent.id}
                   className="flex flex-col items-center cursor-pointer select-none flex-shrink-0 snap-start"
-                  onClick={handleAgentClick(agent.id)}
+                  onMouseDown={handleAgentMouseDown(agent.id)}
+                  onMouseUp={handleAgentMouseUp}
+                  onMouseLeave={handleAgentMouseLeave}
                   onTouchStart={handleAgentTouchStart(agent.id)}
                   onTouchEnd={handleAgentTouchEnd}
                   onTouchCancel={handleAgentTouchEnd}
-                  onContextMenu={handleContextMenu}
+                  onContextMenu={handleContextMenu(agent.id)}
                 >
                   <div className="relative">
                     {/* Thin graphite ring for all agents */}

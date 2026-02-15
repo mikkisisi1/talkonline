@@ -345,12 +345,13 @@ const IdolsPage = () => {
         gender: idol.gender,
         personality: idol.personality,
       });
-      // Mark as awakened (online) immediately
-      sessionStorage.setItem(`welcome_heard_${newAgent.id}`, '1');
       
-      // Add welcome message with idol's name
-      const welcomeMsg = getWelcomeMessage(memory.language, idol.name);
-      addMessage(welcomeMsg, 'assistant', undefined, newAgent.id);
+      // Set flag to play welcome on Index page (don't mark as awakened yet)
+      sessionStorage.setItem('pending_welcome_agent', JSON.stringify({
+        agentId: newAgent.id,
+        agentName: idol.name,
+        voiceId: idol.voiceId
+      }));
       
       // Flush to localStorage synchronously before navigation
       const currentState = loadState();

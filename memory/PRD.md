@@ -89,7 +89,7 @@
 - ⚠️ Микрофон - зависит от браузера (Web Speech API)
 
 ## Preview URL
-https://agent-voices.preview.emergentagent.com
+https://tts-fix-lucas.preview.emergentagent.com
 
 ## Test Status (14.02.2026)
 - Backend: 100% (17/17 tests passed)

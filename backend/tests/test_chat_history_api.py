@@ -13,7 +13,7 @@ import os
 import time
 
 # Use public URL for testing
-BASE_URL = os.environ.get('VITE_BACKEND_URL', 'https://agent-voices.preview.emergentagent.com/api')
+BASE_URL = os.environ.get('VITE_BACKEND_URL', 'https://tts-fix-lucas.preview.emergentagent.com/api')
 
 # Test data identifiers - for easy cleanup
 TEST_USER_ID = f"TEST_user_{int(time.time())}"

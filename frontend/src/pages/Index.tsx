@@ -127,6 +127,56 @@ const Index = () => {
   // Guard ref to prevent double-firing of wake logic
   const wakingRef = useRef<Set<string>>(new Set());
 
+  // Handle pending welcome from IdolsPage (new idol was added)
+  useEffect(() => {
+    const pendingWelcome = sessionStorage.getItem('pending_welcome_agent');
+    if (!pendingWelcome) return;
+    
+    try {
+      const { agentId, agentName, voiceId } = JSON.parse(pendingWelcome);
+      sessionStorage.removeItem('pending_welcome_agent');
+      
+      // Small delay to let the page render
+      setTimeout(async () => {
+        unlockAudioOnce();
+        
+        // Mark as awakened
+        sessionStorage.setItem(`welcome_heard_${agentId}`, '1');
+        setAwakenedAgents(prev => new Set(prev).add(agentId));
+        
+        // Add welcome message
+        const agentWelcome = getWelcomeMessage(memory.language, agentName);
+        addMessage(agentWelcome, 'assistant', undefined, agentId);
+        
+        // Play chime
+        playTapChime();
+        
+        // Play welcome audio
+        if (memory.voiceEnabled) {
+          try {
+            const welcomeText = getWelcomeSpeechText(memory.language, agentName);
+            const audioUrl = await getWelcomeAudioUrl(agentId, memory.language, welcomeText, voiceId, memory.voiceSpeed);
+            if (audioUrl) {
+              await new Promise(r => setTimeout(r, 500));
+              const audio = new Audio(audioUrl);
+              welcomeAudioRef.current = audio;
+              audio.onended = async () => {
+                URL.revokeObjectURL(audioUrl);
+                welcomeAudioRef.current = null;
+                await playExhale();
+              };
+              await audio.play();
+            }
+          } catch (err) {
+            console.error('[Welcome Idol] Audio error:', err);
+          }
+        }
+      }, 300);
+    } catch (e) {
+      sessionStorage.removeItem('pending_welcome_agent');
+    }
+  }, []);
+
   // Handle selecting an agent — if not yet awakened, play chime + welcome audio
   const handleSelectAgent = useCallback(async (agentId: string) => {
     // Selecting an agent is a user gesture — unlock audio early for welcome/TTS.

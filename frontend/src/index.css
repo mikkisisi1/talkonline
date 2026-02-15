@@ -365,21 +365,48 @@
 }
 
 /* Horizontal wave animation for voice playback */
-@keyframes thinWave {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.4;
+@keyframes sineWave1 {
+  0% {
+    transform: scaleY(1) translateY(0);
+  }
+  25% {
+    transform: scaleY(3) translateY(-2px);
   }
   50% {
-    transform: translateY(-8px);
-    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  75% {
+    transform: scaleY(3) translateY(2px);
+  }
+  100% {
+    transform: scaleY(1) translateY(0);
   }
 }
 
-.wave-container {
-  display: flex;
-  align-items: center;
-  height: 20px;
+@keyframes sineWave2 {
+  0% {
+    transform: scaleY(3) translateY(2px);
+  }
+  25% {
+    transform: scaleY(1) translateY(0);
+  }
+  50% {
+    transform: scaleY(3) translateY(-2px);
+  }
+  75% {
+    transform: scaleY(1) translateY(0);
+  }
+  100% {
+    transform: scaleY(3) translateY(2px);
+  }
+}
+
+.animate-sine-wave-1 {
+  animation: sineWave1 0.8s ease-in-out infinite;
+}
+
+.animate-sine-wave-2 {
+  animation: sineWave2 0.8s ease-in-out infinite;
 }
 
 /* Safe area for mobile */

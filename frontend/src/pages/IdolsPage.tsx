@@ -346,7 +346,7 @@ const IdolsPage = () => {
       </div>
 
       {/* Grid */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4 pb-20">
         <p className="text-[hsl(185,100%,65%)]/60 text-sm mb-4 text-center font-mono">
           Выбери персонажа и начни разговор прямо сейчас
         </p>
@@ -357,13 +357,19 @@ const IdolsPage = () => {
               onClick={() => handleIdolClick(idol)}
               className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#2a2a2a]/70 border border-[hsl(185,100%,65%)]/30 hover:bg-[#2a2a2a]/90 active:scale-95 transition-all"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-1 ring-[hsl(200,10%,25%)] hover:ring-[hsl(185,100%,65%)]/60 transition-all">
-                <img
-                  src={idol.avatar}
-                  alt={idol.name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-1 ring-[hsl(200,10%,25%)] hover:ring-[hsl(185,100%,65%)]/60 transition-all bg-[hsl(185,100%,35%)]/20 flex items-center justify-center">
+                {idol.avatar ? (
+                  <img
+                    src={idol.avatar}
+                    alt={idol.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="text-2xl sm:text-3xl md:text-4xl text-[hsl(185,100%,65%)]/60 font-mono">
+                    {idol.name.charAt(0)}
+                  </span>
+                )}
               </div>
               <div className="text-center">
                 <p className="text-xs font-semibold text-[hsl(185,100%,65%)] leading-tight font-mono">{idol.name}</p>

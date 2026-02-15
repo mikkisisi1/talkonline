@@ -370,12 +370,40 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50px);
+    transform: translateX(-25px);
   }
 }
 
-.sine-wave {
-  animation: sineWaveMove 0.5s linear infinite;
+@keyframes waveOpacity {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes micPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+.sine-wave-1 {
+  animation: sineWaveMove 0.8s linear infinite, waveOpacity 1s ease-in-out infinite;
+}
+
+.sine-wave-2 {
+  animation: sineWaveMove 0.8s linear infinite 0.1s, waveOpacity 1s ease-in-out infinite 0.5s;
+}
+
+.mic-pulse {
+  animation: micPulse 1s ease-in-out infinite;
 }
 
 /* Safe area for mobile */

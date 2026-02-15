@@ -299,6 +299,7 @@ export const ChatView = ({
               voiceEnabled={voiceEnabled}
               isListening={isListening}
               isVoiceSupported={isSupported}
+              isSpeaking={isSpeaking}
               onVoiceStart={() => {
                 if (isSpeaking) {
                   stopSpeaking();

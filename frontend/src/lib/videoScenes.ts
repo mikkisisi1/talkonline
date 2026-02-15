@@ -411,8 +411,8 @@ export const findMatchingVideo = (description: string, agentId?: string): string
 
 // Find matching photo by description/keywords (only Sofia has photos)
 export const findMatchingPhoto = (description: string, agentId?: string): string | null => {
-  // Only Sofia has photo scenes - if it's Ivan/Lucas, return null
-  if (agentId && agentId !== 'sofia') {
+  // Only Sofia (ksenia) has photo scenes - if it's Ivan/Lucas, return null
+  if (agentId && agentId !== 'ksenia') {
     return null;
   }
   

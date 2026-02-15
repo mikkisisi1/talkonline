@@ -356,9 +356,9 @@ export const ChatInput = ({
             <Smile className="w-5 h-5 stroke-[1.5] text-[hsl(185,100%,65%)]" />
           </button>
 
-          {isListening ? (
+          {(isListening || isSpeaking) ? (
             <div className="flex-1 flex items-center justify-center py-3 gap-1">
-              {/* Voice wave animation */}
+              {/* Voice wave animation - shows when recording or when agent is speaking */}
               <div className="flex items-center gap-[3px] h-6">
                 <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-1"></span>
                 <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-2"></span>

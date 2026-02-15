@@ -45,7 +45,7 @@ const parseMessageContent = (content: string, agentId?: string): { text: string;
   while ((sendPhotoMatch = sendPhotoRegex.exec(content)) !== null) {
     const description = sendPhotoMatch[1].toLowerCase();
     // Only Sofia has photos
-    if (agentId === 'sofia') {
+    if (agentId === 'ksenia') {
       const photoId = findMatchingPhoto(description, agentId);
       if (photoId) {
         const url = getPhotoUrl(photoId);

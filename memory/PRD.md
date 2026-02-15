@@ -88,7 +88,15 @@
 - ⚠️ TTS Лукаса - работает нормально (200 OK). Если нет звука - проверьте громкость браузера
 
 ## Preview URL
-https://idol-chat-preview.preview.emergentagent.com
+https://7462b490-b5e6-440d-a2c1-48976b461b9d.preview.emergentagent.com
+
+## Deployment Status
+✅ **ГОТОВ К ДЕПЛОЮ** (15.02.2026)
+- Deployment agent проверка: PASS
+- Backend health: /api/health работает
+- Frontend build: yarn build успешно
+- Все API endpoints: работают
+- Splash screen: исправлен fallback при ошибке видео
 
 ## Fish Audio Voice IDs (Новые 15.02.2026)
 ```

@@ -35,6 +35,7 @@ export const ChatInput = ({
   onVoiceStop,
   voiceTranscript,
   onMicroReaction,
+  isSpeaking,
 }: ChatInputProps) => {
   const [text, setText] = useState('');
   const [showAttachMenu, setShowAttachMenu] = useState(false);

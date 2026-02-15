@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -8,9 +8,28 @@ const SPLASH_VIDEO_URL = 'https://customer-assets.emergentagent.com/job_8f3af781
 
 export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasError, setHasError] = useState(false);
+
+  // Timeout fallback - if video doesn't load in 5 seconds, skip splash
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onComplete();
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [onComplete]);
+
+  // If video has error, complete immediately
+  useEffect(() => {
+    if (hasError) {
+      onComplete();
+    }
+  }, [hasError, onComplete]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+    <div 
+      className="fixed inset-0 z-50 bg-black flex items-center justify-center cursor-pointer"
+      onClick={onComplete}
+    >
       <video
         ref={videoRef}
         src={SPLASH_VIDEO_URL}
@@ -18,6 +37,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         muted
         playsInline
         onEnded={onComplete}
+        onError={() => setHasError(true)}
         className="w-full h-full object-cover"
       />
     </div>

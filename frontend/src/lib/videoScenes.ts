@@ -374,7 +374,8 @@ export const findMatchingVideo = (description: string, agentId?: string): string
   const desc = description.toLowerCase();
   
   // Determine which scenes to search based on agent
-  const isSofia = agentId === 'sofia';
+  // Sofia (ksenia) uses sofiaVideoScenes, everyone else uses ivanVideoScenes
+  const isSofia = agentId === 'ksenia';
   const scenesToSearch = isSofia ? sofiaVideoScenes : ivanVideoScenes;
   
   let bestMatch: { id: string; score: number } | null = null;

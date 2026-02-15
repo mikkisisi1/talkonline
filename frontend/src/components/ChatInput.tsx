@@ -358,10 +358,11 @@ export const ChatInput = ({
 
           {(isListening || isSpeaking) ? (
             <div className="flex-1 flex items-center justify-center py-3 overflow-hidden">
-              {/* Horizontal sine wave lines */}
-              <div className="relative w-full max-w-[200px] h-5 flex items-center justify-center">
-                <div className="absolute w-full h-[2px] bg-[hsl(185,100%,65%)] rounded-full animate-sine-wave-1" />
-                <div className="absolute w-full h-[2px] bg-[hsl(185,100%,65%)]/60 rounded-full animate-sine-wave-2" />
+              {/* Multiple thin horizontal wave lines */}
+              <div className="flex flex-col gap-[3px] items-center justify-center">
+                <div className="w-32 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-1" />
+                <div className="w-40 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-2" />
+                <div className="w-36 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-3" />
               </div>
             </div>
           ) : (

@@ -312,7 +312,7 @@ const IDOLS: Idol[] = [
 
 const IdolsPage = () => {
   const navigate = useNavigate();
-  const { memory, addAgent, setActiveAgent } = useAppState();
+  const { memory, addAgent, setActiveAgent, addMessage } = useAppState();
 
   const handleIdolClick = useCallback((idol: Idol) => {
     const existing = memory.agents.find(a => a.name === idol.name);
@@ -332,6 +332,11 @@ const IdolsPage = () => {
       });
       // Mark as awakened (online) immediately
       sessionStorage.setItem(`welcome_heard_${newAgent.id}`, '1');
+      
+      // Add welcome message with idol's name
+      const welcomeMsg = getWelcomeMessage(memory.language, idol.name);
+      addMessage(welcomeMsg, 'assistant', undefined, newAgent.id);
+      
       // Flush to localStorage synchronously before navigation
       const currentState = loadState();
       const agentExists = currentState.memory.agents.some(a => a.name === idol.name);
@@ -347,7 +352,7 @@ const IdolsPage = () => {
       }
     }
     navigate('/');
-  }, [memory.agents, addAgent, setActiveAgent, navigate]);
+  }, [memory.agents, memory.language, addAgent, setActiveAgent, addMessage, navigate]);
 
   return (
     <div className="h-[100dvh] flex flex-col bg-[hsl(210,10%,12%)]">

@@ -289,8 +289,8 @@ export const ChatHeader = ({
                   }}
                 >
                   {language === 'ru' 
-                    ? (isDefaultAgent ? 'Убрать из шапки' : 'Убрать агента')
-                    : (isDefaultAgent ? 'Remove from header' : 'Remove agent')
+                    ? (isDefaultAgent ? 'Убрать в раздел кумиры' : 'Убрать агента')
+                    : (isDefaultAgent ? 'Move to Idols' : 'Remove agent')
                   }
                 </Button>
               );

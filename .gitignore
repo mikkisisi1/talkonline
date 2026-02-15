@@ -22,11 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
+
+# Note: .env files are tracked for deployment (K8s injects secrets at runtime)

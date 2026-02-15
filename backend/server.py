@@ -130,6 +130,21 @@ FISH_VOICES = {
     'fish_urgant': '7b662f13049b49888e8a68d563ec982e',
     'fish_lagutenko': '4ef547e565e24a7eb4303e2f6e536aff',
     'fish_kartunkova': '6745990b975d4041a23ad713bcee69f5',
+    # Новые голоса (февраль 2026)
+    'fish_gudkov': '9fef9d9c6c2f435488c0c428edb614ad',
+    'fish_varlamov': '0f02a59f480d4969b3dad603bd380cc2',
+    'fish_freindlih': 'fffe8c80fb374b3ba59eaca52f42f5a9',
+    'fish_novoseltsev': '266c495d2338409981afcf2f433ba394',
+    'fish_harlamov': '2f3218b3b3f8456dbcfce648d01fb33f',
+    'fish_martirosyan': 'd156215a105449f08bdc958a49456225',
+    'fish_svetlakov': '9b8b6c63a689426daaf1b51fc1321f9b',
+    'fish_stoyanov': '86bf66bd2f614333bfafc3f3cdf9f966',
+    'fish_burunov': 'd40b1d3ce8334ed9a9e63ba19533bf8e',
+    'fish_slepakov': '7a1aad9c964e4b1ba8e202180713094b',
+    'fish_lebedev': 'c332f1734fed47a99c99dea921097dc4',
+    'fish_troitsky': '380c6b1dcf934e1a9db81ade939141cc',
+    'fish_parfenov': 'f1bbb1d2f3124f819f20fe7324da27be',
+    'fish_zemfira': '5874191170124541a56f1f8c689c49af',
 }
 
 

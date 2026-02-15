@@ -40,34 +40,36 @@ const parseMessageContent = (content: string, agentId?: string): { text: string;
   let text = content;
   
   // Extract [SEND_PHOTO:description] tags - match to available photos by keywords
-  const sendPhotoRegex = /\[SEND_PHOTO:([^\]]+)\]/gi;
-  let sendPhotoMatch;
-  while ((sendPhotoMatch = sendPhotoRegex.exec(content)) !== null) {
-    const description = sendPhotoMatch[1].toLowerCase();
-    // Only Sofia has photos
-    if (agentId === 'ksenia') {
+  // Only agents with photos (ivan=Lucas, ksenia=Sofia) can send them
+  const sendPhotoRegex = /\[SEND_PHOTO:[^\]]*\]/gi;
+  text = text.replace(sendPhotoRegex, (match) => {
+    const descMatch = match.match(/\[SEND_PHOTO:([^\]]*)\]/i);
+    if (descMatch && (agentId === 'ksenia' || agentId === 'ivan')) {
+      const description = descMatch[1].toLowerCase();
       const photoId = findMatchingPhoto(description, agentId);
       if (photoId) {
         const url = getPhotoUrl(photoId);
         if (url) scenePhotos.push(url);
       }
     }
-    text = text.replace(sendPhotoMatch[0], '').trim();
-  }
+    return '';
+  }).trim();
   
   // Extract [SEND_VIDEO:description] tags - match to available videos by keywords
-  const sendVideoRegex = /\[SEND_VIDEO:([^\]]+)\]/gi;
-  let sendVideoMatch;
-  while ((sendVideoMatch = sendVideoRegex.exec(content)) !== null) {
-    const description = sendVideoMatch[1].toLowerCase();
-    // Find matching video scene for this agent
-    const sceneId = findMatchingVideo(description, agentId);
-    if (sceneId) {
-      const url = getVideoUrl(sceneId);
-      if (url) sceneVideos.push(url);
+  // Only agents with videos (ivan=Lucas, ksenia=Sofia) can send them
+  const sendVideoRegex = /\[SEND_VIDEO:[^\]]*\]/gi;
+  text = text.replace(sendVideoRegex, (match) => {
+    const descMatch = match.match(/\[SEND_VIDEO:([^\]]*)\]/i);
+    if (descMatch && (agentId === 'ksenia' || agentId === 'ivan')) {
+      const description = descMatch[1].toLowerCase();
+      const sceneId = findMatchingVideo(description, agentId);
+      if (sceneId) {
+        const url = getVideoUrl(sceneId);
+        if (url) sceneVideos.push(url);
+      }
     }
-    text = text.replace(sendVideoMatch[0], '').trim();
-  }
+    return '';
+  }).trim();
   
   // Extract [photo:sofia_photo_X] tags
   const photoRegex = /\[photo:(sofia_photo_\d+)\]/g;

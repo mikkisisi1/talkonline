@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -10,20 +10,11 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasError, setHasError] = useState(false);
 
-  // Timeout fallback - if video doesn't load in 5 seconds, skip splash
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onComplete();
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [onComplete]);
-
-  // If video has error, complete immediately
-  useEffect(() => {
-    if (hasError) {
-      onComplete();
-    }
-  }, [hasError, onComplete]);
+  // If video has error, skip splash
+  if (hasError) {
+    onComplete();
+    return null;
+  }
 
   return (
     <div 

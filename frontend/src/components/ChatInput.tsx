@@ -426,7 +426,9 @@ export const ChatInput = ({
               'w-11 h-11 rounded-full flex items-center justify-center transition-all flex-shrink-0',
               isListening
                 ? 'bg-[hsl(185,100%,65%)] text-[hsl(200,10%,15%)] voice-pulse shadow-[0_0_20px_hsl(185,100%,65%,0.5)]'
-                : 'bg-[#2a2a2a]/70 text-[hsl(185,100%,65%)] border border-[hsl(185,100%,65%)]/30'
+                : isSpeaking
+                  ? 'bg-[hsl(185,100%,65%)] text-[hsl(200,10%,15%)] mic-pulse shadow-[0_0_15px_hsl(185,100%,65%,0.4)]'
+                  : 'bg-[#2a2a2a]/70 text-[hsl(185,100%,65%)] border border-[hsl(185,100%,65%)]/30'
             )}
             aria-label={isListening ? t.listening : t.tapToSpeak}
           >

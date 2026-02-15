@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
-import { VoiceId, Agent, saveState, loadState } from '@/lib/storage';
+import { VoiceId, Agent, saveState, loadState, generateId } from '@/lib/storage';
 import { useAppState } from '@/hooks/useAppState';
 import { ArrowLeft } from 'lucide-react';
+import { getWelcomeMessage } from '@/lib/translations';
 
 // Avatar imports
 import mironovAvatar from '@/assets/mironov-avatar.jpg';

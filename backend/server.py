@@ -151,6 +151,7 @@ FISH_VOICES = {
     'fish_troitsky': '380c6b1dcf934e1a9db81ade939141cc',
     'fish_parfenov': 'f1bbb1d2f3124f819f20fe7324da27be',
     'fish_zemfira': '5874191170124541a56f1f8c689c49af',
+    'fish_serduchka': 'd4a18dce1cb14c049c3526b6d0f7a6f2',
 }
 
 

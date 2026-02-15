@@ -15,7 +15,7 @@ import mordyukovaAvatar from '@/assets/mordyukova-avatar.jpg';
 import papanovAvatar from '@/assets/papanov-avatar.jpg';
 import litvinovaAvatar from '@/assets/litvinova-avatar.jpg';
 import vysotskyAvatar from '@/assets/vysotsky-avatar.jpg';
-import evstigneevAvatar from '@/assets/evstigneev-avatar.jpg';
+import evstigneevAvatar from '@/assets/evstigneev-avatar-new.jpg';
 import pugachevaAvatar from '@/assets/pugacheva-avatar.jpg';
 import urgantAvatar from '@/assets/urgant-avatar.jpg';
 import lagutenkoAvatar from '@/assets/lagutenko-avatar.jpg';
@@ -23,6 +23,21 @@ import burunovAvatar from '@/assets/burunov-avatar.jpg';
 import nagievAvatar from '@/assets/nagiev-avatar.jpg';
 import kartunkovaAvatar from '@/assets/kartunkova-avatar.jpg';
 import olegAvatar from '@/assets/oleg-avatar.jpg';
+// New avatars (Feb 2026)
+import serduchkaAvatar from '@/assets/serduchka-avatar.jpg';
+import gudkovAvatar from '@/assets/gudkov-avatar.jpg';
+import varlamovAvatar from '@/assets/varlamov-avatar.jpg';
+import harlamovAvatar from '@/assets/harlamov-avatar.jpg';
+import lukashinAvatar from '@/assets/lukashin-avatar.jpg';
+import freindlihAvatar from '@/assets/freindlih-avatar.jpg';
+import stoyanovAvatar from '@/assets/stoyanov-avatar.jpg';
+import svetlakovAvatar from '@/assets/svetlakov-avatar.jpg';
+import martirosyanAvatar from '@/assets/martirosyan-avatar.jpg';
+import lebedevAvatar from '@/assets/lebedev-avatar.jpg';
+import zemfiraAvatar from '@/assets/zemfira-avatar.jpg';
+import parfenovAvatar from '@/assets/parfenov-avatar.jpg';
+import troitskyAvatar from '@/assets/troitsky-avatar.jpg';
+import slepakovAvatar from '@/assets/slepakov-avatar.jpg';
 
 interface Idol {
   name: string;

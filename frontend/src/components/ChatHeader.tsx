@@ -80,13 +80,44 @@ export const ChatHeader = ({
     pressedAgentId.current = null;
   }, [activeAgentId, onSelectAgent]);
 
-  // For desktop - simple click switches agent
-  const handleAgentClick = useCallback((agentId: string) => (e: React.MouseEvent) => {
-    onSelectAgent(agentId);
+  // For desktop - simple click switches agent, long press opens menu
+  const handleAgentMouseDown = useCallback((agentId: string) => (e: React.MouseEvent) => {
+    pressedAgentId.current = agentId;
+    isLongPress.current = false;
+    longPressTimer.current = window.setTimeout(() => {
+      isLongPress.current = true;
+      setActionAgentId(agentId);
+      setShowAgentActions(true);
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }, 500);
+  }, []);
+
+  const handleAgentMouseUp = useCallback((e: React.MouseEvent) => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+    // Short click - switch agent
+    if (!isLongPress.current && pressedAgentId.current) {
+      onSelectAgent(pressedAgentId.current);
+    }
+    pressedAgentId.current = null;
   }, [onSelectAgent]);
 
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+  const handleAgentMouseLeave = useCallback(() => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+    pressedAgentId.current = null;
+  }, []);
+
+  const handleContextMenu = useCallback((agentId: string) => (e: React.MouseEvent) => {
     e.preventDefault();
+    setActionAgentId(agentId);
+    setShowAgentActions(true);
   }, []);
 
   const getAgentAvatar = (agent: Agent) => {

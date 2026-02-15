@@ -9,10 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "0.0.0.0",
     port: 3000,
     strictPort: true,
-    hmr: {
-      overlay: false,
-      clientPort: 443,
-    },
+    hmr: false, // Disable HMR to prevent page reloads during preview
     // Allow explicit preview URL patterns (Vite 5.4.12+ doesn't allow "all")
     allowedHosts: [
       '.preview.emergentagent.com',    // Public preview URLs

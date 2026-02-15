@@ -3,7 +3,7 @@ import { Language } from './translations';
 export type Wallpaper = 'saturn' | 'mountains' | 'lagoon' | 'horses' | 'turtle' | 'cabin' | 'peak';
 
 // Fish Audio voices only
-export type VoiceId = 'fish_aria' | 'fish_roger' | 'fish_sarah' | 'fish_charlie' | 'fish_egirl' | 'fish_alina' | 'fish_brad_pitt' | 'fish_nasal_90s' | 'fish_child' | 'fish_flora' | 'fish_sobchak' | 'fish_tinkov' | 'fish_egirl_real' | 'fish_drug' | 'fish_mironov' | 'fish_bodrov' | 'fish_shirvindt' | 'fish_sherlock' | 'fish_mikhalkov' | 'fish_mordyukova' | 'fish_papanov' | 'fish_litvinova' | 'fish_vysotsky' | 'fish_mironov2' | 'fish_evstigneev' | 'fish_pugacheva' | 'fish_urgant' | 'fish_lagutenko' | 'fish_kartunkova';
+export type VoiceId = 'fish_aria' | 'fish_roger' | 'fish_sarah' | 'fish_charlie' | 'fish_egirl' | 'fish_alina' | 'fish_brad_pitt' | 'fish_nasal_90s' | 'fish_child' | 'fish_flora' | 'fish_sobchak' | 'fish_tinkov' | 'fish_egirl_real' | 'fish_drug' | 'fish_mironov' | 'fish_bodrov' | 'fish_shirvindt' | 'fish_sherlock' | 'fish_mikhalkov' | 'fish_mordyukova' | 'fish_papanov' | 'fish_litvinova' | 'fish_vysotsky' | 'fish_mironov2' | 'fish_evstigneev' | 'fish_pugacheva' | 'fish_urgant' | 'fish_lagutenko' | 'fish_kartunkova' | 'fish_gudkov' | 'fish_varlamov' | 'fish_freindlih' | 'fish_novoseltsev' | 'fish_harlamov' | 'fish_martirosyan' | 'fish_svetlakov' | 'fish_stoyanov' | 'fish_burunov' | 'fish_slepakov' | 'fish_lebedev' | 'fish_troitsky' | 'fish_parfenov' | 'fish_zemfira';
 
 // Check if voice is Fish Audio (all voices are now Fish Audio)
 export const isFishVoice = (voiceId: string): boolean => {

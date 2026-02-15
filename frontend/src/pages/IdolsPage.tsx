@@ -4,6 +4,9 @@ import { VoiceId, Agent, saveState, loadState, generateId } from '@/lib/storage'
 import { useAppState } from '@/hooks/useAppState';
 import { ArrowLeft } from 'lucide-react';
 import { getWelcomeMessage } from '@/lib/translations';
+import { toast } from 'sonner';
+
+const MAX_AGENTS = 5;
 
 // Avatar imports
 import mironovAvatar from '@/assets/mironov-avatar.jpg';

@@ -357,29 +357,20 @@ export const ChatInput = ({
           </button>
 
           {(isListening || isSpeaking) ? (
-            <div className="flex-1 flex items-center justify-center py-3">
+            <div className="flex-1 flex items-center justify-center py-3 overflow-hidden">
               {/* Horizontal wave animation - thin sine waves */}
-              <svg 
-                viewBox="0 0 200 24" 
-                className="w-full max-w-[280px] h-6"
-                preserveAspectRatio="xMidYMid meet"
-              >
-                <path
-                  d="M0,12 Q10,6 20,12 T40,12 T60,12 T80,12 T100,12 T120,12 T140,12 T160,12 T180,12 T200,12"
-                  fill="none"
-                  stroke="hsl(185,100%,65%)"
-                  strokeWidth="1.5"
-                  className="animate-wave-horizontal-1"
-                />
-                <path
-                  d="M0,12 Q10,18 20,12 T40,12 T60,12 T80,12 T100,12 T120,12 T140,12 T160,12 T180,12 T200,12"
-                  fill="none"
-                  stroke="hsl(185,100%,65%)"
-                  strokeWidth="1.5"
-                  strokeOpacity="0.6"
-                  className="animate-wave-horizontal-2"
-                />
-              </svg>
+              <div className="flex items-center gap-[2px] wave-container">
+                {[...Array(25)].map((_, i) => (
+                  <span 
+                    key={i}
+                    className="w-[2px] h-[2px] bg-[hsl(185,100%,65%)] rounded-full"
+                    style={{
+                      animation: `thinWave 1s ease-in-out infinite`,
+                      animationDelay: `${i * 0.05}s`
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           ) : (
             <textarea

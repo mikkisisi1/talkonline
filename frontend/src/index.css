@@ -364,49 +364,32 @@
   animation: voiceWave5 0.8s ease-in-out infinite 0.4s;
 }
 
-/* Horizontal wave animation for voice playback */
-@keyframes sineWave1 {
-  0% {
-    transform: scaleY(1) translateY(0);
-  }
-  25% {
-    transform: scaleY(3) translateY(-2px);
-  }
-  50% {
-    transform: scaleY(1) translateY(0);
-  }
-  75% {
-    transform: scaleY(3) translateY(2px);
-  }
-  100% {
-    transform: scaleY(1) translateY(0);
-  }
+/* Horizontal wave animation for voice playback - thin lines */
+@keyframes waveLine1 {
+  0%, 100% { transform: scaleX(0.7); opacity: 0.5; }
+  50% { transform: scaleX(1); opacity: 1; }
 }
 
-@keyframes sineWave2 {
-  0% {
-    transform: scaleY(3) translateY(2px);
-  }
-  25% {
-    transform: scaleY(1) translateY(0);
-  }
-  50% {
-    transform: scaleY(3) translateY(-2px);
-  }
-  75% {
-    transform: scaleY(1) translateY(0);
-  }
-  100% {
-    transform: scaleY(3) translateY(2px);
-  }
+@keyframes waveLine2 {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.6); opacity: 0.5; }
 }
 
-.animate-sine-wave-1 {
-  animation: sineWave1 0.8s ease-in-out infinite;
+@keyframes waveLine3 {
+  0%, 100% { transform: scaleX(0.8); opacity: 0.7; }
+  50% { transform: scaleX(1); opacity: 1; }
 }
 
-.animate-sine-wave-2 {
-  animation: sineWave2 0.8s ease-in-out infinite;
+.animate-wave-line-1 {
+  animation: waveLine1 0.6s ease-in-out infinite;
+}
+
+.animate-wave-line-2 {
+  animation: waveLine2 0.6s ease-in-out infinite 0.1s;
+}
+
+.animate-wave-line-3 {
+  animation: waveLine3 0.6s ease-in-out infinite 0.2s;
 }
 
 /* Safe area for mobile */

@@ -31,8 +31,7 @@ export const ChatVideoPlayer = ({ src }: ChatVideoPlayerProps) => {
     return () => {
       activeVideos.delete(video);
       video.pause();
-      video.removeAttribute('src');
-      video.load(); // release resources
+      // Don't remove src attribute - it breaks playback if component remounts
     };
   }, []);
 

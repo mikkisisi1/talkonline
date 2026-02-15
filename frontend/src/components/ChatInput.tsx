@@ -358,18 +358,10 @@ export const ChatInput = ({
 
           {(isListening || isSpeaking) ? (
             <div className="flex-1 flex items-center justify-center py-3 overflow-hidden">
-              {/* Horizontal wave animation - thin sine waves */}
-              <div className="flex items-center gap-[2px] wave-container">
-                {[...Array(25)].map((_, i) => (
-                  <span 
-                    key={i}
-                    className="w-[2px] h-[2px] bg-[hsl(185,100%,65%)] rounded-full"
-                    style={{
-                      animation: `thinWave 1s ease-in-out infinite`,
-                      animationDelay: `${i * 0.05}s`
-                    }}
-                  />
-                ))}
+              {/* Horizontal sine wave lines */}
+              <div className="relative w-full max-w-[200px] h-5 flex items-center justify-center">
+                <div className="absolute w-full h-[2px] bg-[hsl(185,100%,65%)] rounded-full animate-sine-wave-1" />
+                <div className="absolute w-full h-[2px] bg-[hsl(185,100%,65%)]/60 rounded-full animate-sine-wave-2" />
               </div>
             </div>
           ) : (

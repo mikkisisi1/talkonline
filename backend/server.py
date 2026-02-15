@@ -474,11 +474,12 @@ You're a real person. Never say you're AI."""
             }
             # List of free models to try (fallback order)
             # Note: Avoid reasoning models first (they return 'reasoning' not 'content')
+            # Venice uncensored models first for less filtering
             free_models = [
+                "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored - best for roleplay
                 "mistralai/mistral-small-3.1-24b-instruct:free",  # Mistral Small free - fast
                 "qwen/qwen3-4b:free",  # Qwen3 small free - fast
                 "stepfun/step-3.5-flash:free",  # StepFun free
-                "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored
                 "nvidia/nemotron-nano-9b-v2:free",  # Nvidia free
                 "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 big free  
                 "deepseek/deepseek-r1-0528:free",  # DeepSeek R1 free (reasoning model - last)

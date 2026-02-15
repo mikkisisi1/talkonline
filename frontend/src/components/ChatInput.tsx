@@ -357,19 +357,29 @@ export const ChatInput = ({
           </button>
 
           {(isListening || isSpeaking) ? (
-            <div className="flex-1 flex items-center justify-center py-3 gap-1">
-              {/* Voice wave animation - shows when recording or when agent is speaking */}
-              <div className="flex items-center gap-[3px] h-6">
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-1"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-2"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-3"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-4"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-5"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-4"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-3"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-2"></span>
-                <span className="w-[3px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-1"></span>
-              </div>
+            <div className="flex-1 flex items-center justify-center py-3">
+              {/* Horizontal wave animation - thin sine waves */}
+              <svg 
+                viewBox="0 0 200 24" 
+                className="w-full max-w-[280px] h-6"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path
+                  d="M0,12 Q10,6 20,12 T40,12 T60,12 T80,12 T100,12 T120,12 T140,12 T160,12 T180,12 T200,12"
+                  fill="none"
+                  stroke="hsl(185,100%,65%)"
+                  strokeWidth="1.5"
+                  className="animate-wave-horizontal-1"
+                />
+                <path
+                  d="M0,12 Q10,18 20,12 T40,12 T60,12 T80,12 T100,12 T120,12 T140,12 T160,12 T180,12 T200,12"
+                  fill="none"
+                  stroke="hsl(185,100%,65%)"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.6"
+                  className="animate-wave-horizontal-2"
+                />
+              </svg>
             </div>
           ) : (
             <textarea

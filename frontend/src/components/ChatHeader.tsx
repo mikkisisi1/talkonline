@@ -274,10 +274,12 @@ export const ChatHeader = ({
               {language === 'ru' ? 'Настроить агента' : 'Customize agent'}
             </Button>
 
-            {/* Remove agent (non-default only) */}
+            {/* Remove agent - works for all agents */}
             {(() => {
               const agent = agents.find(a => a.id === actionAgentId);
-              return agent && !agent.isDefault ? (
+              if (!agent) return null;
+              const isDefaultAgent = agent.isDefault || agent.name === 'Лукас' || agent.name === 'София';
+              return (
                 <Button
                   variant="outline"
                   className="w-full text-destructive border-destructive/30 hover:bg-destructive/10"
@@ -286,9 +288,12 @@ export const ChatHeader = ({
                     closeAgentActions();
                   }}
                 >
-                  {language === 'ru' ? 'Убрать агента' : 'Remove agent'}
+                  {language === 'ru' 
+                    ? (isDefaultAgent ? 'Убрать из шапки' : 'Убрать агента')
+                    : (isDefaultAgent ? 'Remove from header' : 'Remove agent')
+                  }
                 </Button>
-              ) : null;
+              );
             })()}
 
             <Button variant="outline" className="w-full" onClick={closeAgentActions}>

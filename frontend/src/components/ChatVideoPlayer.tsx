@@ -44,27 +44,43 @@ export const ChatVideoPlayer = ({ src }: ChatVideoPlayerProps) => {
     if (video.paused) {
       // Stop all other videos first to free resources
       pauseAllExcept(video);
-      // Ensure src is set (may have been cleared)
-      if (!video.src || video.src === '') {
+      // Ensure src is set
+      if (!video.src || video.src === '' || video.src === 'about:blank') {
         video.src = src;
+        video.load();
       }
-      video.play().then(() => {
-        setIsPlaying(true);
-        if (!document.fullscreenElement) {
-          if ((video as any).webkitEnterFullscreen) {
-            (video as any).webkitEnterFullscreen();
-          } else if (container.requestFullscreen) {
-            container.requestFullscreen().catch(() => {});
-          }
-        }
-      }).catch(() => {
-        video.muted = true;
+      // Wait for video to be ready before playing
+      const playVideo = () => {
         video.play().then(() => {
           setIsPlaying(true);
+          // Try fullscreen on mobile
+          if (!document.fullscreenElement) {
+            if ((video as any).webkitEnterFullscreen) {
+              (video as any).webkitEnterFullscreen();
+            } else if (container.requestFullscreen) {
+              container.requestFullscreen().catch(() => {});
+            }
+          }
         }).catch(() => {
-          setIsPlaying(false);
+          // Try muted playback as fallback
+          video.muted = true;
+          video.play().then(() => {
+            setIsPlaying(true);
+          }).catch((err) => {
+            console.error('[ChatVideoPlayer] Play failed:', err);
+            setIsPlaying(false);
+          });
         });
-      });
+      };
+      
+      if (video.readyState >= 2) {
+        playVideo();
+      } else {
+        video.oncanplay = () => {
+          video.oncanplay = null;
+          playVideo();
+        };
+      }
     } else {
       video.pause();
       setIsPlaying(false);

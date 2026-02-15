@@ -52,6 +52,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# ==================== HEALTH CHECK ====================
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for deployment readiness"""
+    return {"status": "healthy", "service": "talkme-api"}
+
 
 # ==================== MODELS ====================
 

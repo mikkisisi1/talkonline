@@ -358,12 +358,21 @@ export const ChatInput = ({
 
           {(isListening || isSpeaking) ? (
             <div className="flex-1 flex items-center justify-center py-3 overflow-hidden">
-              {/* Multiple thin horizontal wave lines */}
-              <div className="flex flex-col gap-[3px] items-center justify-center">
-                <div className="w-32 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-1" />
-                <div className="w-40 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-2" />
-                <div className="w-36 h-[1.5px] bg-[hsl(185,100%,65%)] rounded-full animate-wave-line-3" />
-              </div>
+              {/* Continuous sine wave animation */}
+              <svg 
+                viewBox="0 0 200 20" 
+                className="w-full max-w-[200px] h-5"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path
+                  className="sine-wave"
+                  d="M0,10 C10,5 15,5 25,10 C35,15 40,15 50,10 C60,5 65,5 75,10 C85,15 90,15 100,10 C110,5 115,5 125,10 C135,15 140,15 150,10 C160,5 165,5 175,10 C185,15 190,15 200,10"
+                  fill="none"
+                  stroke="hsl(185,100%,65%)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
           ) : (
             <textarea

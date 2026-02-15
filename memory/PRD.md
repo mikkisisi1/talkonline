@@ -86,7 +86,7 @@
 - ⚠️ TTS Лукаса - работает нормально (200 OK). Если нет звука - проверьте громкость браузера
 
 ## Preview URL
-https://tts-fix-lucas.preview.emergentagent.com
+https://idol-chat-preview.preview.emergentagent.com
 
 ## Fish Audio Voice IDs (Новые 15.02.2026)
 ```

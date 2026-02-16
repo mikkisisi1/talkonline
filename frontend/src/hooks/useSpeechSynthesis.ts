@@ -58,11 +58,17 @@ async function fetchTts(
   const cleanText = stripEmoji(text);
   const emotion = detectEmotion(text);
   
+  // Apply warm, friendly defaults:
+  // - Speed capped at 0.95 for warmth (unless user explicitly wants faster)
+  // - Volume -3dB for soft, gentle feel
+  const warmSpeed = Math.min(voiceSpeed, 0.95);
+  
   const body: Record<string, unknown> = {
     text: cleanText,
     language,
     voice: voiceId,
-    speed: voiceSpeed,
+    speed: warmSpeed,
+    volume: -3,  // Soft, friendly volume
     emotion: emotion,
     add_breath: true,  // Natural breathing
   };

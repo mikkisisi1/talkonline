@@ -618,10 +618,14 @@ async def fish_audio_tts(request: Request, body: TTSRequest):
         reference_id = FISH_VOICES.get(body.voice)
         
         # Build request body for Fish Audio S1
-        # Default to WARM, TENDER tone: slower (0.85) and quieter (-5dB) for intimate feel
-        default_speed = 0.85  # Slower for warm, tender delivery
-        default_volume = -5   # Quieter for intimate, gentle feel
+        # Default to WARM, FRIENDLY, SOFT tone for all voices:
+        # - Speed 0.9: slightly slower for warmth, but not too slow
+        # - Volume -3dB: gentle but audible
+        # These defaults create a friendly, intimate feel
+        default_speed = 0.9   # Warm, friendly pace
+        default_volume = -3   # Soft, gentle volume
         
+        # Use defaults unless explicitly overridden
         final_speed = body.speed if body.speed != 1.0 else default_speed
         final_volume = body.volume if body.volume != 0 else default_volume
         

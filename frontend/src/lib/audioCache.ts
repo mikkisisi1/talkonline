@@ -74,6 +74,7 @@ export async function setCachedAudio(key: string, blob: Blob): Promise<void> {
 /**
  * Get or generate welcome audio.
  * Returns an object URL ready to play, or null on failure.
+ * Uses warm, friendly tone settings for welcome messages.
  */
 export async function getWelcomeAudioUrl(
   agentId: string,
@@ -82,7 +83,7 @@ export async function getWelcomeAudioUrl(
   voiceId: string,
   voiceSpeed: number
 ): Promise<string | null> {
-  const cacheKey = `welcome_${agentId}_${language}`;
+  const cacheKey = `welcome_${agentId}_${language}_v2`;  // v2 for new warm settings
 
   const cached = await getCachedAudio(cacheKey);
   if (cached && cached.size > 100) {
@@ -93,6 +94,10 @@ export async function getWelcomeAudioUrl(
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+      // Welcome messages use warm, friendly, soft tone:
+      // - Speed 0.9: warm but not too slow
+      // - Volume -3: soft and gentle
+      const warmSpeed = Math.min(voiceSpeed, 0.95);  // Cap speed for warmth
       const response = await fetch(
         `${backendUrl}/fish-audio-tts`,
         {
@@ -101,7 +106,14 @@ export async function getWelcomeAudioUrl(
             'Content-Type': 'application/json',
             'Accept': 'audio/mpeg',
           },
-          body: JSON.stringify({ text: enhanceProsody(text), language, voice: voiceId, speed: voiceSpeed }),
+          body: JSON.stringify({ 
+            text: enhanceProsody(text), 
+            language, 
+            voice: voiceId, 
+            speed: warmSpeed,
+            volume: -3,  // Soft, gentle volume for welcomes
+            add_breath: true  // Natural breathing for warmth
+          }),
         }
       );
 

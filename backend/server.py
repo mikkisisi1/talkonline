@@ -520,7 +520,7 @@ async def friend_chat(request: Request, body: FriendChatRequest):
 - Добавляй теги В КОНЦЕ сообщения, после текста
 - Если подходящего контента нет в списке — скажи что такого у тебя нет
 
-ДЛИНА: 1-4 предложения обычно. Как в реальной переписке.
+ДЛИНА: Максимум 12 строк текста! Обычно 2-5 предложений. Как в реальной переписке. Не пиши длинные простыни текста.
 
 ЭМОДЗИ: используй редко, 1-2 на сообщение максимум, только уместные.
 {memory_block}
@@ -558,7 +558,7 @@ MEDIA (PHOTOS AND VIDEOS):
 - Add tags AT THE END of your message, after the text
 - If there's no matching content in your list — say you don't have that
 
-LENGTH: 1-4 sentences usually. Like real texting.
+LENGTH: Maximum 12 lines of text! Usually 2-5 sentences. Like real texting. Don't write walls of text.
 
 EMOJIS: use sparingly, 1-2 per message max, only when appropriate.
 {media_list}

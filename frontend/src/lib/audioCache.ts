@@ -25,7 +25,7 @@ function enhanceProsody(text: string): string {
 
 const DB_NAME = 'talkme-audio-cache';
 const STORE_NAME = 'audio';
-const DB_VERSION = 9;  // v9 - new welcome text "компаньон" + warm friendly tone
+const DB_VERSION = 10;  // v10 - force refresh all cached welcome messages
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {

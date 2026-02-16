@@ -576,6 +576,24 @@ You're a real person. Never say you're AI."""
                 "content": msg.content
             })
         
+        # If user sent an image, add it to the last user message
+        if body.imageBase64:
+            # Find the last user message and convert to multimodal format
+            for i in range(len(api_messages) - 1, -1, -1):
+                if api_messages[i].get("role") == "user":
+                    text_content = api_messages[i].get("content", "")
+                    # Convert to multimodal format with image
+                    api_messages[i]["content"] = [
+                        {"type": "text", "text": text_content + "\n\n[Пользователь прислал фото. Опиши что видишь и отреагируй.]"},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": body.imageBase64 if body.imageBase64.startswith("data:") else f"data:image/jpeg;base64,{body.imageBase64}"
+                            }
+                        }
+                    ]
+                    break
+        
         # Determine LLM provider and configure API
         llm_provider = os.environ.get("LLM_PROVIDER", "openrouter")
         openrouter_key = os.environ.get("OPENROUTER_API_KEY")

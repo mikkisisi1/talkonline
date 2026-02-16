@@ -630,6 +630,7 @@ You're a real person. Never say you're AI."""
             }
             
             if has_image:
+                logger.info(f"[friend-chat] Using VISION model for image")
                 # Vision models for image understanding
                 free_models = [
                     "qwen/qwen-2.5-vl-72b-instruct:free",  # Qwen VL - best free vision

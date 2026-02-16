@@ -25,7 +25,7 @@ function enhanceProsody(text: string): string {
 
 const DB_NAME = 'talkme-audio-cache';
 const STORE_NAME = 'audio';
-const DB_VERSION = 7;  // Bumped to clear old cached audio with tone settings
+const DB_VERSION = 8;  // Bumped to clear old cached audio - warm friendly tone update
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {

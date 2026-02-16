@@ -599,6 +599,9 @@ You're a real person. Never say you're AI."""
         openrouter_key = os.environ.get("OPENROUTER_API_KEY")
         deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
         
+        # Check if this request has an image (needs vision model)
+        has_image = body.imageBase64 is not None
+        
         # Choose provider based on config and available keys
         if llm_provider == "openrouter" and openrouter_key:
             api_url = "https://openrouter.ai/api/v1/chat/completions"
@@ -608,18 +611,26 @@ You're a real person. Never say you're AI."""
                 "HTTP-Referer": "https://talkmee.app",
                 "X-Title": "TalkMe Chat"
             }
-            # List of free models to try (fallback order)
-            # Note: Avoid reasoning models first (they return 'reasoning' not 'content')
-            # Venice uncensored models first for less filtering
-            free_models = [
-                "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored - best for roleplay
-                "mistralai/mistral-small-3.1-24b-instruct:free",  # Mistral Small free - fast
-                "qwen/qwen3-4b:free",  # Qwen3 small free - fast
-                "stepfun/step-3.5-flash:free",  # StepFun free
-                "nvidia/nemotron-nano-9b-v2:free",  # Nvidia free
-                "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 big free  
-                "deepseek/deepseek-r1-0528:free",  # DeepSeek R1 free (reasoning model - last)
-            ]
+            
+            if has_image:
+                # Vision models for image understanding
+                free_models = [
+                    "qwen/qwen-2.5-vl-72b-instruct:free",  # Qwen VL - best free vision
+                    "qwen/qwen-2.5-vl-32b-instruct:free",  # Qwen VL smaller
+                    "meta-llama/llama-4-maverick:free",  # Llama 4 with vision
+                    "google/gemini-2.0-flash-exp:free",  # Gemini Flash with vision
+                ]
+            else:
+                # Text-only models (faster, uncensored)
+                free_models = [
+                    "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",  # Venice uncensored - best for roleplay
+                    "mistralai/mistral-small-3.1-24b-instruct:free",  # Mistral Small free - fast
+                    "qwen/qwen3-4b:free",  # Qwen3 small free - fast
+                    "stepfun/step-3.5-flash:free",  # StepFun free
+                    "nvidia/nemotron-nano-9b-v2:free",  # Nvidia free
+                    "qwen/qwen3-next-80b-a3b-instruct:free",  # Qwen3 big free  
+                    "deepseek/deepseek-r1-0528:free",  # DeepSeek R1 free (reasoning model - last)
+                ]
             model_name = free_models[0]  # Start with first option
         elif deepseek_key:
             api_url = "https://api.deepseek.com/v1/chat/completions"

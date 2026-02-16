@@ -388,6 +388,9 @@ async def friend_chat(request: Request, body: FriendChatRequest):
                 memory_block = "\n\nЧто ты помнишь о собеседнике:\n" + "\n".join(memory_parts)
                 memory_block += "\nИспользуй эту информацию естественно в разговоре."
         
+        # Generate media list for the agent
+        media_list = get_agent_media_list(body.agentId)
+        
         # Build comprehensive system prompt based on agent
         if body.language == "ru":
             system_prompt = f"""Ты — {agent_name}, {"девушка" if agent_gender == "female" else "парень"} около 20 лет.

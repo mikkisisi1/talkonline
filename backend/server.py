@@ -631,12 +631,12 @@ You're a real person. Never say you're AI."""
             
             if has_image:
                 logger.info(f"[friend-chat] Using VISION model for image")
-                # Vision models for image understanding
+                # Vision models for image understanding - use router for auto-selection
                 free_models = [
-                    "qwen/qwen-2.5-vl-72b-instruct:free",  # Qwen VL - best free vision
-                    "qwen/qwen-2.5-vl-32b-instruct:free",  # Qwen VL smaller
-                    "meta-llama/llama-4-maverick:free",  # Llama 4 with vision
-                    "google/gemini-2.0-flash-exp:free",  # Gemini Flash with vision
+                    "google/gemini-2.0-flash-exp:free",  # Gemini Flash with vision - most reliable
+                    "nvidia/nemotron-nano-2-vl:free",  # Nemotron Nano 2 VL - good for images
+                    "qwen/qwen-2.5-vl-72b-instruct:free",  # Qwen VL
+                    "openrouter/free",  # Auto-select free model
                 ]
             else:
                 # Text-only models (faster, uncensored)

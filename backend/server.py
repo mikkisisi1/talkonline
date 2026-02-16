@@ -593,13 +593,14 @@ You're a real person. Never say you're AI."""
         
         # If user sent an image, add it to the last user message
         if body.imageBase64:
+            logger.info(f"[friend-chat] Image received, length: {len(body.imageBase64)}")
             # Find the last user message and convert to multimodal format
             for i in range(len(api_messages) - 1, -1, -1):
                 if api_messages[i].get("role") == "user":
                     text_content = api_messages[i].get("content", "")
                     # Convert to multimodal format with image
                     api_messages[i]["content"] = [
-                        {"type": "text", "text": text_content + "\n\n[Пользователь прислал фото. Опиши что видишь и отреагируй.]"},
+                        {"type": "text", "text": text_content + "\n\n[Пользователь прислал фото. Внимательно посмотри на фото, опиши что видишь и отреагируй эмоционально.]"},
                         {
                             "type": "image_url",
                             "image_url": {
@@ -607,6 +608,7 @@ You're a real person. Never say you're AI."""
                             }
                         }
                     ]
+                    logger.info(f"[friend-chat] Image added to message {i}")
                     break
         
         # Determine LLM provider and configure API

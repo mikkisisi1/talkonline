@@ -42,6 +42,7 @@ import zemfiraAvatar from '@/assets/zemfira-avatar.jpg';
 import parfenovAvatar from '@/assets/parfenov-avatar.jpg';
 import troitskyAvatar from '@/assets/troitsky-avatar.jpg';
 import slepakovAvatar from '@/assets/slepakov-avatar.jpg';
+import soloninAvatar from '@/assets/solonin-avatar.jpg';
 
 interface Idol {
   name: string;

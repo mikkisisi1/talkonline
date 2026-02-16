@@ -406,10 +406,10 @@ export const ChatInput = ({
             <Paperclip className="w-5 h-5 stroke-[1.5] text-[hsl(185,100%,65%)]" />
           </button>
 
-          {/* Camera Button (only when no text) */}
+          {/* Camera Button (only when no text) - opens camera directly */}
           {!text.trim() && (
             <button
-              onClick={() => setShowAttachMenu(!showAttachMenu)}
+              onClick={() => cameraInputRef.current?.click()}
               className="p-2 pr-3 hover:opacity-70 transition-opacity flex-shrink-0"
               aria-label="Camera"
             >

@@ -17,6 +17,12 @@ export default defineConfig(({ mode }) => ({
       '.emergent.host',                // Production domains
       'localhost',
     ],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

@@ -4,7 +4,7 @@ interface SplashScreenProps {
   onComplete: () => void;
 }
 
-const SPLASH_VIDEO_URL = 'https://customer-assets.emergentagent.com/job_8f3af781-196d-4b20-8cbd-bb3a28818b7f/artifacts/dwzs6jz7_2026-02-15-102527267.mp4';
+const SPLASH_VIDEO_URL = '/splash/intro.mp4';
 
 // Global audio context for bell
 let audioCtx: AudioContext | null = null;

@@ -152,6 +152,7 @@ FISH_VOICES = {
     'fish_parfenov': 'f1bbb1d2f3124f819f20fe7324da27be',
     'fish_zemfira': '5874191170124541a56f1f8c689c49af',
     'fish_serduchka': 'd4a18dce1cb14c049c3526b6d0f7a6f2',
+    'fish_solonin': 'f64c018c05004deb995c3fe3e5e7a2e1',
 }
 
 

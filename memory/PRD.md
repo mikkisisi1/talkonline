@@ -47,12 +47,12 @@ Create a polished AI chat application where users can converse with various AI p
 - [x] Chat history persistence
 - [x] Agent memory system
 - [x] Voice for Verka Serduchka (Dec 2025)
+- [x] Sergey Solonin idol added (Dec 2025)
+- [x] Fixed media tag parsing (SEND_VIDEO/SEND_PHOTO)
+- [x] Fixed video playback in ChatVideoPlayer
 
 ## Pending Issues (P0 - Critical)
 1. Page reloads during chat - runtime bug in frontend
-2. Agent describes media but sends nothing
-3. Video playback broken (play button non-functional)
-4. Extra characters in text
 
 ## Pending Issues (P1)
 - Unnatural TTS voices - check Fish Audio params
@@ -72,3 +72,4 @@ Create a polished AI chat application where users can converse with various AI p
 
 ## Voice IDs Updated (Dec 2025)
 - `fish_serduchka`: d4a18dce1cb14c049c3526b6d0f7a6f2
+- `fish_solonin`: f64c018c05004deb995c3fe3e5e7a2e1

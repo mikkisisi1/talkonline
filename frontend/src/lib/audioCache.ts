@@ -83,7 +83,7 @@ export async function getWelcomeAudioUrl(
   voiceId: string,
   voiceSpeed: number
 ): Promise<string | null> {
-  const cacheKey = `welcome_${agentId}_${language}_v2`;  // v2 for new warm settings
+  const cacheKey = `welcome_${agentId}_${language}_v3`;  // v3 - companion text + warm tone
 
   const cached = await getCachedAudio(cacheKey);
   if (cached && cached.size > 100) {

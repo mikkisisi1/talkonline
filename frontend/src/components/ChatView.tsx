@@ -47,6 +47,7 @@ interface ChatViewProps {
   activeAgentId: string;
   onSendMessage: (content: string, imageUrl?: string) => Promise<void>;
   onSettingsClick: () => void;
+  onLanguageChange: (lang: Language) => void;
   onAddAgent: (agent: Omit<Agent, 'id'>) => Agent;
   onUpdateAgent: (agentId: string, updates: Partial<Agent>) => void;
   onDeleteAgent: (agentId: string) => void;
@@ -69,6 +70,7 @@ export const ChatView = ({
   activeAgentId,
   onSendMessage,
   onSettingsClick,
+  onLanguageChange,
   onAddAgent,
   onUpdateAgent,
   onDeleteAgent,

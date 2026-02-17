@@ -3,7 +3,7 @@ import { ChatView } from '@/components/ChatView';
 import { Settings } from '@/components/Settings';
 import { useAppState } from '@/hooks/useAppState';
 import { generateFriendResponseStream } from '@/lib/friendAgent';
-import { getWelcomeMessage, getWelcomeSpeechText } from '@/lib/translations';
+import { getWelcomeMessage, getWelcomeSpeechText, Language } from '@/lib/translations';
 import { getWelcomeAudioUrl } from '@/lib/audioCache';
 import { playExhale } from '@/hooks/useSpeechSynthesis';
 import { useMicroReaction } from '@/hooks/useMicroReaction';

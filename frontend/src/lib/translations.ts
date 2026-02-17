@@ -86,19 +86,57 @@ export const getWelcomeMessage = (language: Language, agentName: string): string
 
 // TTS-optimized welcome text — clean of emoji, with punctuation for natural rhythm
 export const getWelcomeSpeechText = (language: Language, agentName: string): string => {
-  // Check if it's a default agent (Lucas/Sofia) or an idol
   const isDefaultAgent = agentName === 'Лукас' || agentName === 'София' || agentName === 'Lucas' || agentName === 'Sofia';
   
-  if (language === 'ru') {
-    if (isDefaultAgent) {
-      return `Привет! Я ${agentName}, твой компаньон, друг или партнёр. ❤️ Нажми плюс, для перехода в настройки, или на значок Сатурна, для общения с твоими кумирами. Или можем сразу продолжить здесь. Видишь, внизу маленькая кнопка с микрофоном. Просто нажми и отпусти её и начни говорить. Сообщение само отправится мне.`;
+  const messages: Record<Language, { default: string; idol: string }> = {
+    ru: {
+      default: `Привет! Я ${agentName}, твой компаньон, друг или партнёр. Нажми плюс для настроек или Сатурн для кумиров. Или продолжим здесь. Внизу кнопка микрофона, нажми и говори.`,
+      idol: `Я ${agentName}, хочешь что-нибудь обсудить?`
+    },
+    en: {
+      default: `Hi! I'm ${agentName}, your companion, friend or partner. Tap plus for settings or Saturn for idols. Or let's continue here. See the mic button below? Tap and talk.`,
+      idol: `I'm ${agentName}, want to discuss something?`
+    },
+    uk: {
+      default: `Привіт! Я ${agentName}, твій компаньйон. Натисни плюс для налаштувань.`,
+      idol: `Я ${agentName}, хочеш щось обговорити?`
+    },
+    kk: {
+      default: `Сәлем! Мен ${agentName}, сенің компаньонің. Параметрлер үшін плюс басыңыз.`,
+      idol: `Мен ${agentName}, бір нәрсені талқылағың келе ме?`
+    },
+    uz: {
+      default: `Salom! Men ${agentName}, sening hamrohingman. Sozlamalar uchun plyusni bosing.`,
+      idol: `Men ${agentName}, biror narsa muhokama qilmoqchimisiz?`
+    },
+    be: {
+      default: `Прывітанне! Я ${agentName}, твой кампаньён. Націсні плюс для наладак.`,
+      idol: `Я ${agentName}, хочаш нешта абмеркаваць?`
+    },
+    fr: {
+      default: `Salut! Je suis ${agentName}, ton compagnon. Appuie sur plus pour les paramètres.`,
+      idol: `Je suis ${agentName}, tu veux discuter?`
+    },
+    de: {
+      default: `Hi! Ich bin ${agentName}, dein Begleiter. Tippe auf plus für Einstellungen.`,
+      idol: `Ich bin ${agentName}, möchtest du etwas besprechen?`
+    },
+    id: {
+      default: `Hai! Aku ${agentName}, temanmu. Ketuk plus untuk pengaturan.`,
+      idol: `Aku ${agentName}, mau diskusi sesuatu?`
+    },
+    pt: {
+      default: `Oi! Eu sou ${agentName}, seu companheiro. Toque em mais para configurações.`,
+      idol: `Eu sou ${agentName}, quer conversar?`
+    },
+    es: {
+      default: `Hola! Soy ${agentName}, tu compañero. Toca más para ajustes.`,
+      idol: `Soy ${agentName}, quieres hablar de algo?`
     }
-    return `Я ${agentName}, хочешь что-нибудь обсудить? Говори, я весь во внимании.`;
-  }
-  if (isDefaultAgent) {
-    return `Hi! I'm ${agentName}, your personal companion, friend or partner. Tap plus to open settings, or the Saturn icon to chat with your idols. Or we can just continue here. See the small microphone button below? Just tap and release it and start talking. The message will send automatically.`;
-  }
-  return `I'm ${agentName}, want to discuss something? Go ahead, I'm all ears.`;
+  };
+  
+  const langMessages = messages[language] || messages['en'];
+  return isDefaultAgent ? langMessages.default : langMessages.idol;
 };
 
 export const translations = {

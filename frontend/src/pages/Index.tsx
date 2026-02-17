@@ -46,6 +46,17 @@ const Index = () => {
     return getWelcomeMessage(memory.language, agentName);
   }, [memory.language, activeAgent?.name]);
 
+  // Handle language change - update welcome message and regenerate audio
+  const handleLanguageChange = useCallback((newLang: Language) => {
+    setLanguage(newLang);
+    // Clear awakened state to trigger new welcome
+    setAwakenedAgents(new Set());
+    // Clear session storage for welcome heard
+    memory.agents.forEach(a => {
+      sessionStorage.removeItem(`welcome_heard_${a.id}`);
+    });
+  }, [setLanguage, memory.agents]);
+
   const [showSettings, setShowSettings] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [pendingTtsText, setPendingTtsText] = useState<string | null>(null);

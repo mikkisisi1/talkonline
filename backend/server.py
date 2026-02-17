@@ -154,6 +154,12 @@ FISH_VOICES = {
     'fish_serduchka': 'd4a18dce1cb14c049c3526b6d0f7a6f2',
     'fish_solonin': 'f64c018c05004deb995c3fe3e5e7a2e1',
     'fish_masyanya': '4184c626567040c699c7f554fca84aaf',
+    'fish_pozner': 'a23a7b1e5fdb472bba2afdd821cf6f4f',
+    'fish_dud': 'e197abdfd36c4a079a8cb31ba3a1d077',
+    'fish_efremov': '6d493a05f8ac48d28a3d01a076e5d6db',
+    'fish_larryking': '45394a3dd3df4dce8ff04eaf36825d97',
+    'fish_yeltsin': 'd50331ee8c0747d5bfd86aa334b10577',
+    'fish_borat': '1a7f24f8d3534bec9dbd53617990e3c9',
 }
 
 

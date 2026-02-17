@@ -431,13 +431,15 @@ const IdolsPage = () => {
         >
           <ArrowLeft className="w-5 h-5 text-[hsl(200,10%,20%)]" />
         </button>
-        <h1 className="text-base sm:text-lg font-bold text-[hsl(200,10%,20%)] font-mono">Пообщайся со своими кумирами</h1>
+        <h1 className="text-base sm:text-lg font-bold text-[hsl(200,10%,20%)] font-mono">
+          {translations[memory.language]?.idols || 'Idols'}
+        </h1>
       </div>
 
       {/* Grid */}
       <div className="flex-1 overflow-y-auto p-4 pb-20">
         <p className="text-[hsl(185,100%,65%)]/60 text-sm mb-4 text-center font-mono">
-          Выбери персонажа и начни разговор прямо сейчас
+          {translations[memory.language]?.selectIdol || 'Select an idol'}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
           {IDOLS.map((idol) => (

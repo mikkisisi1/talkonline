@@ -218,12 +218,12 @@ export const ChatHeader = ({
         <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-1 relative">
           <button
             onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-            className="w-[36px] h-[36px] rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-all shadow-sm border border-gray-200/50"
+            className="w-[36px] h-[36px] rounded-full flex items-center justify-center hover:opacity-70 transition-all"
             aria-label="Language"
           >
-            <Globe className="w-4 h-4 text-gray-600" strokeWidth={1.5} />
+            <Globe className="w-5 h-5 text-[#2d3436]" strokeWidth={1.5} />
           </button>
-          <span className="mt-1 text-[9px] text-gray-500 font-medium uppercase">{language}</span>
+          <span className="mt-0.5 text-[9px] text-[#2d3436] font-medium uppercase">{language}</span>
           
           {/* Language dropdown */}
           {showLanguageMenu && (

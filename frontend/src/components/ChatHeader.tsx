@@ -214,12 +214,50 @@ export const ChatHeader = ({
         </div>
 
 
-        {/* + and Saturn aligned like agent columns */}
-        <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-4">
+        {/* Language selector, + and Saturn aligned like agent columns */}
+        <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-2 relative">
+          <button
+            onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+            className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
+            aria-label="Language"
+          >
+            <span className="text-lg">{languageFlags[language]}</span>
+          </button>
+          <span className="mt-0.5 text-[10px] invisible">_</span>
+          
+          {/* Language dropdown */}
+          {showLanguageMenu && (
+            <>
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setShowLanguageMenu(false)}
+              />
+              <div className="absolute top-12 right-0 z-50 bg-white rounded-xl shadow-xl border border-gray-200 py-2 min-w-[140px] max-h-[300px] overflow-y-auto">
+                {allLanguages.map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => {
+                      onLanguageChange(lang);
+                      setShowLanguageMenu(false);
+                    }}
+                    className={`w-full px-3 py-2 text-left hover:bg-gray-100 flex items-center gap-2 text-sm ${
+                      language === lang ? 'bg-cyan-50 text-cyan-700' : 'text-gray-700'
+                    }`}
+                  >
+                    <span>{languageFlags[lang]}</span>
+                    <span>{languageNames[lang]}</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="flex flex-col items-center flex-shrink-0 mr-2">
           <button
             onClick={onSettingsClick}
             className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
-            aria-label={t.settings}
+            aria-label={t?.settings || 'Settings'}
           >
             <Plus className="w-6 h-6 text-[#2d3436]" strokeWidth={1.5} />
           </button>
@@ -227,7 +265,7 @@ export const ChatHeader = ({
         </div>
 
         <div
-          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer -ml-3"
+          className="flex flex-col items-center select-none flex-shrink-0 snap-start cursor-pointer -ml-1"
           onClick={() => navigate('/idols')}
         >
           <div className="w-[42px] h-[42px] flex items-center justify-center overflow-visible text-[#2d3436]">

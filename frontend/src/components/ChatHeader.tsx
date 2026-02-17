@@ -214,25 +214,28 @@ export const ChatHeader = ({
         </div>
 
 
-        {/* Language selector, + and Saturn aligned like agent columns */}
-        <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-2 relative">
+        {/* Language selector - minimalist icon */}
+        <div className="flex flex-col items-center flex-shrink-0 -ml-16 mr-1 relative">
           <button
             onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-            className="w-[42px] h-[42px] rounded-full bg-transparent flex items-center justify-center hover:opacity-80 transition-opacity"
+            className="w-[36px] h-[36px] rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-all shadow-sm border border-gray-200/50"
             aria-label="Language"
           >
-            <span className="text-lg">{languageFlags[language]}</span>
+            <Globe className="w-4 h-4 text-gray-600" strokeWidth={1.5} />
           </button>
-          <span className="mt-0.5 text-[10px] invisible">_</span>
+          <span className="mt-1 text-[9px] text-gray-500 font-medium uppercase">{language}</span>
           
           {/* Language dropdown */}
           {showLanguageMenu && (
             <>
               <div 
-                className="fixed inset-0 z-40" 
+                className="fixed inset-0 z-40 bg-black/20" 
                 onClick={() => setShowLanguageMenu(false)}
               />
-              <div className="absolute top-12 right-0 z-50 bg-white rounded-xl shadow-xl border border-gray-200 py-2 min-w-[140px] max-h-[300px] overflow-y-auto">
+              <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-100 py-2 min-w-[160px] max-h-[350px] overflow-y-auto">
+                <div className="px-3 py-1.5 text-[10px] text-gray-400 uppercase tracking-wider border-b border-gray-100 mb-1">
+                  Язык / Language
+                </div>
                 {allLanguages.map((lang) => (
                   <button
                     key={lang}
@@ -240,12 +243,13 @@ export const ChatHeader = ({
                       onLanguageChange(lang);
                       setShowLanguageMenu(false);
                     }}
-                    className={`w-full px-3 py-2 text-left hover:bg-gray-100 flex items-center gap-2 text-sm ${
-                      language === lang ? 'bg-cyan-50 text-cyan-700' : 'text-gray-700'
+                    className={`w-full px-3 py-2.5 text-left hover:bg-cyan-50 flex items-center gap-3 text-sm transition-colors ${
+                      language === lang ? 'bg-cyan-100 text-cyan-800 font-medium' : 'text-gray-700'
                     }`}
                   >
-                    <span>{languageFlags[lang]}</span>
+                    <span className="text-lg">{languageFlags[lang]}</span>
                     <span>{languageNames[lang]}</span>
+                    {language === lang && <span className="ml-auto text-cyan-600">✓</span>}
                   </button>
                 ))}
               </div>

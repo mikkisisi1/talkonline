@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
-import { ArrowLeft, Plus } from 'lucide-react';
+import { ArrowLeft, Plus, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { translations } from '@/lib/translations';
+import { translations, languageNames, languageFlags } from '@/lib/translations';
 import { Language } from '@/lib/translations';
 import { Agent } from '@/lib/storage';
 import ivanAvatar from '@/assets/ivan-avatar.jpg';
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 
 interface ChatHeaderProps {
   language: Language;
+  onLanguageChange: (lang: Language) => void;
   onSettingsClick: () => void;
   onBackClick?: () => void;
   showBack?: boolean;
@@ -27,6 +28,7 @@ interface ChatHeaderProps {
 
 export const ChatHeader = ({ 
   language, 
+  onLanguageChange,
   onSettingsClick, 
   onBackClick, 
   showBack,
@@ -40,10 +42,11 @@ export const ChatHeader = ({
   awakenedAgents,
 }: ChatHeaderProps) => {
   const navigate = useNavigate();
-  const t = translations[language];
+  const t = translations[language] || translations['en'];
   const [showAgentDialog, setShowAgentDialog] = useState(false);
   const [showAgentActions, setShowAgentActions] = useState(false);
   const [actionAgentId, setActionAgentId] = useState<string | null>(null);
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
 
   const longPressTimer = useRef<number | null>(null);
   const isLongPress = useRef(false);
@@ -54,6 +57,8 @@ export const ChatHeader = ({
     setShowAgentActions(false);
     setActionAgentId(null);
   }, []);
+
+  const allLanguages: Language[] = ['ru', 'en', 'uk', 'kk', 'uz', 'be', 'fr', 'de', 'id', 'pt', 'es'];
 
   const handleAgentTouchStart = useCallback((agentId: string) => (e: React.TouchEvent) => {
     pressedAgentId.current = agentId;

@@ -44,6 +44,12 @@ import troitskyAvatar from '@/assets/troitsky-avatar.jpg';
 import slepakovAvatar from '@/assets/slepakov-avatar.jpg';
 import soloninAvatar from '@/assets/solonin-avatar.jpg';
 import masyanyaAvatar from '@/assets/masyanya-avatar.jpg';
+import poznerAvatar from '@/assets/pozner-avatar.jpg';
+import dudAvatar from '@/assets/dud-avatar.jpg';
+import efremovAvatar from '@/assets/efremov-avatar.jpg';
+import larrykingAvatar from '@/assets/larryking-avatar.jpg';
+import yeltsinAvatar from '@/assets/yeltsin-avatar.jpg';
+import boratAvatar from '@/assets/borat-avatar.jpg';
 
 interface Idol {
   name: string;

@@ -13,17 +13,17 @@ export const InstallPrompt = () => {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Check if already installed
+    // Проверка установлено ли
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
 
-    // Check if dismissed recently
+    // Проверка было ли отклонено недавно
     const dismissed = localStorage.getItem('pwa_install_dismissed');
     if (dismissed) {
       const dismissedTime = parseInt(dismissed, 10);
-      // Show again after 7 days
+      // Показать снова через 7 дней
       if (Date.now() - dismissedTime < 7 * 24 * 60 * 60 * 1000) {
         return;
       }
@@ -32,13 +32,12 @@ export const InstallPrompt = () => {
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      // Show prompt after a short delay
+      // Показать окно через 2 секунды
       setTimeout(() => setShowPrompt(true), 2000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
 
-    // Check if installed
     window.addEventListener('appinstalled', () => {
       setIsInstalled(true);
       setShowPrompt(false);
@@ -63,7 +62,7 @@ export const InstallPrompt = () => {
         setIsInstalled(true);
       }
     } catch (error) {
-      console.error('Install error:', error);
+      console.error('Ошибка установки:', error);
     } finally {
       setIsInstalling(false);
       setShowPrompt(false);
@@ -81,7 +80,7 @@ export const InstallPrompt = () => {
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 animate-in slide-in-from-bottom-4 duration-300">
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 p-4 max-w-sm mx-auto">
-        {/* Close button */}
+        {/* Кнопка закрыть */}
         <button
           onClick={handleDismiss}
           className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
@@ -90,23 +89,23 @@ export const InstallPrompt = () => {
         </button>
 
         <div className="flex items-start gap-3">
-          {/* Icon */}
+          {/* Иконка */}
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[hsl(185,100%,40%)] to-[hsl(200,100%,35%)] flex items-center justify-center flex-shrink-0 shadow-lg">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
 
-          {/* Content */}
+          {/* Контент */}
           <div className="flex-1 min-w-0 pr-4">
             <h3 className="text-sm font-semibold text-gray-900 mb-0.5">
               Talkspase
             </h3>
             <p className="text-xs text-gray-500 leading-snug">
-              Install for quick access and offline mode
+              Установи для быстрого доступа
             </p>
           </div>
         </div>
 
-        {/* Install button */}
+        {/* Кнопка установки */}
         <button
           onClick={handleInstall}
           disabled={isInstalling}
@@ -115,12 +114,12 @@ export const InstallPrompt = () => {
           {isInstalling ? (
             <>
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <span>Installing...</span>
+              <span>Установка...</span>
             </>
           ) : (
             <>
               <Download className="w-4 h-4" />
-              <span>Install App</span>
+              <span>Установить</span>
             </>
           )}
         </button>

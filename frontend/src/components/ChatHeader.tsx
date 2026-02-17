@@ -229,13 +229,10 @@ export const ChatHeader = ({
           {showLanguageMenu && (
             <>
               <div 
-                className="fixed inset-0 z-40 bg-black/20" 
+                className="fixed inset-0 z-40" 
                 onClick={() => setShowLanguageMenu(false)}
               />
-              <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-100 py-2 min-w-[160px] max-h-[350px] overflow-y-auto">
-                <div className="px-3 py-1.5 text-[10px] text-gray-400 uppercase tracking-wider border-b border-gray-100 mb-1">
-                  Язык / Language
-                </div>
+              <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-[#2d3436]/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 py-2 min-w-[160px] max-h-[350px] overflow-y-auto">
                 {allLanguages.map((lang) => (
                   <button
                     key={lang}
@@ -243,8 +240,8 @@ export const ChatHeader = ({
                       onLanguageChange(lang);
                       setShowLanguageMenu(false);
                     }}
-                    className={`w-full px-3 py-2.5 text-left hover:bg-cyan-50 flex items-center gap-3 text-sm transition-colors ${
-                      language === lang ? 'bg-cyan-100 text-cyan-800 font-medium' : 'text-gray-700'
+                    className={`w-full px-4 py-2.5 text-left hover:bg-white/10 flex items-center gap-3 text-sm transition-colors ${
+                      language === lang ? 'bg-[hsl(185,100%,40%)]/20 text-[hsl(185,100%,65%)]' : 'text-white/80'
                     }`}
                   >
                     <span className="text-lg">{languageFlags[lang]}</span>

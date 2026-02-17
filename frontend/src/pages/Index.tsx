@@ -389,7 +389,7 @@ const Index = () => {
           activeAgentId={memory.activeAgentId}
           onSendMessage={handleSendMessage}
           onSettingsClick={() => setShowSettings(true)}
-          onLanguageChange={setLanguage}
+          onLanguageChange={handleLanguageChange}
           onAddAgent={addAgent}
           onUpdateAgent={updateAgent}
           onDeleteAgent={deleteAgent}

@@ -249,6 +249,7 @@ export const ChatView = ({
     >
       <ChatHeader
         language={language}
+        onLanguageChange={onLanguageChange}
         onSettingsClick={onSettingsClick}
         agents={agents}
         activeAgentId={activeAgentId}

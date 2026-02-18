@@ -498,6 +498,23 @@ async def friend_chat(request: Request, body: FriendChatRequest):
         media_list = get_agent_media_list(body.agentId)
         
         # Build comprehensive system prompt based on agent
+        # Map language to instruction language
+        lang_instructions = {
+            "ru": "ОТВЕЧАЙ ТОЛЬКО НА РУССКОМ ЯЗЫКЕ!",
+            "en": "RESPOND ONLY IN ENGLISH!",
+            "uk": "ВІДПОВІДАЙ ТІЛЬКИ УКРАЇНСЬКОЮ МОВОЮ!",
+            "kk": "ТЕК ҚАЗАҚ ТІЛІНДЕ ЖАУАП БЕР!",
+            "uz": "FAQAT O'ZBEK TILIDA JAVOB BER!",
+            "be": "АДКАЗВАЙ ТОЛЬКІ ПА-БЕЛАРУСКУ!",
+            "fr": "RÉPONDS UNIQUEMENT EN FRANÇAIS!",
+            "de": "ANTWORTE NUR AUF DEUTSCH!",
+            "id": "JAWAB HANYA DALAM BAHASA INDONESIA!",
+            "pt": "RESPONDA APENAS EM PORTUGUÊS!",
+            "es": "RESPONDE SOLO EN ESPAÑOL!",
+        }
+        
+        lang_rule = lang_instructions.get(body.language, "RESPOND ONLY IN ENGLISH!")
+        
         if body.language == "ru":
             system_prompt = f"""Ты — {agent_name}, {"девушка" if agent_gender == "female" else "парень"} около 20 лет.
 

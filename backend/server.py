@@ -164,6 +164,7 @@ FISH_VOICES = {
     'fish_kolmanovsky': '025ac65b3b75407888cfc7c054e0d597',
     'fish_komarovsky': '5047789e3f844112b993ab47110df965',
     'fish_panasenkov': 'bb875372d3944c14abe31266d9eab4eb',
+    'fish_aguzarova': '54f765f43ef6448bb4766de8a0fc45ad',
 }
 
 

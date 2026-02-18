@@ -61,6 +61,8 @@ const Index = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [pendingTtsText, setPendingTtsText] = useState<string | null>(null);
+  const [showLucasVideo, setShowLucasVideo] = useState(false);
+  const pendingLucasWakeRef = useRef<boolean>(false);
 
   // Track which agents have been awakened (for visual state in header)
   const [awakenedAgents, setAwakenedAgents] = useState<Set<string>>(() => {

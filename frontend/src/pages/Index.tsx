@@ -191,50 +191,19 @@ const Index = () => {
     }
   }, []);
 
-  // Complete Lucas wake after video ends
+  // Complete Lucas wake after video ends - no welcome message, just mark as awakened
   const completeLucasWake = useCallback(async () => {
     setShowLucasVideo(false);
     
     const agent = memory.agents.find(a => a.id === 'ivan');
     if (!agent) return;
     
-    // Mark as awakened
+    // Mark as awakened (skip welcome message - dialog starts immediately)
     sessionStorage.setItem(`welcome_heard_ivan`, '1');
     setAwakenedAgents(prev => new Set(prev).add('ivan'));
     
-    // Add welcome message
-    const agentMsgs = messages.filter(m => m.agentId === 'ivan');
-    if (agentMsgs.length === 0) {
-      const agentWelcome = getWelcomeMessage(memory.language, agent.name);
-      addMessage(agentWelcome, 'assistant', undefined, 'ivan');
-    }
-    
-    // Play welcome audio
-    if (memory.voiceEnabled) {
-      try {
-        const audio = new Audio();
-        audio.preload = 'auto';
-        welcomeAudioRef.current = audio;
-        
-        const agentWelcome = getWelcomeSpeechText(memory.language, agent.name);
-        const audioUrl = await getWelcomeAudioUrl('ivan', memory.language, agentWelcome, agent.voiceId, memory.voiceSpeed);
-        if (audioUrl) {
-          await new Promise(r => setTimeout(r, 500));
-          audio.src = audioUrl;
-          audio.onended = async () => {
-            URL.revokeObjectURL(audioUrl);
-            welcomeAudioRef.current = null;
-            await playExhale();
-          };
-          await audio.play();
-        }
-      } catch (err) {
-        console.error('[Lucas Welcome] Audio error:', err);
-      }
-    }
-    
     pendingLucasWakeRef.current = false;
-  }, [memory.agents, memory.language, memory.voiceEnabled, memory.voiceSpeed, messages, addMessage]);
+  }, [memory.agents]);
 
   // Handle selecting an agent — if not yet awakened, play chime + welcome audio
   const handleSelectAgent = useCallback(async (agentId: string) => {

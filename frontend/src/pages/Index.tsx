@@ -191,6 +191,51 @@ const Index = () => {
     }
   }, []);
 
+  // Complete Lucas wake after video ends
+  const completeLucasWake = useCallback(async () => {
+    setShowLucasVideo(false);
+    
+    const agent = memory.agents.find(a => a.id === 'ivan');
+    if (!agent) return;
+    
+    // Mark as awakened
+    sessionStorage.setItem(`welcome_heard_ivan`, '1');
+    setAwakenedAgents(prev => new Set(prev).add('ivan'));
+    
+    // Add welcome message
+    const agentMsgs = messages.filter(m => m.agentId === 'ivan');
+    if (agentMsgs.length === 0) {
+      const agentWelcome = getWelcomeMessage(memory.language, agent.name);
+      addMessage(agentWelcome, 'assistant', undefined, 'ivan');
+    }
+    
+    // Play welcome audio
+    if (memory.voiceEnabled) {
+      try {
+        const audio = new Audio();
+        audio.preload = 'auto';
+        welcomeAudioRef.current = audio;
+        
+        const agentWelcome = getWelcomeSpeechText(memory.language, agent.name);
+        const audioUrl = await getWelcomeAudioUrl('ivan', memory.language, agentWelcome, agent.voiceId, memory.voiceSpeed);
+        if (audioUrl) {
+          await new Promise(r => setTimeout(r, 500));
+          audio.src = audioUrl;
+          audio.onended = async () => {
+            URL.revokeObjectURL(audioUrl);
+            welcomeAudioRef.current = null;
+            await playExhale();
+          };
+          await audio.play();
+        }
+      } catch (err) {
+        console.error('[Lucas Welcome] Audio error:', err);
+      }
+    }
+    
+    pendingLucasWakeRef.current = false;
+  }, [memory.agents, memory.language, memory.voiceEnabled, memory.voiceSpeed, messages, addMessage]);
+
   // Handle selecting an agent — if not yet awakened, play chime + welcome audio
   const handleSelectAgent = useCallback(async (agentId: string) => {
     // Selecting an agent is a user gesture — unlock audio early for welcome/TTS.
@@ -220,6 +265,15 @@ const Index = () => {
     if (isFirstWake) {
       // Guard against double-fire
       wakingRef.current.add(agentId);
+      
+      // Special case: Lucas (ivan) - show video first
+      if (agentId === 'ivan' && !pendingLucasWakeRef.current) {
+        pendingLucasWakeRef.current = true;
+        setActiveAgent(agentId);
+        setShowLucasVideo(true);
+        return; // Video will call completeLucasWake when done
+      }
+      
       // Mark as heard immediately
       sessionStorage.setItem(`welcome_heard_${agentId}`, '1');
       setAwakenedAgents(prev => new Set(prev).add(agentId));

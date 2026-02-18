@@ -6,7 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import { getWelcomeMessage, translations } from '@/lib/translations';
 import { toast } from 'sonner';
 
-const MAX_AGENTS = 5;
+const MAX_AGENTS = 4;
 
 // Avatar imports
 import mironovAvatar from '@/assets/mironov-avatar.jpg';
@@ -443,7 +443,7 @@ const IdolsPage = () => {
         toast.error(
           memory.language === 'ru' 
             ? 'Максимум 5 агентов. Удерживай аватар агента чтобы удалить его.' 
-            : 'Maximum 5 agents. Long-press an agent avatar to delete it.',
+            : 'Maximum 4 agents. Long-press an agent avatar to delete it.',
           { duration: 4000 }
         );
         return;

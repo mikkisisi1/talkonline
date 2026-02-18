@@ -160,6 +160,10 @@ FISH_VOICES = {
     'fish_larryking': '45394a3dd3df4dce8ff04eaf36825d97',
     'fish_yeltsin': 'd50331ee8c0747d5bfd86aa334b10577',
     'fish_borat': '1a7f24f8d3534bec9dbd53617990e3c9',
+    'fish_gavrilov': '41b81c5f95554900a84df6879f780767',
+    'fish_kolmanovsky': '025ac65b3b75407888cfc7c054e0d597',
+    'fish_komarovsky': '5047789e3f844112b993ab47110df965',
+    'fish_panasenkov': 'bb875372d3944c14abe31266d9eab4eb',
 }
 
 

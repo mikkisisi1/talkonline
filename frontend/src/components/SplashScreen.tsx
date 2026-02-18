@@ -106,7 +106,7 @@ export const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 bg-black flex items-center justify-center cursor-pointer"
+      className="fixed inset-0 z-50 bg-[hsl(185,100%,35%)] flex items-center justify-center cursor-pointer"
       onClick={handleComplete}
     >
       <video

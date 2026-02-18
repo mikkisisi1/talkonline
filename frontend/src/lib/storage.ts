@@ -186,7 +186,7 @@ const defaultAgentKsenia: Agent = {
 const defaultAgents: Agent[] = [defaultAgentIvan, defaultAgentKsenia];
 
 const defaultMemory: UserMemory = {
-  language: 'en',
+  language: 'ru',
   theme: 'light',
   learningMode: false,
   voiceEnabled: true,

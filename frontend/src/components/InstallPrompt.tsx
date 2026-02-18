@@ -90,7 +90,7 @@ export const InstallPrompt = () => {
 
         <div className="flex items-start gap-3">
           {/* Иконка */}
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[hsl(185,100%,40%)] to-[hsl(200,100%,35%)] flex items-center justify-center flex-shrink-0 shadow-lg">
+          <div className="w-12 h-12 rounded-xl bg-[hsl(185,100%,35%)] flex items-center justify-center flex-shrink-0 shadow-lg">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
 

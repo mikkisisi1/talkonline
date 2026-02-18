@@ -50,6 +50,10 @@ import efremovAvatar from '@/assets/efremov-avatar.jpg';
 import larrykingAvatar from '@/assets/larryking-avatar.jpg';
 import yeltsinAvatar from '@/assets/yeltsin-avatar.jpg';
 import boratAvatar from '@/assets/borat-avatar.jpg';
+import gavrilovAvatar from '@/assets/gavrilov-avatar.jpg';
+import kolmanovskyAvatar from '@/assets/kolmanovsky-avatar.jpg';
+import komarovskyAvatar from '@/assets/komarovsky-avatar.jpg';
+import panasenkovAvatar from '@/assets/panasenkov-avatar.jpg';
 
 interface Idol {
   name: string;

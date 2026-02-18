@@ -109,7 +109,7 @@ export const InstallPrompt = () => {
         <button
           onClick={handleInstall}
           disabled={isInstalling}
-          className="w-full mt-4 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[hsl(185,100%,40%)] to-[hsl(200,100%,35%)] text-white text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-70"
+          className="w-full mt-4 py-2.5 px-4 rounded-xl bg-[hsl(185,100%,35%)] text-white text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-70"
         >
           {isInstalling ? (
             <>

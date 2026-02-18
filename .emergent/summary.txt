@@ -1,90 +1,162 @@
 <analysis>**original_problem_statement:**
-The user wants to continue developing their Talkmee AI chat application, where users can converse with AI agents (like Sofia and Lucas) who have distinct personalities and can share content.
+The user wants to continue developing their Talkmee AI chat application. The primary goal is to create a polished user experience where users can converse with various AI personalities (Idols) who have unique characteristics, voices, and knowledge.
 
-The initial goals were a complete UI/UX overhaul, implementing chat history, and refining the AI's conversational tone. The user has since approved the UI design and requested no further major visual changes.
+Throughout the session, the user's requests have focused on:
+- **Adding a large number of new Idols:** Including Verka Serduchka, Sergey Solonin, Masyanya, Vladimir Pozner, Yuri Dud, Mikhail Efremov, Larry King, Boris Yeltsin, Borat, Andrei Gavrilov, Ilya Kolmanovsky, Dr. Komarovsky, Evgeny Panasenkov, and Zhanna Aguzarova.
+- **Bug Fixing:** Addressing issues like incorrect voices, page reloads, agents not seeing user images, and language switching problems.
+- **Improving Agent Abilities:** Granting agents web search capabilities, refining their personalities to be more engaging and less restrictive, and ensuring they can discuss media content intelligently.
+- **UI/UX Enhancements:** Implementing a multi-language system (11 languages), adding a PWA install button, changing the splash screen video, and adjusting UI elements like the header agent limit and styling of the language menu.
+- **SEO & Deployment:** Implementing multi-language meta tags for SEO and connecting a custom domain ().
+- **New Features:** A video welcome message for the idol Lucas.
 
-Recent requests have focused on expanding the roster of AI personalities (Idols) by adding 15 new voices and corresponding photos, fixing critical bugs (like agents sending incorrect media), preparing the application for deployment by cleaning up the codebase, and implementing a video splash screen. The user's final action was to request a deployment readiness check.
+The user's immediate priorities are to connect the custom domain, update the idols' knowledge base with web search, and fix outstanding bugs. The previous session ended due to the agent becoming unresponsive after a very long conversation, prompting the user to repeatedly request a fork.
 
 **User's preferred language**: Russian. The next agent MUST respond in Russian.
 
 **what currently exists?**
-The application is a full-stack project using React (Vite, TypeScript, Tailwind CSS) for the frontend and FastAPI for the backend, with a MongoDB database.
--   **Backend ()**: Manages streaming chat conversations via OpenRouter, Text-to-Speech (TTS) via Fish Audio, and chat history persistence in MongoDB. The list of available LLM models has been updated to prioritize a less-filtered model, and TTS parameters have been adjusted globally for a gentle, warm tone. A  endpoint has been added.
--   **Frontend ()**: A React application featuring a user-approved UI.
-    -   **Idols**: The Hall of Idols page () has been significantly updated to include 15 new characters, each with a specific voice and a user-provided photo. The list is now sorted to show the newest idols first.
-    -   **Splash Screen**: A new component () plays a video upon the user's first visit in a session. The skip text was removed at the user's request.
-    -   **Bug Fixes**: A critical bug causing agents to send media not belonging to them has been resolved in .
-    -   **Code Cleanup**: The project has been prepared for deployment by removing hardcoded URLs in favor of , deleting a redundant  directory, and cleaning up the  file.
+The application is a full-stack project using React (Vite, TypeScript, Tailwind CSS) for the frontend and a FastAPI backend with MongoDB.
+- **Frontend**: Features a main chat view, a header with a 4-agent limit, a multi-language selector (11 languages), a Hall of Idols page, a PWA install button, and a video splash screen. Many new idols have been added to . State is managed with Zustand.
+- **Backend**: Manages chat conversations via OpenRouter, TTS via Fish Audio, and chat history. A web search capability using the Tavily API has been added to the  endpoint to provide agents with real-time information. System prompts have been extensively modified to control personality, tone, language, and response format.
+- **Multi-language**: A comprehensive i18n system has been implemented in the frontend for 11 languages, covering UI text and agent welcome messages.
 
 **Last working item**:
--   **Last item agent was working**: The user's last two messages were Как выбрать адрес страницы для редеплой (How to choose a page address for redeployment) followed by Call Deployer Agent and Run Health Check to Check for Readiness for Deployment. The agent explained the deployment process and was about to re-run the deployment health check.
+-   **Last item agent was working**: The session ended amidst user frustration due to the agent's degraded performance from an overly long context. The user was repeatedly requesting a fork. The final active tasks were: 1) Adding a large batch of new idols (the process was chaotic and likely incomplete). 2) A pending request to implement a video welcome message for the idol Lucas. 3) Adding the final idol, Zhanna Aguzarova.
 -   **Status**: IN PROGRESS
--   **Agent Testing Done**: N (Deployment agent check was initiated but not completed).
--   **Which testing method agent to use?**: deployment_agent. The user has explicitly requested it.
+-   **Agent Testing Done**: N
 -   **User Testing Done**: N
+-   **Which testing method agent to use?**: both. The large number of new idols requires backend testing (voice IDs) and frontend testing (UI display, translations). The video welcome feature also needs frontend testing. A full regression test by the testing agent is recommended due to the sheer volume of changes.
 
 **All Pending/In progress Issue list**:
--   **Issue 1: Complete Deployment Readiness Check (P0)**
--   **Issue 2: User-side Regressions (P1)**
--   **Issue 3: Microphone button not working for user (P2)**
+-   **Issue 1: Page Reloads During Chat (P0)**
+-   **Issue 2: Agents Do Not See User-Sent Media (P0)**
+-   **Issue 3: Language Switching is Buggy (P1)**
+-   **Issue 4: Agent Media Sending Context (P2)**
+-   **Issue 5: User is Unable to See Latest Changes (P0)**
 
 **Issues Detail:**
--   **Issue 1: Complete Deployment Readiness Check (P0)**
-    -   **Attempted fixes**: The agent called the deployment agent, which found several blockers (hardcoded URLs, duplicate files, gitignore issues). The agent fixed these issues and confirmed the app builds and runs. The user has requested the check again to confirm readiness.
+-   **Issue 1: Page Reloads During Chat (P0)**
+    -   **Description**: A critical, recurring bug from the initial handoff. The page reloads unexpectedly after one or two messages, disrupting the user experience.
+    -   **Attempted fixes**: Previous agent disabled HMR, which was not the cause. The issue lies within the frontend's runtime, likely in the state management logic across , , and . This was not addressed in the last session.
     -   **Next debug checklist**:
-        1.  Call the  with the  command to get a final report on deployment readiness.
-        2.  Address any remaining blockers reported by the agent.
-        3.  Inform the user of the result.
-    -   **Why fix this issue and what will be achieved with the fix?**: The user wants to deploy the application. This is the final step before they can do so.
+        1.  Open the browser's developer console and reproduce the issue.
+        2.  Scrutinize the React component lifecycle and state updates in  and the  hook.
+        3.  Look for unhandled exceptions or invalid state transitions that could cause a full-page crash/reload.
     -   **Status**: IN PROGRESS
     -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Both (via deployment agent).
+    -   **Should Test frontend/backend/both after fix?**: Frontend.
+    -   **Blocked on other issue**: None.
 
--   **Issue 2: User-side Regressions (P1)**
-    -   **Description**: The original regressions (Lucas is silent and missing microphone wave animation) were investigated. The agent found no code bugs; backend logs showed successful TTS calls, and the frontend code for the animation was correct. The agent concluded these are likely user-environment issues (browser sound settings for TTS, lack of a physical microphone in the test environment for the animation).
+-   **Issue 2: Agents Do Not See User-Sent Media (P0)**
+    -   **Description**: When a user sends an image, the agent does not acknowledge or see its content.
+    -   **Attempted fixes**: The agent correctly identified that the  data needed to be passed to a multimodal LLM. The agent added logic to switch to vision-capable models (, ) but concluded they were unavailable on the user's free OpenRouter plan, causing the request to fail.
     -   **Next debug checklist**:
-        1.  After deployment (or on the user's request), gently ask the user (in Russian) to test these features again on the live site.
-        2.  Ask them to confirm they are using Chrome/Edge and have granted microphone permissions.
-        3.  Ask them to check their device/browser volume.
-    -   **Why fix this issue and what will be achieved with the fix?**: Confirms whether the initial bug reports were due to code or user environment, closing out old issues.
-    -   **Status**: USER VERIFICATION PENDING
-    -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Both (manual user testing).
+        1.  Verify if the user has access to paid/working vision models on OpenRouter.
+        2.  If not, inform the user about the limitation.
+        3.  As an alternative, explore if a different service or a dedicated image analysis API could be used and suggest it to the user.
+        4.  Ensure the frontend correctly passes the  string to the backend. The agent found a discrepancy between  and  but didn't conclusively fix it.
+    -   **Status**: BLOCKED
+    -   **Is recurring issue?**: N
+    -   **Should Test frontend/backend/both after fix?**: Both.
+    -   **Blocked on other issue**: Potentially blocked by user's OpenRouter subscription tier.
 
--   **Issue 3: Microphone button not working for user (P2)**
-    -   **Attempted fixes**: This is the same root cause as the missing wave animation. The Web Speech API has strict browser and permission requirements.
-    -   **Next debug checklist**: Same as Issue 2. The agent needs to guide the user through debugging on their end once the application is deployed or if the user brings it up again.
-    -   **Status**: BLOCKED (on user feedback)
+-   **Issue 3: Language Switching is Buggy (P1)**
+    -   **Description**: The user reported that after switching the language to English, the agent continues to respond in Russian.
+    -   **Attempted fixes**: The agent implemented a comprehensive i18n system and added a language selector. Logic was added to pass the selected language to the backend and clear caches. However, the root cause of the bug was not fixed.
+    -   **Next debug checklist**:
+        1.  Trace the  prop from the  in  through , , and into the  call in .
+        2.  In , inspect the  endpoint. Verify that the  parameter from the request body is correctly used to select the English system prompt.
+        3.  Add logging to the backend to print the received language and the selected prompt to confirm the logic is working as expected.
+    -   **Status**: IN PROGRESS
+    -   **Is recurring issue?**: N
+    -   **Should Test frontend/backend/both after fix?**: Both.
+    -   **Blocked on other issue**: None.
+
+-   **Issue 4: Agent Media Sending Context (P2)**
+    -   **Description**: Agents don't know what's on their own videos/photos and send them out of context.
+    -   **Attempted fixes**: The agent added a function  in  to fetch a list of an agent's available media (from ) and append it to the system prompt.
+    -   **Next debug checklist**:
+        1.  Verify this new context helps the LLM make better decisions.
+        2.  Test by asking an agent (like Lucas) to send a video with a specific theme and see if it picks a relevant one.
+        3.  The media files only exist for Lucas and Sofia. The logic should be expanded or gracefully handle agents with no media.
+    -   **Status**: TESTING PENDING
+    -   **Is recurring issue?**: N
+    -   **Should Test frontend/backend/both after fix?**: Backend (LLM behavior).
+    -   **Blocked on other issue**: None.
+
+-   **Issue 5: User is Unable to See Latest Changes (P0)**
+    -   **Description**: A recurring point of user frustration where the agent makes changes, but the user still sees an old version of the app (wrong video, old welcome text).
+    -   **Attempted fixes**: The agent correctly identified the issue is not code-related, but a platform/environment problem. The user was either looking at a stale preview URL or an old deployment URL.
+    -   **Next debug checklist**: This is a communication issue. The next agent must proactively guide the user:
+        1.  Explain that the preview URL is for development and can sleep.
+        2.  Explain that to see changes on a permanent URL, they must use the **Deploy** button on the Emergent platform.
+        3.  After deploying, instruct the user to find the new URL on their Emergent dashboard.
+        4.  Always remind the user to clear their browser cache or use Incognito mode after a new deployment.
+    -   **Status**: NOT STARTED (Requires user action)
     -   **Is recurring issue?**: Y
-    -   **Should Test frontend/backend/both after fix?**: Frontend (requires manual user testing).
+    -   **Should Test frontend/backend/both after fix?**: NA.
+    -   **Blocked on other issue**: User's understanding of the deployment process.
 
 **In progress Task List**:
--   None.
+-   **Task 1: Add a Large Batch of New Idols (P0)**
+    -   **Where to resume**: The previous agent was tasked with adding ~10 new idols. The process was chaotic. The next agent needs to systematically verify that each of the following idols has been correctly added with their avatar, voice ID, and detailed personality prompt to  and .
+        - **Idols**: Vladimir Pozner, Yuri Dud, Mikhail Efremov, Larry King, Boris Yeltsin, Borat, Andrei Gavrilov, Ilya Kolmanovsky, Dr. Komarovsky, Evgeny Panasenkov, Zhanna Aguzarova.
+    -   **What will be achieved with this?**: Fulfills a major user request to expand the roster of conversational partners.
+    -   **Status**: IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?**: Both.
+    -   **Blocked on something**: None.
+
+-   **Task 2: Implement Video Welcome for Lucas (P1)**
+    -   **Where to resume**: The user uploaded a video () and requested it to play full-screen when Lucas is selected, then collapse to the chat view. The agent acknowledged the task but did not implement it.
+    -   **What will be achieved with this?**: A more dynamic and engaging introduction for the main idol.
+    -   **Status**: NOT STARTED
+    -   **Should Test frontend/backend/both after fix?**: Frontend.
+    -   **Blocked on something**: None.
+
+-   **Task 3: Implement Web Search for Agents (P1)**
+    -   **Where to resume**: The agent added the  library and integrated a  call into the  endpoint in . The system prompt was updated to instruct agents to use  when they need current information.
+    -   **What will be achieved with this?**: Allows agents to discuss recent news and events, fulfilling a key user requirement.
+    -   **Status**: TESTING PENDING
+    -   **Should Test frontend/backend/both after fix?**: Backend (LLM behavior).
+    -   **Blocked on something**: Requires a Tavily API key in the environment.
 
 **Upcoming and Future Tasks**
--   **Task 1 (P1): Enhance Agent Memory.** The current fact-saving system is basic. The user wants agents to have better long-term memory. This involves improving the logic in .
--   **Task 2 (P2): Implement User-to-Agent Image Sharing.** A feature from the original problem statement where the user can send an image to be analyzed by the agent.
--   **Task 3 (P2): Add Unique Personalities to Idols.** The other characters on the Idols page have generic personalities and need unique, detailed system prompts created in .
+- **Upcoming Tasks:**
+  - **Task 1 (P0): Connect Custom Domain **. The user has prioritized this. The application must be deployed first via the Emergent platform UI, then the user can link the domain.
+  - **Task 2 (P1): Translate Agent Names**. The user requested that agent names also change when the language is switched. This requires adding name translations to the  file and updating the components that display agent names (, ).
+- **Future Tasks:**
+  - **Task 3 (P2): Enhance Agent Memory.** A long-standing request from the original problem statement to improve long-term memory beyond the current chat session.
 
 **Completed work in this session**
--   **Idol Expansion**: Added 15 new idol characters with custom voices and user-provided photos to .
--   **Idol Management**: Replaced the photo for Лукашин, renamed Новосельцев to Лукашин, and reordered the idol list to place new characters at the top.
--   **Splash Screen**: Implemented a video splash screen () that plays once per session.
--   **Bug Fix**: Resolved an issue where agents sent media belonging to other agents by correcting the logic in .
--   **Bug Investigation**: Diagnosed Lucas is silent and missing wave animation as likely environmental issues rather than code defects.
--   **Configuration**: Globally updated TTS parameters in  for a gentle tone and prioritized a less-filtered LLM.
--   **Deployment Prep**:
-    -   Replaced hardcoded frontend URLs with the  environment variable.
-    -   Removed the obsolete  directory.
-    -   Added a  endpoint to the backend server.
-    -   Updated the  file.
--   **User Support**: Explained the deployment process and custom domain name system to the user.
+- **Idol Management**:
+  - Fixed Verka Serduchka's voice by adding the correct voice ID.
+  - Successfully added Sergey Solonin and Masyanya as new idols.
+  - Reduced the number of active agents in the header from 5 to 4.
+- **Internationalization & SEO**:
+  - Implemented a full multi-language system for 11 languages (RU, EN, UA, KK, UZ, BE, FR, DE, ID, PT, ES).
+  - Added a language selector icon and dropdown menu to the .
+  - Created dynamic SEO meta tags (, ) and  tags in  for all 11 languages.
+- **Agent Personality & Voice**:
+  - Updated system prompts to strictly forbid English words and hidden commands (text in brackets) in Russian responses.
+  - Strengthened prompts to ensure agents maintain flirtatious/intimate conversations without changing the topic.
+  - Replaced the term ИИ агент (AI agent) with компаньон (companion) in all welcome messages.
+  - Globally configured TTS settings in the backend for a warmer, softer tone by default.
+  - Limited agent text responses to a maximum of 12 lines via the system prompt.
+- **UI/UX**:
+  - Replaced the splash screen video multiple times, finally settling on a user-provided 4-second version.
+  - Added a bell sound effect () that plays after the splash screen video.
+  - Added a Download App PWA installation component () to the main page.
+  - Styled the language selection dropdown with a semi-transparent graphite background.
+- **Bug Fixes**:
+  - Addressed a bug where the language selector button had a white background.
 
 **Earlier issues found/mentioned but not fixed**
--   The microphone functionality issue persists from the user's perspective and is blocked pending user-side testing and feedback.
+-   **Issue 1: Page Reloads During Chat**: This is a critical, recurring bug that has not been resolved.
+-   **Issue 2: Agents don't see user-sent media**: Blocked by the availability of vision models on the user's plan.
+-   **Issue 3: Unnatural TTS Voices**: While default parameters were adjusted, this is a subjective issue that may reappear. The user is sensitive to voice quality.
 
 **Known issue recurrence from previous fork**
--   **TTS and UI Regressions**: Functionality related to Text-to-Speech and specific UI elements has broken multiple times after being fixed, indicating a need for careful regression checking.
+-   **Page Reloads During Chat**: This is the most significant recurring issue, present in the previous fork and still unresolved. It points to a fundamental stability problem in the frontend state management.
+-   **TTS/User Experience Mismatches**: The user repeatedly reports that changes (like new welcome text or videos) are not visible. This is a recurring communication problem stemming from browser caching and the user's lack of clarity on the platform's preview/deployment workflow.
 
 **Code Architecture**
 
@@ -94,72 +166,83 @@ The application is a full-stack project using React (Vite, TypeScript, Tailwind 
 -   **Backend**: FastAPI (Python)
 -   **Database**: MongoDB
 -   **AI/LLM**: OpenRouter
+-   **Web Search**: Tavily API
 -   **TTS**: Fish Audio API
--   **Speech-to-Text**: Web Speech API
+-   **Internationalization (i18n)**: Manual implementation via a large TypeScript object.
 
 **key DB schema**
 -   : 
 
 **changes in tech stack**
--   None.
+-   **Added**:  for web search capabilities in the backend.
 
 **All files of reference**
--   : Heavily modified to add and reorder idols and their photos.
--   : Updated with new voice mappings, LLM model priority, and TTS parameters.
--   : Updated with definitions for the 15 new idols.
--   : Modified to conditionally render the new splash screen.
--   : New component for the intro video.
--   : Fixed logic for displaying agent-specific media.
--   , , : Files that were checked for hardcoded URLs and updated.
+-   : Major changes to system prompts, added web search integration, and language handling.
+-   : The central file for all idol data; heavily modified with new personalities and requires verification.
+-   : A new, large file containing all UI and content translations for 11 languages.
+-   : Modified to include the language selector dropdown and limit agents to 4.
+-   : Modified to manage global language state.
+-   : Modified to include dynamic meta tags for SEO.
+-   : Core logic updated to handle language changes.
+-   : Logic for video and sound effect playback was modified.
 
 **Areas that need refactoring**:
--   The  component relies on Supabase, an integration that appears otherwise unused. This could be removed or conditionally compiled to avoid shipping dead code if Supabase environment variables are not present.
+-   The state management causing the page reloads is the top priority for refactoring. The logic is fragile and spread across multiple hooks and components.
+-   The i18n implementation in  is a single massive object. For maintainability, it should be split into separate JSON files per language and loaded on demand.
+-   The idol creation process is manual and error-prone. A more structured approach, perhaps a single source of truth (e.g., a JSON or YAML file per idol), could simplify adding new characters.
 
 **key api endpoints**
+-    (heavily modified)
 -   
 -   
--   
--   
--   
--    (NEW)
 
 **Critical Info for New Agent**
--   **The user has locked the UI design.** Do not make any visual changes unless explicitly requested.
--   **The immediate priority is deployment.** The user's last action was to request a final deployment health check. Start by calling the .
--   **Address the user in Russian.**
--   Be prepared to guide the user through testing the microphone and sound features on their own device after deployment, as the previously reported bugs could not be reproduced in the test environment.
+-   **Respond in Russian.**
+-   The user is frustrated after a very long and inefficient previous session. Be concise, efficient, and demonstrate progress quickly.
+-   **User's Priorities are:** 1. Connect the  domain. 2. Grant agents web search abilities. 3. Systematically add all requested new idols.
+-   **Address the Stale App issue proactively**: Constantly remind the user to **Deploy** on the Emergent platform and clear their cache to see changes. Do not assume they are viewing the latest version.
+-   The  bug is the most critical unresolved technical issue.
+-   The  feature is likely blocked by the user's API key plan. Investigate and communicate this clearly.
+-   A Tavily API key must be available in the environment for the new web search feature to work.
 
 **documents and test reports created in this job**
--    (updated)
+-   
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User**: Call Deployer Agent and Run Health Check to Check for Readiness for Deployment -> **Status: IN PROGRESS** (This is the immediate next step).
-2.  **User**: talkspace.online -> **Status: COMPLETED** (User provided their desired domain).
-3.  **User**: Как выбрать адрес страницы для редеплой (How to choose a page address for redeployment) -> **Status: COMPLETED** (Agent explained the process).
-4.  **User**: Поменяй фото лукашин на это. И поставить новых кумиров вверх списка страницы (Change Lukashin's photo to this one. And put the new idols at the top of the page list) -> **Status: COMPLETED**.
-5.  **User**: Семён Слепаков (photo) -> **Status: COMPLETED** (Final photo for idols received).
-6.  **User**: Артемий Троицкий (photo) -> **Status: COMPLETED**.
-7.  **User**: Леонид Парфенов (photo) -> **Status: COMPLETED**.
-8.  **User**: Земфира (photo) -> **Status: COMPLETED**.
-9.  **User**: Артемий Лебедев (photo) -> **Status: COMPLETED**.
-10. **User**: Гарик Мартиросян (photo) -> **Status: COMPLETED**.
+1.  **User**: Asks for fork because the agent is not working and the context is full. -> **Status: PENDING**
+2.  **User**: Asks for fork link, which they used to receive. -> **Status: PENDING**
+3.  **User**: Insists there is no Fork button in the UI. -> **Status: PENDING**
+4.  **User**: Adds Zhanna Aguzarova. -> **Status: IN PROGRESS**
+5.  **User**: Asks why the agent is waiting and requests a fork again. -> **Status: PENDING**
+6.  **User**: Replaces Lucas's welcome text with a video, asking for it to play full-screen. -> **Status: NOT STARTED**
+7.  **User**: Adds 4 more idols (Gavrilov, Kolmanovsky, Komarovsky, Panasenkov). -> **Status: IN PROGRESS**
+8.  **User**: Requests header to fit only 4 agents instead of 5. -> **Status: COMPLETED**
+9.  **User**: Asks why the language menu is not styled correctly and not working. -> **Status: IN PROGRESS**
+10. **User**: Adds 6 new idols (Pozner, Dud, Efremov, King, Yeltsin, Borat). -> **Status: IN PROGRESS**
 
 **Project Health Check:**
 -   **Broken**:
-    -   **Microphone Functionality (User-side)**: User has reported this as not working. The issue is likely environmental (browser/permissions) and requires guided debugging with the user post-deployment.
+    -   **Page Reloads**: Critical frontend instability causes the page to crash mid-conversation.
+    -   **Agent Vision**: The feature for agents to see user-sent images is non-functional, likely due to API plan limitations.
+    -   **Language Switching**: Agents do not switch languages correctly after the user selects a new one.
 
 **3rd Party Integrations**
--   **OpenRouter**: Used for AI agent chat. Requires a User-provided API Key.
+-   **OpenRouter**: Used for AI agent chat. Requires a User-provided API Key. Vision capabilities depend on the user's plan.
 -   **Fish Audio**: Used for Text-to-Speech. Requires a User-provided API Key.
+-   **Tavily Search**: Newly added for agent web search. Requires a User-provided API Key ().
 
 **Testing status**
--   **Testing agent used after significant changes**: YES (The deployment agent was used for health checks).
+-   **Testing agent used after significant changes**: YES, once, but many changes were made after.
 -   **Troubleshoot agent used after agent stuck in loop**: NO
 -   **Test files created**: None.
--   **Known regressions**: None currently active in the code, but the user may still perceive the TTS/microphone issues as regressions on their end.
+-   **Known regressions**: The critical page reload bug persists. The new language switching feature is not working correctly.
 
 **Credentials to test flow:**
--   API keys for OpenRouter and Fish Audio are stored as environment variables in .
+-   API keys for OpenRouter, Fish Audio, and Tavily are expected to be in .
 
 **What agent forgot to execute**
--   The agent was interrupted before it could complete the final deployment health check requested by the user. This should be the very first action taken.</analysis>
+-   The agent failed to systematically complete the addition of over 10 new idols, leaving the task in a chaotic state.
+-   The agent did not implement the user's request for a video-based welcome message for Lucas.
+-   The agent did not fix the bug where agents fail to switch their response language.
+-   The agent did not resolve the core page-reload bug.
+-   The agent became stuck in loops, repeatedly asking the user for the same information (e.g., the video file) and failing to address the user's core frustration about not seeing the deployed changes.</analysis>

@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ChatView } from '@/components/ChatView';
 import { Settings } from '@/components/Settings';
+import { LucasWelcomeVideo } from '@/components/LucasWelcomeVideo';
 import { useAppState } from '@/hooks/useAppState';
 import { generateFriendResponseStream } from '@/lib/friendAgent';
 import { getWelcomeMessage, getWelcomeSpeechText, Language } from '@/lib/translations';

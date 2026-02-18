@@ -54,6 +54,7 @@ import gavrilovAvatar from '@/assets/gavrilov-avatar.jpg';
 import kolmanovskyAvatar from '@/assets/kolmanovsky-avatar.jpg';
 import komarovskyAvatar from '@/assets/komarovsky-avatar.jpg';
 import panasenkovAvatar from '@/assets/panasenkov-avatar.jpg';
+import aguzarovaAvatar from '@/assets/aguzarova-avatar.jpg';
 
 interface Idol {
   name: string;

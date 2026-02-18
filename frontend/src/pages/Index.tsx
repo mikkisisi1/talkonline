@@ -458,6 +458,11 @@ const Index = () => {
           awakenedAgents={awakenedAgents}
         />
       )}
+      
+      {/* Lucas welcome video overlay */}
+      {showLucasVideo && (
+        <LucasWelcomeVideo onComplete={completeLucasWake} />
+      )}
     </div>
   );
 };

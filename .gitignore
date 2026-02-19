@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 # Note: .env files are tracked for deployment (K8s injects secrets at runtime)
+-e 
+# Environment files
+*.env
+*.env.*
